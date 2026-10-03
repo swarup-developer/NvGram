@@ -590,15 +590,6 @@
                                              AutoFontSize="False" />
             </Grid>
 
-            <controls:HeaderedControl x:Name="AffiliateProgramRoot">
-                <controls:SettingsButton x:Name="AffiliateProgram"
-                                         Content="{CustomResource ProfileBotAffiliateProgram}"
-                                         Click="{x:Bind ViewModel.OpenAffiliate}"
-                                         Glyph="&#xEAA6;"
-                                         IsChevronVisible="True"
-                                         Visibility="Collapsed" />
-            </controls:HeaderedControl>
-
             <controls:HeaderedControl>
                 <controls:SettingsButton x:Name="Members"
                                          Content="{CustomResource ChannelSubscribers}"

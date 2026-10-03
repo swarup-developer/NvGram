@@ -799,8 +799,6 @@ namespace Telegram.Controls
                     Statistics.Visibility = Visibility.Collapsed;
                 }
 
-                AffiliateProgram.Visibility = Visibility.Collapsed;
-
                 if (userTypeBot.HasMainWebApp)
                 {
                     BotMainApp.Visibility = Visibility.Visible;
@@ -817,7 +815,6 @@ namespace Telegram.Controls
                 Edit.Visibility = Visibility.Collapsed;
                 BotMainApp.Visibility = Visibility.Collapsed;
                 Statistics.Visibility = Visibility.Collapsed;
-                AffiliateProgram.Visibility = Visibility.Collapsed;
             }
 
             // Unused:
@@ -921,18 +918,6 @@ namespace Telegram.Controls
                     ? Visibility.Visible
                     : Visibility.Collapsed;
 
-                if (fullInfo.BotInfo.AffiliateProgram != null)
-                {
-                    AffiliateProgram.Visibility = Visibility.Visible;
-                    AffiliateProgram.Badge = fullInfo.BotInfo.AffiliateProgram.Parameters.CommissionPercent();
-                    AffiliateProgramRoot.Footer = user.Type is UserTypeBot { CanBeEdited: true }
-                        ? string.Format(Strings.ProfileBotAffiliateProgramInfoOwner, user.FirstName, fullInfo.BotInfo.AffiliateProgram.Parameters.CommissionPercent())
-                        : string.Format(Strings.ProfileBotAffiliateProgramInfo, user.FirstName, fullInfo.BotInfo.AffiliateProgram.Parameters.CommissionPercent());
-                }
-                else
-                {
-                    AffiliateProgram.Visibility = Visibility.Collapsed;
-                }
             }
             else
             {
@@ -940,7 +925,6 @@ namespace Telegram.Controls
                 Description.Visibility = string.IsNullOrEmpty(fullInfo.Bio.Text) ? Visibility.Collapsed : Visibility.Visible;
 
                 Statistics.Visibility = Visibility.Collapsed;
-                AffiliateProgram.Visibility = Visibility.Collapsed;
             }
 
             if (user.Type is UserTypeBot { CanBeEdited: true })
@@ -1109,7 +1093,6 @@ namespace Telegram.Controls
             Admins.Visibility = Visibility.Collapsed;
             Members.Visibility = Visibility.Collapsed;
             Statistics.Visibility = Visibility.Collapsed;
-            AffiliateProgram.Visibility = Visibility.Collapsed;
             ChannelSettings.Visibility = Visibility.Collapsed;
             UnofficialRoot.Visibility = Visibility.Collapsed;
 
@@ -1351,7 +1334,6 @@ namespace Telegram.Controls
             Statistics.Visibility = fullInfo.CanGetRevenueStatistics || fullInfo.CanGetStarRevenueStatistics
                 ? Visibility.Visible
                 : Visibility.Collapsed;
-            AffiliateProgram.Visibility = Visibility.Collapsed;
 
             if (group.IsChannel is false && ViewModel.ClientService.TryGetChat(fullInfo.LinkedChatId, out Chat linkedChat) && linkedChat.LastMessage != null)
             {

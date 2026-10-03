@@ -272,7 +272,6 @@ namespace Telegram.Views.Supergroups
                     ? Visibility.Visible
                     : Visibility.Collapsed;
 
-            AffiliatePrograms.Visibility = group.IsChannel && group.CanPostMessages() ? Visibility.Visible : Visibility.Collapsed;
             ChannelAutoTranslate.Visibility = group.IsChannel && canChangeInfo ? Visibility.Visible : Visibility.Collapsed;
         }
 
@@ -341,8 +340,6 @@ namespace Telegram.Views.Supergroups
                 || ChatLinked.Visibility == Visibility.Visible
                     ? Visibility.Visible
                     : Visibility.Collapsed;
-
-            AffiliatePrograms.Visibility = Visibility.Collapsed;
         }
 
         #endregion

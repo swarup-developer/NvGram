@@ -618,7 +618,6 @@
     <Compile Include="Td\Vector.cs" />
     <Compile Include="Td\Api\UpdateChatMember.cs" />
     <Compile Include="ViewModels\ChatNotificationsViewModel.cs" />
-    <Compile Include="ViewModels\Chats\ChatAffiliateViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatBoostsViewModel.cs" />
     <Compile Include="ViewModels\ChooseChatsViewModel.cs" />
     <Compile Include="ViewModels\ComposeViewModel.cs" />
@@ -1078,7 +1077,6 @@
     <Compile Include="ViewModels\Settings\SettingsThemeViewModel.cs" />
     <Compile Include="ViewModels\StickersViewModel.cs" />
     <Compile Include="ViewModels\Supergroups\SupergroupReactionsViewModel.cs" />
-    <Compile Include="ViewModels\Users\UserAffiliateViewModel.cs" />
     <Compile Include="ViewModels\Users\UserEditViewModel.cs" />
     <Compile Include="Views\Authorization\AuthorizationCodePage.xaml.cs">
       <DependentUpon>AuthorizationCodePage.xaml</DependentUpon>
@@ -1124,9 +1122,6 @@
     </Compile>
     <Compile Include="Views\ChatPinnedPage.xaml.cs">
       <DependentUpon>ChatPinnedPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Chats\ChatAffiliatePage.xaml.cs">
-      <DependentUpon>ChatAffiliatePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Chats\ChatBoostsPage.xaml.cs">
       <DependentUpon>ChatBoostsPage.xaml</DependentUpon>
@@ -1472,9 +1467,6 @@
     </Compile>
     <Compile Include="Views\Users\Popups\UserAffiliatePopup.xaml.cs">
       <DependentUpon>UserAffiliatePopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Users\UserAffiliatePage.xaml.cs">
-      <DependentUpon>UserAffiliatePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Host\WebAppWindow.xaml.cs">
       <DependentUpon>WebAppWindow.xaml</DependentUpon>
@@ -2102,7 +2094,6 @@
     <Content Include="Assets\Animations\ReportText.tgs" />
     <Content Include="Assets\Animations\EmptyContacts.tgs" />
     <Content Include="Assets\Animations\ChatInviteLinks.tgs" />
-    <Content Include="Assets\Animations\Affiliate.tgs" />
     <Content Include="Assets\Animations\SupergroupTopics.tgs" />
     <Content Include="Assets\Animations\SupergroupTopicsList.tgs" />
     <Content Include="Assets\Animations\SupergroupTopicsTabs.tgs" />
@@ -3032,10 +3023,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Chats\ChatAffiliatePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Chats\ChatBoostsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3483,10 +3470,6 @@
     <Page Include="Views\Users\Popups\UserAffiliatePopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Users\UserAffiliatePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Host\WebAppWindow.xaml">
       <SubType>Designer</SubType>

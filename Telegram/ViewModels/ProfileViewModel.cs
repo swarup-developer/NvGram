@@ -1632,11 +1632,6 @@ namespace Telegram.ViewModels
             NavigationService.Navigate(typeof(SupergroupMembersPage), chat.Id);
         }
 
-        public void OpenAffiliate()
-        {
-            ShowToast("Affiliate programs are not supported in this build.", ToastPopupIcon.Info);
-        }
-
         public virtual ChatMemberCollection CreateMembers(long supergroupId)
         {
             return new ChatMemberCollection(ClientService, supergroupId, new SupergroupMembersFilterRecent());
