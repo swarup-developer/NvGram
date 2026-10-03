@@ -24,6 +24,22 @@
 
 ---
 
+## Live Progress Dashboard (feature/trim-bloat)
+
+| Phase / Target | Status | Commit | Lines Purged | Notes |
+|---|---|---|---|---|
+| **Target 1: IV Editor & Dump** | **DONE** | `5da523b87` | -391,687 | Reclaimed 71.8 MB memory dump & JS editor |
+| **Target 6: Business Suite** | **DONE** | `6e8971a59` | -6,511 | Purged storefront menus, hours, greeting bots |
+| **Target 4: Charts & Revenue** | **DONE** | `0619a4fff` | -13,976 | Purged Direct2D graphing & monetization views |
+| **Target 10: AI / Image OCR** | **DONE** | `c91cffc66` | -3,751 | Purged native TextRecognizer & OCR dialogs |
+| **Target 3: Stories Subsystem** | **DONE** | `16293e741` | -13,418 | Purged story camera, interactions, and carousels |
+| **Target 5 & 8: Stars & Gifts** | **DONE** | `af3e12bbe` | -13,854 | Purged crypto stars, paywalls, and profile gifts |
+| **Target 2: Media Editor** | **DONE** | `5745de967` | -3,148 | Purged EditMediaPopup, cropper, drawing pencil, video preloader |
+| **Target 9: Particles & Shaders** | **DONE** | `ab4e16d60` | -2,357 | Purged ConfettiView, FreeformGradientSurface, ParticlesAnimation |
+| **Current Purge Total** | **8 Commits** | `ab4e16d60` | **-448,702 LOC** | **Core messaging, Calls, and Voice Notes 100% intact** |
+
+---
+
 ## Detailed Breakdown & Execution Steps
 
 ### Target 1: Instant View Web Editor & WPA Memory Dump
