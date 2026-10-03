@@ -36,7 +36,10 @@
 | **Target 5 & 8: Stars & Gifts** | **DONE** | `af3e12bbe` | -13,854 | Purged crypto stars, paywalls, and profile gifts |
 | **Target 2: Media Editor** | **DONE** | `5745de967` | -3,148 | Purged EditMediaPopup, cropper, drawing pencil, video preloader |
 | **Target 9: Particles & Shaders** | **DONE** | `ab4e16d60` | -2,357 | Purged ConfettiView, FreeformGradientSurface, ParticlesAnimation |
-| **Current Purge Total** | **8 Commits** | `ab4e16d60` | **-448,702 LOC** | **Core messaging, Calls, and Voice Notes 100% intact** |
+| **Target 5: Premium Carousels** | **DONE** | `06f711abb` | -2,089 | Purged FeaturesPopup, FlipView carousels, and 5 cell controls |
+| **Target 7: Orphaned Animations** | **DONE** | `7bf979675` | -56 (44 assets) | Purged 44 unreferenced Lottie/TGS animations and JSON models |
+| **Target 5: Affiliate Programs** | **DONE** | `cf57b2f2e` | -1,325 | Purged ChatAffiliatePage, UserAffiliatePage, ViewModels, and Affiliate.tgs |
+| **Current Purge Total** | **11 Commits** | `cf57b2f2e` | **-452,172 LOC** | **Core messaging, Calls, and Voice Notes 100% intact** |
 
 ---
 
