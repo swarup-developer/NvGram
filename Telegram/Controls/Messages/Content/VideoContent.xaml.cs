@@ -330,6 +330,7 @@ namespace Telegram.Controls.Messages.Content
                         UpdateSource(message, file);
                     }
                     else
+                    {
                         UpdateSource(null, null);
                     }
                 }

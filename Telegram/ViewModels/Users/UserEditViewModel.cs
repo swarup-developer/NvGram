@@ -321,8 +321,6 @@ namespace Telegram.ViewModels.Users
             await ShowPopupAsync(new SettingsUsernamePopup(), _userId);
         }
 
-        }
-
         public void EditCommands()
         {
             if (ClientService.TryGetUserFull(_userId, out UserFullInfo fullInfo) && fullInfo.BotInfo != null)

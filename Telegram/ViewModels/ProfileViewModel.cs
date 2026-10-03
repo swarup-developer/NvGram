@@ -256,16 +256,6 @@ namespace Telegram.ViewModels
                     {
                         tabs.Add(new ProfileTabItem(new ProfileTabSavedChats(), null, SavedChatsTab.Items, Strings.R.Chats));
                     }
-                    else if (cached?.BotInfo != null && cached.BotInfo.HasMediaPreviews)
-                    {
-                    }
-                    else
-                    {
-                        {
-
-                        {
-                        }
-                    }
 
                     await UpdateSharedCountAsync(chat, tabs);
 
@@ -293,11 +283,6 @@ namespace Telegram.ViewModels
                 // This should really rarely happen
                 cached ??= await ClientService.SendAsync(new GetSupergroupFullInfo(supergroup.Id)) as SupergroupFullInfo;
                 mainTab = cached?.MainProfileTab;
-
-
-
-                {
-                }
 
                 if (typeSupergroup.IsChannel)
                 {
