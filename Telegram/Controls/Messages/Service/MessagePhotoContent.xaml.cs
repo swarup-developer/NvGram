@@ -1,14 +1,12 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
 // file LICENSE or copy at https://www.gnu.org/licenses/gpl-3.0.txt)
 //
 
-using Telegram.Controls.Stories;
 using Telegram.Td.Api;
 using Telegram.ViewModels;
-using Telegram.ViewModels.Stories;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
@@ -104,38 +102,14 @@ namespace Telegram.Controls.Messages.Service
                 return;
             }
 
-            if (message.Content is MessageAsyncStory asyncStory && asyncStory.State != MessageStoryState.Expired)
+            if (message.Content is MessageAsyncStory)
             {
-                var story = asyncStory.Story;
-                story ??= await message.ClientService.SendAsync(new GetStory(asyncStory.StoryPosterChatId, asyncStory.StoryId, true)) as Story;
-
-                if (story == null)
-                {
-                    ToastPopup.Show(XamlRoot, Strings.StoryNotFound, ToastPopupIcon.ExpiredStory);
-                    return;
-                }
-
-                var activeStories = new ActiveStoriesViewModel(message.ClientService, message.Delegate.Settings, message.Delegate.Aggregator, story);
-                var viewModel = StoryListViewModel.Create(message.Delegate.NavigationService, activeStories);
-
-                var window = new StoriesWindow(XamlRoot);
-                window.Update(viewModel, activeStories, StoryOpenOrigin.Mention, GetStoryOrigin(), _ => GetStoryOrigin());
-
-                _ = window.ShowAsync();
+                ToastPopup.Show(XamlRoot, "Stories are not supported in this build.", ToastPopupIcon.Info);
             }
             else
             {
                 message.Delegate.ExecuteServiceMessage(message);
             }
-        }
-
-        // Recomputed on close as well: the message may have scrolled while the story was open.
-        private Rect GetStoryOrigin()
-        {
-            var transform = Segments.TransformToVisual(null);
-            var point = transform.TransformPoint(new Point());
-
-            return new Rect(point.X + 4, point.Y + 4, 112, 112);
         }
     }
 }

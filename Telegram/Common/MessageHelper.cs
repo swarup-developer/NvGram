@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Telegram.Controls;
 using Telegram.Controls.Cells;
 using Telegram.Controls.Media;
-using Telegram.Controls.Stories;
 using Telegram.Converters;
 using Telegram.Native;
 using Telegram.Navigation;
@@ -21,7 +20,6 @@ using Telegram.Td;
 using Telegram.Td.Api;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Settings;
-using Telegram.ViewModels.Stories;
 using Telegram.ViewModels.Supergroups;
 using Telegram.Views;
 using Telegram.Views.Chats.Popups;
@@ -1363,73 +1361,14 @@ namespace Telegram.Common
 
         private static async void NavigateToStory(IClientService clientService, INavigationService navigation, string username, int storyId)
         {
-            var response = await clientService.SendAsync(new SearchPublicChat(username));
-            if (response is Chat chat)
-            {
-                var response2 = await clientService.SendAsync(new GetStory(chat.Id, storyId, false));
-                if (response2 is Story story)
-                {
-                    var settings = clientService.Session.Resolve<ISettingsService>();
-                    var aggregator = clientService.Session.Resolve<IEventAggregator>();
-
-                    var activeStories = new ActiveStoriesViewModel(clientService, settings, aggregator, story);
-                    var viewModel = StoryListViewModel.Create(navigation, activeStories);
-
-                    var window = new StoriesWindow(navigation.XamlRoot);
-                    window.Update(viewModel, activeStories, StoryOpenOrigin.Card, Rect.Empty, null);
-                    _ = window.ShowAsync();
-                }
-                else
-                {
-                    navigation.ShowToast(Strings.StoryNotFound, ToastPopupIcon.ExpiredStory);
-                }
-            }
-            else
-            {
-                navigation.ShowToast(Strings.NoUsernameFound, ToastPopupIcon.Info);
-            }
+            await Task.Yield();
+            navigation.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
         }
 
         private static async void NavigateToLiveStory(IClientService clientService, INavigationService navigation, string username)
         {
-            var response = await clientService.SendAsync(new SearchPublicChat(username));
-            if (response is Chat chat)
-            {
-                var response2 = await clientService.SendAsync(new GetChatActiveStories(chat.Id));
-                if (response2 is ChatActiveStories stories)
-                {
-                    var liveStory = stories.Stories.FirstOrDefault(x => x.IsLive);
-                    if (liveStory != null)
-                    {
-                        var response3 = await clientService.SendAsync(new GetStory(chat.Id, liveStory.StoryId, false));
-                        if (response3 is Story story)
-                        {
-                            if (story.Content is StoryContentLive live && !clientService.TryGetGroupCall(live.GroupCallId, out _))
-                            {
-                                await clientService.SendAsync(new GetGroupCall(live.GroupCallId));
-                            }
-
-                            var settings = clientService.Session.Resolve<ISettingsService>();
-                            var aggregator = clientService.Session.Resolve<IEventAggregator>();
-
-                            var activeStories = new ActiveStoriesViewModel(clientService, settings, aggregator, story);
-                            var viewModel = StoryListViewModel.Create(navigation, activeStories);
-
-                            var window = new StoriesWindow(navigation.XamlRoot);
-                            window.Update(viewModel, activeStories, StoryOpenOrigin.Card, Rect.Empty, null);
-                            _ = window.ShowAsync();
-
-                            return;
-                        }
-                    }
-                }
-
-                navigation.ShowToast(Strings.StoryNotFound, ToastPopupIcon.ExpiredStory);
-            }
-            else
-            {
-                navigation.ShowToast(Strings.NoUsernameFound, ToastPopupIcon.Info);
-            }
+            await Task.Yield();
+            navigation.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
         }
 
         public static async void NavigateToWebApp(IClientService clientService, INavigationService navigation, string botUsername, string startParameter, string webAppShortName, WebAppOpenMode mode, OpenUrlSource source)

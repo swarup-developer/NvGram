@@ -6,7 +6,6 @@
                     xmlns:local="using:Telegram.Controls"
                     xmlns:chats="using:Telegram.Controls.Chats"
                     xmlns:messages="using:Telegram.Controls.Messages"
-                    xmlns:stories="using:Telegram.Controls.Stories"
                     xmlns:navigation="using:Telegram.Navigation.Services"
                     xmlns:host="using:Telegram.Navigation"
                     xmlns:converters="using:Telegram.Converters"
@@ -2777,88 +2776,6 @@
         </Setter>
     </Style>
 
-    <Style TargetType="stories:StoryReactionButton">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="stories:StoryReactionButton">
-                    <Grid x:Name="RootGrid"
-                          Background="Transparent"
-                          CornerRadius="4"
-                          Margin="4">
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal" />
-                                <VisualState x:Name="PointerOver">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
-                                                                       Storyboard.TargetName="RootGrid">
-                                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource NavigationViewItemBackgroundPointerOver}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
-                                                                       Storyboard.TargetName="RootGrid">
-                                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource NavigationViewItemBackgroundPressed}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled" />
-                                <VisualState x:Name="Checked" />
-                                <VisualState x:Name="CheckedPointerOver">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
-                                                                       Storyboard.TargetName="RootGrid">
-                                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource NavigationViewItemBackgroundPointerOver}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="CheckedPressed">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
-                                                                       Storyboard.TargetName="RootGrid">
-                                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource NavigationViewItemBackgroundPressed}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="CheckedDisabled" />
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
-                        <Grid Margin="0,-4">
-                            <Image x:Name="Presenter"
-                                   Width="32"
-                                   Height="32" />
-                            <local:CustomEmojiIcon x:Name="Icon"
-                                                   x:Load="False" />
-                            <Popup x:Name="Overlay"
-                                   IsHitTestVisible="False"
-                                   Margin="-32"
-                                   Width="96"
-                                   Height="96" />
-                        </Grid>
-
-                        <local:AnimatedTextBlock x:Name="Count"
-                                                 x:Load="False"
-                                                 Foreground="#FFFFFF"
-                                                 VerticalAlignment="Center"
-                                                 AutomationProperties.AccessibilityView="Raw"
-                                                 IsTabStop="False"
-                                                 Margin="0,1,8,2"
-                                                 Grid.Column="1" />
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 
     <Style TargetType="local:DownloadsIndicator">
         <Setter Property="Template">

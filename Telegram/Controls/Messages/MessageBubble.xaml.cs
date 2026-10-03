@@ -15,7 +15,6 @@ using Telegram.Common;
 using Telegram.Controls.Chats;
 using Telegram.Controls.Media;
 using Telegram.Controls.Messages.Content;
-using Telegram.Controls.Stories;
 using Telegram.Converters;
 using Telegram.Native.Composition;
 using Telegram.Native.Controls;
@@ -25,7 +24,6 @@ using Telegram.Td;
 using Telegram.Td.Api;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Delegates;
-using Telegram.ViewModels.Stories;
 using Telegram.Views.Popups;
 using Windows.Foundation;
 using Windows.UI;
@@ -3121,22 +3119,7 @@ namespace Telegram.Controls.Messages
 
         public void OpenStory(MessageViewModel message, Story story)
         {
-            var activeStories = new ActiveStoriesViewModel(message.ClientService, message.Delegate.Settings, message.Delegate.Aggregator, story);
-            var viewModel = StoryListViewModel.Create(message.Delegate.NavigationService, activeStories);
-
-            var origin = GetStoryOrigin(null);
-
-            var window = new StoriesWindow(XamlRoot);
-            window.Update(viewModel, activeStories, StoryOpenOrigin.Card, origin, GetStoryOrigin);
-            _ = window.ShowAsync();
-        }
-
-        private Rect GetStoryOrigin(ActiveStoriesViewModel activeStories)
-        {
-            var transform = Reply.TransformToVisual(null);
-            var point = transform.TransformPoint(new Windows.Foundation.Point());
-
-            return new Rect(point.X + 10, point.Y + 4, 36, 36);
+            message.Delegate.NavigationService.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
         }
 
         private void ReplyMarkup_ButtonClick(object sender, ReplyMarkupInlineButtonClickEventArgs e)

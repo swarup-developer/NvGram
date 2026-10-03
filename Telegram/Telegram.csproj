@@ -394,13 +394,6 @@
     <Compile Include="Controls\RichMathImage.cs" />
     <Compile Include="Controls\SettingsRadioButton.cs" />
     <Compile Include="Controls\SlidePanel.cs" />
-    <Compile Include="Controls\Stories\Popups\StoryReactPopup.xaml.cs">
-      <DependentUpon>StoryReactPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Stories\StoryLiveInteractionBar.xaml.cs">
-      <DependentUpon>StoryLiveInteractionBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Stories\StoryReactionStream.cs" />
     <Compile Include="Controls\Views\SearchPostsTabPage.xaml.cs">
       <DependentUpon>SearchPostsTabPage.xaml</DependentUpon>
     </Compile>
@@ -504,9 +497,6 @@
     <Compile Include="Td\Api\PremiumLimitTypeFileSize.cs" />
     <Compile Include="Td\Api\ReactionTypeEqualityComparer.cs" />
     <Compile Include="Controls\PremiumStarCount.cs" />
-    <Compile Include="Controls\Stories\Widgets\StoryWeatherWidget.xaml.cs">
-      <DependentUpon>StoryWeatherWidget.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\SuggestedActionSetBirthdateCard.xaml.cs">
       <DependentUpon>SuggestedActionSetBirthdateCard.xaml</DependentUpon>
     </Compile>
@@ -544,9 +534,6 @@
     <Compile Include="Controls\AnimatedImage.cs" />
     <Compile Include="Controls\BadgeControl.cs" />
     <Compile Include="Controls\BlockQuote.cs" />
-    <Compile Include="Controls\Cells\ActiveStoriesCell.xaml.cs">
-      <DependentUpon>ActiveStoriesCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Cells\BoostCell.xaml.cs">
       <DependentUpon>BoostCell.xaml</DependentUpon>
     </Compile>
@@ -579,9 +566,6 @@
     <Compile Include="Streams\ParticlesImageSource.cs" />
     <Compile Include="Td\Api\MessageTag.cs" />
     <Compile Include="Td\Api\MinithumbnailId.cs" />
-    <Compile Include="Controls\Cells\StoryCell.xaml.cs">
-      <DependentUpon>StoryCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ChatPill.cs" />
     <Compile Include="Controls\Chats\ChatHistoryArrows.xaml.cs">
       <DependentUpon>ChatHistoryArrows.xaml</DependentUpon>
@@ -611,21 +595,6 @@
       <DependentUpon>ReactionsMenuFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\OverlayWindow.cs" />
-    <Compile Include="Controls\Stories\StoriesWindow.xaml.cs">
-      <DependentUpon>StoriesWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Stories\StoryContent.xaml.cs">
-      <DependentUpon>StoryContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Stories\StoryChannelInteractionBar.xaml.cs">
-      <DependentUpon>StoryChannelInteractionBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Stories\StoryInteractionBar.xaml.cs">
-      <DependentUpon>StoryInteractionBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Stories\StoriesStrip.xaml.cs">
-      <DependentUpon>StoriesStrip.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\UnconfirmedSessionCard.xaml.cs">
       <DependentUpon>UnconfirmedSessionCard.xaml</DependentUpon>
     </Compile>
@@ -661,7 +630,6 @@
     <Compile Include="ViewModels\ChatNotificationsViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatAffiliateViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatBoostsViewModel.cs" />
-    <Compile Include="ViewModels\Chats\ChatStoriesViewModel.cs" />
     <Compile Include="ViewModels\ChooseChatsViewModel.cs" />
     <Compile Include="ViewModels\ComposeViewModel.cs" />
     <Compile Include="ViewModels\Create\NewBotViewModel.cs" />
@@ -691,7 +659,6 @@
     <Compile Include="ViewModels\Profile\ProfileGroupsTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileMembersTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileSavedChatsTabViewModel.cs" />
-    <Compile Include="ViewModels\Profile\ProfileStoriesTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileTabsViewModel.cs" />
     <Compile Include="ViewModels\SearchPostsViewModel.cs" />
     <Compile Include="ViewModels\SearchWebAppsViewModel.cs" />
@@ -1113,10 +1080,6 @@
     <Compile Include="ViewModels\Supergroups\SupergroupProfileColorViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsProfileColorViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsProxyViewModel.cs" />
-    <Compile Include="ViewModels\Stories\ActiveStoriesViewModel.cs" />
-    <Compile Include="ViewModels\Stories\StoryListViewModel.cs" />
-    <Compile Include="ViewModels\Stories\StoryViewModel.cs" />
-    <Compile Include="ViewModels\Stories\StoryInteractionsViewModel.cs" />
     <Compile Include="ViewModels\Supergroups\SupergroupDirectMessagesViewModel.cs" />
     <Compile Include="ViewModels\Supergroups\SupergroupTopicsViewModel.cs" />
     <Compile Include="ViewModels\TopicListViewModel.cs" />
@@ -1192,9 +1155,6 @@
     </Compile>
     <Compile Include="Views\Chats\ChatBoostsPage.xaml.cs">
       <DependentUpon>ChatBoostsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Chats\ChatStoriesPage.xaml.cs">
-      <DependentUpon>ChatStoriesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Chats\Popups\ChatInviteLinkInfoPopup.xaml.cs">
       <DependentUpon>ChatInviteLinkInfoPopup.xaml</DependentUpon>
@@ -1297,9 +1257,6 @@
     </Compile>
     <Compile Include="Views\Popups\ChooseGiftsPopup.xaml.cs">
       <DependentUpon>ChooseGiftsPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Popups\ChooseStoriesPopup.xaml.cs">
-      <DependentUpon>ChooseStoriesPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Popups\CocoonAboutPopup.xaml.cs">
       <DependentUpon>CocoonAboutPopup.xaml</DependentUpon>
@@ -1890,9 +1847,6 @@
     <Compile Include="Views\Profile\ProfileMusicTabPage.xaml.cs">
       <DependentUpon>ProfileMusicTabPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Profile\ProfileStoriesTabPage.xaml.cs">
-      <DependentUpon>ProfileStoriesTabPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Profile\ProfileTabPage.cs" />
     <Compile Include="Views\Profile\ProfileVoiceTabPage.xaml.cs">
       <DependentUpon>ProfileVoiceTabPage.xaml</DependentUpon>
@@ -1914,12 +1868,6 @@
     </Compile>
     <Compile Include="Views\Stars\Popups\BuyPopup.xaml.cs">
       <DependentUpon>BuyPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stories\Popups\StoryInteractionsPopup.xaml.cs">
-      <DependentUpon>StoryInteractionsPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stories\Popups\StealthPopup.xaml.cs">
-      <DependentUpon>StealthPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Cells\Premium\PremiumFeatureUpgradedStoriesCell.xaml.cs">
       <DependentUpon>PremiumFeatureUpgradedStoriesCell.xaml</DependentUpon>
@@ -2654,15 +2602,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Cells\ActiveStoriesCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Cells\StarWithdrawCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Cells\StoryCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3114,34 +3054,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Stories\Popups\StoryReactPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Stories\StoriesWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Stories\StoryContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Stories\StoryChannelInteractionBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Stories\StoryLiveInteractionBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Stories\StoryInteractionBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Stories\Widgets\StoryWeatherWidget.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\SuggestedActionSetBirthdateCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3175,10 +3087,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Views\SearchChatsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Stories\StoriesStrip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3293,10 +3201,6 @@
     <Page Include="Views\Chats\ChatBoostsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Chats\ChatStoriesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Chats\Popups\ChatInviteLinkInfoPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -3423,10 +3327,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Popups\ChooseGiftsPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Popups\ChooseStoriesPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -4002,10 +3902,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Profile\ProfileStoriesTabPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Profile\ProfileVoiceTabPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -4031,14 +3927,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Stars\Popups\BuyPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stories\Popups\StoryInteractionsPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stories\Popups\StealthPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

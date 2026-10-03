@@ -67,8 +67,6 @@ namespace Telegram.ViewModels
 
         public ProfileSavedChatsTabViewModel SavedChatsTab => _savedChatsTabViewModel;
         public ProfileTopicsTabViewModel TopicsTab => _topicsTabViewModel;
-        public ProfileStoriesTabViewModel PinnedStoriesTab => _pinnedStoriesTabViewModel;
-        public ProfileStoriesTabViewModel ArchivedStoriesTab => _archivedStoriesTabViewModel;
         public ProfileGroupsTabViewModel GroupsTab => _groupsTabViewModel;
         public ProfileChannelsTabViewModel ChannelsTab => _channelsTabViewModel;
         public ProfileBotsTabViewModel BotsTab => _botsTabViewModel;
@@ -251,14 +249,12 @@ namespace Telegram.ViewModels
 
                 if (MyProfile && user.Id == ClientService.Options.MyId)
                 {
-                    tabs.Add(new ProfileTabItem(new ProfileTabPosts(), ChatStoriesType.Pinned, PinnedStoriesTab.Items, Strings.R.ProfileStoriesCount));
 
                     if (cached != null && cached.GiftCount > 0)
                     {
                         tabs.Add(new ProfileTabItem(new ProfileTabGifts(), null, cached.GiftCount, Strings.R.ProfileGiftsCount));
                     }
 
-                    tabs.Add(new ProfileTabItem(new ProfileTabArchivedPosts(), ChatStoriesType.Archive, ArchivedStoriesTab.Items, Strings.R.ProfileStoriesArchiveCount));
                 }
                 else
                 {
@@ -273,14 +269,10 @@ namespace Telegram.ViewModels
                     }
                     else if (cached?.BotInfo != null && cached.BotInfo.HasMediaPreviews)
                     {
-                        tabs.Add(new ProfileTabItem(new ProfileTabPreviews(), ChatStoriesType.Pinned, PinnedStoriesTab.Items, Strings.R.ProfileStoriesCount));
                     }
                     else
                     {
-                        if (cached != null && cached.HasPostedToProfileStories)
                         {
-                            tabs.Add(new ProfileTabItem(new ProfileTabPosts(), ChatStoriesType.Pinned, PinnedStoriesTab.Items, Strings.R.ProfileStoriesCount));
-                        }
 
                         if (user.Id != ClientService.Options.MyId && cached != null && cached.GiftCount > 0)
                         {
@@ -315,10 +307,7 @@ namespace Telegram.ViewModels
                 cached ??= await ClientService.SendAsync(new GetSupergroupFullInfo(supergroup.Id)) as SupergroupFullInfo;
                 mainTab = cached?.MainProfileTab;
 
-                if (ForumTopic == null && cached?.HasPinnedStories is true)
-                {
-                    tabs.Add(new ProfileTabItem(new ProfileTabPosts(), ChatStoriesType.Pinned, PinnedStoriesTab.Items, Strings.R.ProfileStoriesCount));
-                }
+
 
                 if (ForumTopic == null && cached?.GiftCount > 0)
                 {
@@ -689,13 +678,7 @@ namespace Telegram.ViewModels
 
         public void OpenArchivedStories()
         {
-            var chat = _chat;
-            if (chat == null)
-            {
-                return;
-            }
-
-            NavigationService.Navigate(typeof(ChatStoriesPage), new ChatStoriesArgs(chat.Id, ChatStoriesType.Archive));
+            NavigationService.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
         }
 
         public async void Block()

@@ -73,6 +73,10 @@ namespace Telegram.Views
 
         private bool _unloaded;
 
+        public double TopPadding => 40 + 32 + (4 + (_tabsTopCollapsed || !_tabsLeftCollapsed ? 0 : 36));
+
+        public double GetTopPadding(bool collapsed) => 40 + 32 + (4 + (collapsed ? 0 : 36));
+
         public MainPage()
         {
             InitializeComponent();
@@ -358,9 +362,6 @@ namespace Telegram.Views
                 : HorizontalAlignment.Left;
 
             UpdateTitleBarMargins();
-
-            Stories.SystemOverlayLeftInset = metrics.LeftInset > 0 ? 138 : 0;
-            Stories.SystemOverlayRightInset = metrics.RightInset > 0 ? 138 : 0;
         }
 
         private void UpdateTitleBarMargins()
@@ -906,14 +907,10 @@ namespace Telegram.Views
                 TopicListPresenter.Margin = new Thickness(68, padding, 0, 0);
             }
 
-            Stories.TabsTopCollapsed = !show;
-            Stories.ChatTabs = ChatTabs;
-            Stories.ControlledList = ChatsList;
-
             void ShowHideTopTabsCompleted()
             {
                 DialogsPanel.Margin = new Thickness();
-                ChatsList.Margin = new Thickness(0, Stories.TopPadding, 0, 0);
+                ChatsList.Margin = new Thickness(0, TopPadding, 0, 0);
                 ChatTabs.Visibility = _tabsTopCollapsed
                     ? Visibility.Collapsed
                     : Visibility.Visible;
@@ -926,7 +923,7 @@ namespace Telegram.Views
                 return;
             }
 
-            var topPadding = Stories.GetTopPadding(false);
+            var topPadding = GetTopPadding(false);
 
             ChatTabs.Visibility = Visibility.Visible;
             ChatsList.Margin = new Thickness(0, topPadding, 0, 0);
@@ -973,8 +970,6 @@ namespace Telegram.Views
 
             Root?.SetSidebarEnabled(show);
 
-            Stories.TabsLeftCollapsed = !show;
-
             UpdateTitleBarMargins();
 
             Photo.Width = show ? 72 : 48;
@@ -989,7 +984,7 @@ namespace Telegram.Views
 
             void ShowHideLeftTabsCompleted()
             {
-                ChatsList.Margin = new Thickness(0, Stories.TopPadding, 0, 0);
+                ChatsList.Margin = new Thickness(0, TopPadding, 0, 0);
                 ChatTabsLeft.Visibility = _tabsLeftCollapsed
                     ? Visibility.Collapsed
                     : Visibility.Visible;
@@ -1006,7 +1001,7 @@ namespace Telegram.Views
             }
 
             ChatTabsLeft.Visibility = Visibility.Visible;
-            ChatsList.Margin = new Thickness(0, Stories.TopPadding, 0, -40);
+            ChatsList.Margin = new Thickness(0, TopPadding, 0, -40);
 
             var parent = ElementComposition.GetElementVisual(ChatsList);
 
@@ -1993,7 +1988,6 @@ namespace Telegram.Views
         {
             UpdateTitleBarMargins();
 
-            Stories.IsVisible = MasterDetail.MasterVisibility == Visibility.Visible;
             Photo.Visibility = MasterDetail.MasterVisibility == Visibility.Visible || !_tabsLeftCollapsed
                 ? Visibility.Visible
                 : Visibility.Collapsed;
@@ -2317,7 +2311,6 @@ namespace Telegram.Views
 
             if (_prevIndex != INDEX_CHATS)
             {
-                Stories.Collapse();
                 ViewModel.IsSettingsSelected = true;
             }
             else
@@ -2382,7 +2375,6 @@ namespace Telegram.Views
             {
                 DialogsSearchPanel.Activate();
                 SearchField.ControlledList = DialogsSearchPanel.Root;
-                Stories.Collapse();
             }
 
             var chats = ElementComposition.GetElementVisual(DialogsPanel);
@@ -2799,7 +2791,7 @@ namespace Telegram.Views
                     ? Visibility.Collapsed
                     : Visibility.Visible;
                 //ArchivedChatsCompactPanel.Visibility = show ? Visibility.Collapsed : Visibility.Visible;
-                ChatsList.Margin = new Thickness(0, Stories.TopPadding, 0, 0);
+                ChatsList.Margin = new Thickness(0, TopPadding, 0, 0);
 
                 Root.UpdateSessions();
 
@@ -2840,7 +2832,7 @@ namespace Telegram.Views
             var panelY = ArchivedChatsPanel.ActualSize.Y;
             var compactY = 0; //(float)ArchivedChatsCompactPanel.ActualHeight;
 
-            ChatsList.Margin = new Thickness(0, Stories.TopPadding, 0, -(panelY - compactY));
+            ChatsList.Margin = new Thickness(0, TopPadding, 0, -(panelY - compactY));
 
             float y0, y1;
 
@@ -2887,7 +2879,7 @@ namespace Telegram.Views
 
             void ShowHideArchiveCompleted()
             {
-                ChatsList.Margin = new Thickness(0, Stories.TopPadding, 0, 0);
+                ChatsList.Margin = new Thickness(0, TopPadding, 0, 0);
                 ArchivedChatsPresenter.Visibility = _archiveCollapsed
                     ? Visibility.Collapsed
                     : Visibility.Visible;
@@ -2920,7 +2912,7 @@ namespace Telegram.Views
 
             var y = ArchivedChatsPresenter.ActualSize.Y;
 
-            ChatsList.Margin = new Thickness(0, Stories.TopPadding, 0, -y);
+            ChatsList.Margin = new Thickness(0, TopPadding, 0, -y);
 
             var offset0 = chats.Compositor.CreateVector3KeyFrameAnimation();
             offset0.InsertKeyFrame(0, new Vector3(0, show ? -y : 0, 0));
@@ -3740,7 +3732,6 @@ namespace Telegram.Views
 
             if (show)
             {
-                Stories.Collapse();
                 TopicListPresenter.Focus(FocusState.Programmatic);
             }
             else
@@ -3886,20 +3877,6 @@ namespace Telegram.Views
             MasterDetail.BackgroundMargin = new Thickness(0, -e.NewSize.Height, 0, 0);
         }
 
-        private void Stories_Expanding(object sender, EventArgs e)
-        {
-            if (_prevIndex != INDEX_CHATS)
-            {
-                SetPivotSelectedIndex(INDEX_CHATS);
-                ViewModel.RaisePropertyChanged(nameof(ViewModel.SelectedFolder));
-            }
-            else if (!_searchCollapsed)
-            {
-                Search_LostFocus(null, null);
-            }
-
-            HideTopicList();
-        }
 
         private void ComposeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -4073,7 +4050,6 @@ namespace Telegram.Views
             Playback = null;
             CallBanner = null;
             Header = null;
-            Stories = null;
             SettingsRoot = null;
             SettingsView = null;
             DialogsSearchPanel = null;

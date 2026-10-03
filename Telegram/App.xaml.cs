@@ -40,7 +40,6 @@ using Telegram.Views.Settings.Popups;
 using Telegram.Views.Settings.Privacy;
 using Telegram.Views.Stars;
 using Telegram.Views.Stars.Popups;
-using Telegram.Views.Stories.Popups;
 using Telegram.Views.Supergroups;
 using Telegram.Views.Supergroups.Popups;
 using Telegram.Views.Users;
@@ -438,7 +437,6 @@ namespace Telegram
 
                 PaymentFormPage => session.Resolve<PaymentFormViewModel>(),
                 ChatInviteLinksPage => session.Resolve<ChatInviteLinksViewModel>(),
-                ChatStoriesPage => session.Resolve<ChatStoriesViewModel>(),
 
                 // Popups
                 ContactsPopup => session.Resolve<ContactsViewModel>(),

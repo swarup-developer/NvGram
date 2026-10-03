@@ -12,7 +12,6 @@ using Telegram.Controls;
 using Telegram.Controls.Cells;
 using Telegram.Controls.Media;
 using Telegram.ViewModels;
-using Telegram.ViewModels.Stories;
 using Telegram.Views.Create;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

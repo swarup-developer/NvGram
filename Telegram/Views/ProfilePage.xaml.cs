@@ -25,7 +25,6 @@ using Telegram.Td.Api;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Delegates;
 using Telegram.ViewModels.Profile;
-using Telegram.ViewModels.Stories;
 using Telegram.Views.Chats;
 using Telegram.Views.Popups;
 using Telegram.Views.Profile;
@@ -516,20 +515,7 @@ namespace Telegram.Views
                 Menu.Visibility = Visibility.Collapsed;
             }
 
-            if (e.Content is ProfileStoriesTabPage)
-            {
-                if (e.Parameter is ChatStoriesType type)
-                {
-                    tabPage.DataContext = type == ChatStoriesType.Pinned
-                        ? ViewModel.PinnedStoriesTab
-                        : ViewModel.ArchivedStoriesTab;
-                }
-                else
-                {
-                    tabPage.DataContext = ViewModel.PinnedStoriesTab;
-                }
-            }
-            else if (e.Content is ProfileGiftsTabPage)
+            if (e.Content is ProfileGiftsTabPage)
             {
                 tabPage.DataContext = ViewModel.GiftsTab;
             }
@@ -540,11 +526,7 @@ namespace Telegram.Views
             }
 
             tabPage.ScrollingHost.RegisterPropertyChangedCallback(ItemsControl.ItemsSourceProperty, OnItemsSourceChanged, ref _itemsSourceToken);
-
-            if (e.Content is not ProfileStoriesTabPage)
-            {
-                tabPage.ScrollingHost.RegisterPropertyChangedCallback(ListViewBase.SelectionModeProperty, OnSelectionModeChanged, ref _selectionModeToken);
-            }
+            tabPage.ScrollingHost.RegisterPropertyChangedCallback(ListViewBase.SelectionModeProperty, OnSelectionModeChanged, ref _selectionModeToken);
 
             if (_fromItemClick)
             {
