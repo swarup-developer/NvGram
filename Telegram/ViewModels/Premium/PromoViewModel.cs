@@ -15,7 +15,6 @@ using Telegram.Navigation;
 using Telegram.Navigation.Services;
 using Telegram.Services;
 using Telegram.Td.Api;
-using Telegram.Views.Premium.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -37,9 +36,6 @@ namespace Telegram.ViewModels.Premium
 
         public RangeObservableCollection<BusinessFeature> BusinessFeatures { get; private set; }
 
-        private Dictionary<Type, Animation> _animations;
-
-        private Stickers _stickers;
 
         private PremiumState _state;
         public PremiumState State
@@ -104,12 +100,6 @@ namespace Telegram.ViewModels.Premium
             CanPurchase = Option != null
                 && ClientService.IsPremiumAvailable;
 
-            _animations = state.Animations
-                .DistinctBy(x => x.Feature.GetType())
-                .ToDictionary(x => x.Feature.GetType(), y => y.Animation);
-
-            _stickers = await ClientService.SendAsync(new GetPremiumStickerExamples()) as Stickers;
-
             var businessFeatures = await ClientService.SendAsync(new GetBusinessFeatures(null)) as BusinessFeatures;
             if (businessFeatures == null)
             {
@@ -135,10 +125,7 @@ namespace Telegram.ViewModels.Premium
 
         public async Task<bool> OpenAsync(PremiumFeature feature)
         {
-            var popup = new FeaturesPopup(ClientService, Option?.PaymentOption, Features, BusinessFeatures, Limits, _animations, _stickers, feature);
-
-            var confirm = await ShowPopupAsync(popup);
-            if (confirm == ContentDialogResult.Primary && !ClientService.IsPremium)
+            if (!ClientService.IsPremium)
             {
                 Purchase();
                 return false;

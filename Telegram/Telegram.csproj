@@ -254,9 +254,6 @@
     <Compile Include="Controls\Cells\InlineResultMediaCell.xaml.cs">
       <DependentUpon>InlineResultMediaCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Cells\Premium\PremiumFeatureBusinessCell.xaml.cs">
-      <DependentUpon>PremiumFeatureBusinessCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Cells\ProfileHoursCell.xaml.cs">
       <DependentUpon>ProfileHoursCell.xaml</DependentUpon>
     </Compile>
@@ -769,12 +766,6 @@
     <Compile Include="Controls\Cells\GroupCallParticipantGridCell.xaml.cs">
       <DependentUpon>GroupCallParticipantGridCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Cells\Premium\PremiumFeatureCell.xaml.cs">
-      <DependentUpon>PremiumFeatureCell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Cells\Premium\PremiumFeatureUniqueStickersCell.xaml.cs">
-      <DependentUpon>PremiumFeatureUniqueStickersCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Cells\SessionCell.xaml.cs">
       <DependentUpon>SessionCell.xaml</DependentUpon>
     </Compile>
@@ -1018,7 +1009,6 @@
     <Compile Include="Navigation\Services\NavigationServiceList.cs" />
     <Compile Include="Selectors\ChatStatisticsOverviewTemplateSelector.cs" />
     <Compile Include="Selectors\InviteLinkTemplateSelector.cs" />
-    <Compile Include="Selectors\PremiumFeatureTemplateSelector.cs" />
     <Compile Include="Services\ChatListService.cs" />
     <Compile Include="Services\OrderedSourceService.cs" />
     <Compile Include="Services\SavedMessagesTopicService.cs" />
@@ -1747,20 +1737,11 @@
     <Compile Include="Views\Popups\ThemePreviewPopup.xaml.cs">
       <DependentUpon>ThemePreviewPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Premium\Popups\FeaturesPopup.xaml.cs">
-      <DependentUpon>FeaturesPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Premium\Popups\GiftBoostsPopup.xaml.cs">
-      <DependentUpon>GiftBoostsPopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Premium\Popups\GiftPopup.xaml.cs">
       <DependentUpon>GiftPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Premium\Popups\LimitReachedPopup.xaml.cs">
       <DependentUpon>LimitReachedPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Cells\Premium\PremiumFeatureIncreasedLimitsCell.xaml.cs">
-      <DependentUpon>PremiumFeatureIncreasedLimitsCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Profile\ProfileFilesTabPage.xaml.cs">
       <DependentUpon>ProfileFilesTabPage.xaml</DependentUpon>
@@ -1796,14 +1777,8 @@
     <Compile Include="Views\Settings\SettingsProxyPopup.xaml.cs">
       <DependentUpon>SettingsProxyPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Cells\Premium\PremiumFeatureUpgradedStoriesCell.xaml.cs">
-      <DependentUpon>PremiumFeatureUpgradedStoriesCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Premium\Popups\PromoPopup.xaml.cs">
       <DependentUpon>PromoPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Premium\Popups\UniqueStickersPopup.xaml.cs">
-      <DependentUpon>UniqueStickersPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
@@ -2513,10 +2488,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Cells\Premium\PremiumFeatureBusinessCell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Controls\Cells\ProfileCell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2558,14 +2529,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Cells\GroupCallParticipantGridCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Cells\Premium\PremiumFeatureCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Cells\Premium\PremiumFeatureUniqueStickersCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3709,14 +3672,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Premium\Popups\FeaturesPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Premium\Popups\GiftBoostsPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Premium\Popups\GiftPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3724,10 +3679,6 @@
     <Page Include="Views\Premium\Popups\LimitReachedPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Cells\Premium\PremiumFeatureIncreasedLimitsCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Profile\ProfileFilesTabPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -3773,17 +3724,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Cells\Premium\PremiumFeatureUpgradedStoriesCell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Premium\Popups\PromoPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Premium\Popups\UniqueStickersPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
