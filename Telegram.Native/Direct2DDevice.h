@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "Direct2DDevice.g.h"
 
@@ -15,7 +15,6 @@
 #include <SurfaceImage.h>
 #include <TextFormat.h>
 #include <DirectTextLayout.h>
-#include "FreeformGradientSurface.h"
 #include "MessageBubbleNineGrid.h";
 
 #include <winrt/Windows.Foundation.h>
@@ -365,8 +364,6 @@ namespace winrt::Telegram::Native::implementation
         static bool IsWebP(hstring fileName, int32_t& pixelWidth, int32_t& pixelHeight) noexcept;
 
         IVector<hstring> GetSystemFontFamilies(IVector<hstring> localeNames);
-
-        winrt::Telegram::Native::FreeformGradientSurface CreateFreeformGradient(IVectorView<int32_t> colors);
 
         CompositionEffectBrush GetTail(XamlRoot xamlRoot, int topLeftRadius, int topRightRadius, int bottomRightRadius, int bottomLeftRadius);
         CompositionNineGridBrush GetTailMask(XamlRoot xamlRoot, int topLeftRadius, int topRightRadius, int bottomRightRadius, int bottomLeftRadius);

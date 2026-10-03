@@ -339,10 +339,6 @@
       <DependentUpon>Controls\DirectTextBlockBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="FreeformGradientSurface.h">
-      <DependentUpon>FreeformGradientSurface.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="GarbageCollectionMonitor.h">
       <DependentUpon>GarbageCollectionMonitor.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -390,10 +386,6 @@
     </ClInclude>
     <ClInclude Include="Opus\OpusOutput.h">
       <DependentUpon>Opus\OpusOutput.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ParticlesAnimation.h">
-      <DependentUpon>ParticlesAnimation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="PixelBuffer.h">
@@ -1248,10 +1240,6 @@
       <DependentUpon>Controls\DirectTextBlockBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="FreeformGradientSurface.cpp">
-      <DependentUpon>FreeformGradientSurface.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="GarbageCollectionMonitor.cpp">
       <DependentUpon>GarbageCollectionMonitor.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1276,10 +1264,6 @@
     <ClCompile Include="Media\SoundPlayer.cpp" />
     <ClCompile Include="MessageBubbleNineGrid.cpp">
       <DependentUpon>MessageBubbleNineGrid.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ParticlesAnimation.cpp">
-      <DependentUpon>ParticlesAnimation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="RichMathSurface.cpp">
@@ -1417,9 +1401,6 @@
     <Midl Include="Controls\DirectTextBlockBase.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="FreeformGradientSurface.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="GarbageCollectionMonitor.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1450,9 +1431,6 @@
     <Midl Include="NativeUtils.idl" />
     <Midl Include="TextHost.idl" />
     <Midl Include="Opus\OpusOutput.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ParticlesAnimation.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="PixelBuffer.idl" />

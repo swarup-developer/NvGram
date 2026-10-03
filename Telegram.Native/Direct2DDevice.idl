@@ -3,7 +3,6 @@ import "TextFormat.idl";
 import "DirectTextLayout.idl";
 import "RichMathSurface.idl";
 import "ChatBackgroundPattern.idl";
-import "FreeformGradientSurface.idl";
 import "NativeUtils.idl";
 
 namespace Telegram.Native
@@ -21,8 +20,6 @@ namespace Telegram.Native
         static Boolean IsWebP(String fileName, out Int32 pixelWidth, out Int32 pixelHeight);
 
         Windows.Foundation.Collections.IVector<String> GetSystemFontFamilies(Windows.Foundation.Collections.IVector<String> localeNames);
-
-        FreeformGradientSurface CreateFreeformGradient(Windows.Foundation.Collections.IVectorView<Int32> colors);
 
         Windows.UI.Composition.CompositionEffectBrush GetTail(Windows.UI.Xaml.XamlRoot xamlRoot, Single topLeftRadius, Single topRightRadius, Single bottomRightRadius, Single bottomLeftRadius);
         Windows.UI.Composition.CompositionNineGridBrush GetTailMask(Windows.UI.Xaml.XamlRoot xamlRoot, Single topLeftRadius, Single topRightRadius, Single bottomRightRadius, Single bottomLeftRadius);

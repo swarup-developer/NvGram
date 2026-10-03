@@ -14,7 +14,6 @@ using Telegram.Controls.Messages.Content;
 using Telegram.Converters;
 using Telegram.Navigation.Services;
 using Telegram.Services;
-using Telegram.Services.Updates;
 using Telegram.Td.Api;
 using Telegram.ViewModels.Chats;
 using Telegram.ViewModels.Gallery;
@@ -305,7 +304,6 @@ namespace Telegram.ViewModels
 
                 if (ids1.SequenceEqual(ids2))
                 {
-                    Aggregator.Publish(new UpdateConfetti());
                 }
                 else
                 {

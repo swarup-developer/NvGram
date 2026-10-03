@@ -32,7 +32,6 @@ namespace Telegram.Controls.Media
 
         public float Intensity { get; set; } = 1;
 
-        private FreeformGradientSurface _freeform;
         private CompositionEffectBrush _effect;
         private CompositionBrush _brush;
         private SpriteVisual _visual;
@@ -252,43 +251,21 @@ namespace Telegram.Controls.Media
         {
             if (IsNegative && Pattern == null)
             {
-                _freeform?.Dispose();
-                _freeform = null;
-
                 return BootStrapper.Current.Compositor.CreateColorBrush(Colors.Black);
             }
 
             if (Fill is BackgroundFillFreeformGradient freeform)
             {
-                // TDLib's own int[], handed straight across: Int32 is one of the few element types
-                // an array can cross the ABI as, and it saves widening each entry to a WinRT Color
-                // that the native side would only unpack again.
-                var colors = freeform.Colors;
-
-                if (_freeform != null)
-                {
-                    _freeform.Colors = colors;
-                }
-                else
-                {
-                    _freeform?.Dispose();
-                    _freeform = Direct2D.Current.CreateFreeformGradient(colors);
-                }
-
-                return _freeform.Brush;
+                var top = freeform.Colors.Length > 0 ? freeform.Colors[0] : 0;
+                var bottom = freeform.Colors.Length > 1 ? freeform.Colors[1] : top;
+                return TdBackground.GetGradient(BootStrapper.Current.Compositor, top, bottom, 0);
             }
             else if (Fill is BackgroundFillGradient gradient)
             {
-                _freeform?.Dispose();
-                _freeform = null;
-
                 return TdBackground.GetGradient(BootStrapper.Current.Compositor, gradient.TopColor, gradient.BottomColor, gradient.RotationAngle);
             }
             else if (Fill is BackgroundFillSolid solid)
             {
-                _freeform?.Dispose();
-                _freeform = null;
-
                 return BootStrapper.Current.Compositor.CreateColorBrush(solid.Color.ToColor());
             }
 
@@ -352,9 +329,6 @@ namespace Telegram.Controls.Media
             _brush?.Dispose();
             _brush = null;
 
-            _freeform?.Dispose();
-            _freeform = null;
-
             if (Pattern != null)
             {
                 //ImageSource.Dispose();
@@ -410,7 +384,6 @@ namespace Telegram.Controls.Media
 
         public void Next()
         {
-            _freeform?.Next();
         }
 
         public void CrossFade(bool show)

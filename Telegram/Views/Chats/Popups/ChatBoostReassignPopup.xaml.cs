@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -12,7 +12,6 @@ using Telegram.Controls;
 using Telegram.Controls.Cells;
 using Telegram.Converters;
 using Telegram.Services;
-using Telegram.Services.Updates;
 using Telegram.Td.Api;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -147,9 +146,6 @@ namespace Telegram.Views.Chats.Popups
             var response = await _clientService.SendAsync(new BoostChat(_chat.Id, selected));
             if (response is not Error)
             {
-                var aggregator = _clientService.Session.Resolve<IEventAggregator>();
-                aggregator.Publish(new UpdateConfetti());
-
                 Hide();
             }
         }

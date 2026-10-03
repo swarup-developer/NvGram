@@ -1018,12 +1018,5 @@
                 </Grid>
             </Grid>
         </controls:MasterDetailView>
-
-        <controls:ConfettiView x:Name="Confetti"
-                               x:Load="False"
-                               IsHitTestVisible="False"
-                               Grid.ColumnSpan="2"
-                               Grid.Row="1" />
-        <!--Completed="Confetti_Completed"-->
     </Grid>
 </controls:CorePage>

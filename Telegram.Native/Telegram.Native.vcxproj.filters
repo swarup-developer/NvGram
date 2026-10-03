@@ -1539,7 +1539,6 @@
     <Midl Include="LokiRng.idl" />
     <Midl Include="SurfaceImage.idl" />
     <Midl Include="FatalError.idl" />
-    <Midl Include="ParticlesAnimation.idl" />
     <Midl Include="TextFormat.idl" />
     <Midl Include="Composition\DirectRectangleClip2.idl">
       <Filter>Composition</Filter>
@@ -1592,7 +1591,6 @@
     <Midl Include="Controls\DirectTextBlockBase.idl">
       <Filter>Controls</Filter>
     </Midl>
-    <Midl Include="FreeformGradientSurface.idl" />
     <Midl Include="GarbageCollectionMonitor.idl" />
     <Midl Include="RichMathSurface.idl" />
   </ItemGroup>

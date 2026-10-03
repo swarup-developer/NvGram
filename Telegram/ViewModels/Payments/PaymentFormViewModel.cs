@@ -15,7 +15,6 @@ using Telegram.Converters;
 using Telegram.Navigation;
 using Telegram.Navigation.Services;
 using Telegram.Services;
-using Telegram.Services.Updates;
 using Telegram.Td.Api;
 using Telegram.Views.Payments;
 using Telegram.Views.Popups;
@@ -523,8 +522,6 @@ namespace Telegram.ViewModels.Payments
                 {
                     await WindowContext.Main.SwitchToAsync();
                     await Window.ConsolidateAsync();
-
-                    Aggregator.Publish(new UpdateConfetti());
                 }
             }
             else
@@ -541,8 +538,6 @@ namespace Telegram.ViewModels.Payments
                 {
                     await WindowContext.Main.SwitchToAsync();
                     await Window.ConsolidateAsync();
-
-                    Aggregator.Publish(new UpdateConfetti());
                 });
             }
         }

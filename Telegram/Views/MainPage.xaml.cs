@@ -682,14 +682,6 @@ namespace Telegram.Views
             });
         }
 
-        public void Handle(UpdateConfetti update)
-        {
-            this.BeginOnUIThread(() =>
-            {
-                FindName(nameof(Confetti));
-                Confetti.Start();
-            });
-        }
 
         public void Handle(UpdateUnconfirmedSession update)
         {
@@ -1293,8 +1285,7 @@ namespace Telegram.Views
                 .Subscribe<UpdateOption>(Handle)
                 .Subscribe<UpdateSuggestedActions>(Handle)
                 .Subscribe<UpdateActiveCall>(Handle)
-                .Subscribe<UpdateChatFoldersLayout>(Handle)
-                .Subscribe<UpdateConfetti>(Handle);
+                .Subscribe<UpdateChatFoldersLayout>(Handle);
         }
 
         private void OnPlaybackSourceChanged(IPlaybackService sender, object e)
@@ -3142,13 +3133,6 @@ namespace Telegram.Views
 
         #endregion
 
-        private void Confetti_Completed(object sender, EventArgs e)
-        {
-            this.BeginOnUIThread(() =>
-            {
-                UnloadObject(Confetti);
-            });
-        }
 
         public static string GetFolderIcon(ChatListFolderFlags folder)
         {
@@ -4046,7 +4030,6 @@ namespace Telegram.Views
             ChatTabsLeft = null;
             Photo = null;
             MasterDetail = null;
-            Confetti = null;
             Playback = null;
             CallBanner = null;
             Header = null;

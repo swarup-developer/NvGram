@@ -20,7 +20,6 @@ using Telegram.Controls.Media;
 using Telegram.Converters;
 using Telegram.Navigation;
 using Telegram.Services;
-using Telegram.Services.Updates;
 using Telegram.Streams;
 using Telegram.Td;
 using Telegram.Td.Api;
@@ -2026,8 +2025,6 @@ namespace Telegram.Controls
             {
                 dispatcher.TryEnqueue(() => popup.IsOpen = false);
             };
-
-            ViewModel.Aggregator.Publish(new UpdateConfetti());
         }
 
         private int _effect;
