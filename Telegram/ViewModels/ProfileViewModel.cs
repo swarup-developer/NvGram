@@ -673,7 +673,7 @@ namespace Telegram.ViewModels
                 return;
             }
 
-            NavigationService.Navigate(typeof(RevenuePage), chat.Id);
+
         }
 
         public void OpenBoosts()
@@ -1633,14 +1633,7 @@ namespace Telegram.ViewModels
                 return;
             }
 
-            if (chat.Type is ChatTypePrivate privata)
-            {
-                NavigationService.Navigate(typeof(ChatRevenuePage), chat.Id);
-            }
-            else if (chat.Type is ChatTypeSupergroup)
-            {
-                NavigationService.Navigate(typeof(RevenuePage), chat.Id, new NavigationState { { "selectedIndex", 2 } });
-            }
+
         }
 
         public void OpenAdmins()

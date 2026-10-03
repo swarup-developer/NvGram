@@ -1055,7 +1055,6 @@ namespace Telegram.ViewModels
 
         public void OpenMessageStatistics(MessageViewModel message)
         {
-            NavigationService.Navigate(typeof(MessageStatisticsPage), new MessageId(message.ChatId, message.Id));
         }
 
         #endregion

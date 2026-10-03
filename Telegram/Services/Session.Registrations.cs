@@ -107,12 +107,8 @@ namespace Telegram.Services
             typeof(Telegram.ViewModels.Supergroups.SupergroupDirectMessagesViewModel),
             typeof(Telegram.ViewModels.Supergroups.SupergroupMembersViewModel),
             typeof(Telegram.ViewModels.Supergroups.SupergroupReactionsViewModel),
-            typeof(Telegram.ViewModels.Chats.ChatStatisticsViewModel),
             typeof(Telegram.ViewModels.Chats.ChatBoostsViewModel),
-            typeof(Telegram.ViewModels.Chats.ChatRevenueViewModel),
-            typeof(Telegram.ViewModels.Chats.ChatStarsViewModel),
             typeof(Telegram.ViewModels.Chats.ChatAffiliateViewModel),
-            typeof(Telegram.ViewModels.Chats.MessageStatisticsViewModel),
             typeof(Telegram.ViewModels.Create.NewContactViewModel),
             typeof(Telegram.ViewModels.Create.NewChannelViewModel),
             typeof(Telegram.ViewModels.Create.NewGroupViewModel),
@@ -183,7 +179,6 @@ namespace Telegram.Services
             typeof(Telegram.ViewModels.Premium.PromoViewModel),
             typeof(Telegram.ViewModels.Stars.StarsViewModel),
             typeof(Telegram.ViewModels.Stars.BuyViewModel),
-            typeof(Telegram.ViewModels.RevenueViewModel),
         })]
     public partial class SessionImpl
     {

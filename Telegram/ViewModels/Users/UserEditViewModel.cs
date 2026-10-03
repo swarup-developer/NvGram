@@ -340,7 +340,6 @@ namespace Telegram.ViewModels.Users
 
         public void ShowBalance()
         {
-            NavigationService.Navigate(typeof(ChatStarsPage), new MessageSenderUser(_userId));
         }
 
         public void EditCommands()

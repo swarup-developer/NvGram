@@ -145,35 +145,6 @@
     <Compile Include="Assets\Icons\VoiceRecognition.cs" />
     <Compile Include="Assets\Icons\VoiceVideo.cs" />
     <Compile Include="Assets\Icons\VoiceVideo2.cs" />
-    <Compile Include="Charts\Animator.cs" />
-    <Compile Include="Charts\BarChartView.cs" />
-    <Compile Include="Charts\BaseChartView.cs" />
-    <Compile Include="Charts\ChartHeaderView.xaml.cs">
-      <DependentUpon>ChartHeaderView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Charts\ChartPickerDelegate.cs" />
-    <Compile Include="Charts\CubicBezierInterpolator.cs" />
-    <Compile Include="Charts\DataView\BarViewData.cs" />
-    <Compile Include="Charts\DataView\ChartBottomSignatureData.cs" />
-    <Compile Include="Charts\DataView\ChartHorizontalLinesData.cs" />
-    <Compile Include="Charts\DataView\LegendSignatureView.xaml.cs">
-      <DependentUpon>LegendSignatureView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Charts\DataView\LineViewData.cs" />
-    <Compile Include="Charts\DataView\PieChartViewData.cs" />
-    <Compile Include="Charts\DataView\StackBarViewData.cs" />
-    <Compile Include="Charts\DataView\StackLinearViewData.cs" />
-    <Compile Include="Charts\DataView\TransitionParams.cs" />
-    <Compile Include="Charts\Data\ChartData.cs" />
-    <Compile Include="Charts\Data\DoubleLinearChartData.cs" />
-    <Compile Include="Charts\Data\StackBarChartData.cs" />
-    <Compile Include="Charts\Data\StackLinearChartData.cs" />
-    <Compile Include="Charts\DoubleLinearChartView.cs" />
-    <Compile Include="Charts\DoubleStepChartView.cs" />
-    <Compile Include="Charts\Extensions.cs" />
-    <Compile Include="Charts\FastOutSlowInInterpolator.cs" />
-    <Compile Include="Charts\LinearChartView.cs" />
-    <Compile Include="Charts\LookupTableInterpolator.cs" />
     <Compile Include="Collections\Diff\DiffCalculator.cs" />
     <Compile Include="Collections\Diff\DiffHandler.cs" />
     <Compile Include="Collections\Diff\DiffUtil.cs" />
@@ -271,12 +242,6 @@
     <Compile Include="Controls\Cells\ReceivedGiftCell.xaml.cs">
       <DependentUpon>ReceivedGiftCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Cells\Revenue\StarSubscriptionCell.xaml.cs">
-      <DependentUpon>StarSubscriptionCell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Cells\Revenue\StarTransactionCell.xaml.cs">
-      <DependentUpon>StarTransactionCell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\Cells\PlaybackItemCell.xaml.cs">
       <DependentUpon>PlaybackItemCell.xaml</DependentUpon>
     </Compile>
@@ -291,9 +256,6 @@
     </Compile>
     <Compile Include="Controls\Cells\InlineResultMediaCell.xaml.cs">
       <DependentUpon>InlineResultMediaCell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Cells\Revenue\ChatRevenueTransactionCell.xaml.cs">
-      <DependentUpon>ChatRevenueTransactionCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Cells\Premium\PremiumFeatureBusinessCell.xaml.cs">
       <DependentUpon>PremiumFeatureBusinessCell.xaml</DependentUpon>
@@ -577,12 +539,6 @@
     <Compile Include="Common\FrameworkElementState.cs" />
     <Compile Include="Common\MathEx.cs" />
     <Compile Include="Common\MathFEx.cs" />
-    <Compile Include="Charts\Paint.cs" />
-    <Compile Include="Charts\PieChartView.cs" />
-    <Compile Include="Charts\SegmentTree.cs" />
-    <Compile Include="Charts\StackBarChartView.cs" />
-    <Compile Include="Charts\StackLinearChartView.cs" />
-    <Compile Include="Charts\StepChartView.cs" />
     <Compile Include="Collections\CollectionSeparator.cs" />
     <Compile Include="Collections\FlatteningCollection.cs" />
     <Compile Include="Collections\DiffCollectionExtensions.cs" />
@@ -715,8 +671,6 @@
     <Compile Include="ViewModels\ChatNotificationsViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatAffiliateViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatBoostsViewModel.cs" />
-    <Compile Include="ViewModels\Chats\ChatStarsViewModel.cs" />
-    <Compile Include="ViewModels\Chats\ChatRevenueViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatStoriesViewModel.cs" />
     <Compile Include="ViewModels\ChooseChatsViewModel.cs" />
     <Compile Include="ViewModels\ComposeViewModel.cs" />
@@ -743,7 +697,6 @@
     <Compile Include="ViewModels\Profile\ProfileBotsTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileGiftsTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileTopicsTabViewModel.cs" />
-    <Compile Include="ViewModels\RevenueViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileChannelsTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileGroupsTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileMembersTabViewModel.cs" />
@@ -833,9 +786,6 @@
     <Compile Include="Controls\CaptionTextBox.cs" />
     <Compile Include="Controls\Cells\CallCell.xaml.cs">
       <DependentUpon>CallCell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Cells\ChartCell.xaml.cs">
-      <DependentUpon>ChartCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Cells\ChatFolderCell.xaml.cs">
       <DependentUpon>ChatFolderCell.xaml</DependentUpon>
@@ -1186,7 +1136,6 @@
     <Compile Include="ViewModels\Delegates\IChatListDelegate.cs" />
     <Compile Include="ViewModels\DialogEventLogViewModel.cs" />
     <Compile Include="ViewModels\DialogPinnedViewModel.cs" />
-    <Compile Include="ViewModels\Chats\MessageStatisticsViewModel.cs" />
     <Compile Include="ViewModels\DownloadsViewModel.cs" />
     <Compile Include="ViewModels\Drawers\EmojiDrawerViewModel.cs" />
     <Compile Include="ViewModels\Payments\PaymentAddressViewModel.cs" />
@@ -1254,12 +1203,6 @@
     <Compile Include="Views\Chats\ChatBoostsPage.xaml.cs">
       <DependentUpon>ChatBoostsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Chats\ChatStarsPage.xaml.cs">
-      <DependentUpon>ChatStarsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Chats\ChatRevenuePage.xaml.cs">
-      <DependentUpon>ChatRevenuePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Chats\ChatStoriesPage.xaml.cs">
       <DependentUpon>ChatStoriesPage.xaml</DependentUpon>
     </Compile>
@@ -1274,9 +1217,6 @@
     </Compile>
     <Compile Include="Views\Chats\Popups\ChatInviteLinkPopup.xaml.cs">
       <DependentUpon>ChatInviteLinkPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Chats\MessageStatisticsPage.xaml.cs">
-      <DependentUpon>MessageStatisticsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\SelectedItemsBinder.cs" />
     <Compile Include="Views\Create\NewBotPopup.xaml.cs">
@@ -1307,18 +1247,6 @@
     </Compile>
     <Compile Include="Views\Host\TabbedWindow.xaml.cs">
       <DependentUpon>TabbedWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Monetization\Popups\AboutAdsPopup.xaml.cs">
-      <DependentUpon>AboutAdsPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Monetization\Popups\LearnMorePopup.xaml.cs">
-      <DependentUpon>LearnMorePopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Monetization\Popups\TransactionPopup.xaml.cs">
-      <DependentUpon>TransactionPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Monetization\Popups\TransferPopup.xaml.cs">
-      <DependentUpon>TransferPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Payments\PaymentAddressPopup.xaml.cs">
       <DependentUpon>PaymentAddressPopup.xaml</DependentUpon>
@@ -1500,9 +1428,6 @@
     </Compile>
     <Compile Include="Views\Profile\ProfileGiftsTabPage.xaml.cs">
       <DependentUpon>ProfileGiftsTabPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RevenuePage.xaml.cs">
-      <DependentUpon>RevenuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Profile\ProfileAnimationsTabPage.xaml.cs">
       <DependentUpon>ProfileAnimationsTabPage.xaml</DependentUpon>
@@ -1774,7 +1699,6 @@
     <Compile Include="ViewModels\Chats\ChatGalleryViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatPhotosViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatSearchViewModel.cs" />
-    <Compile Include="ViewModels\Chats\ChatStatisticsViewModel.cs" />
     <Compile Include="ViewModels\Delegates\IBackgroundDelegate.cs" />
     <Compile Include="ViewModels\Delegates\IBasicAndSupergroupDelegate.cs" />
     <Compile Include="ViewModels\Delegates\IDelegable.cs" />
@@ -1861,9 +1785,6 @@
     </Compile>
     <Compile Include="Views\ChatScheduledPage.xaml.cs">
       <DependentUpon>ChatScheduledPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Chats\ChatStatisticsPage.xaml.cs">
-      <DependentUpon>ChatStatisticsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChatView.Bubbles.xaml.cs">
       <DependentUpon>ChatView.xaml</DependentUpon>
@@ -2626,14 +2547,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Charts\ChartHeaderView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Charts\DataView\LegendSignatureView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Calls\MediaStateBadge.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -2655,10 +2568,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Cells\CaptureSessionItemCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Cells\ChartCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -2710,14 +2619,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Cells\Revenue\StarSubscriptionCell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Cells\Revenue\StarTransactionCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\Cells\PlaybackItemCell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -2747,10 +2648,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Cells\InlineResultMediaCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Cells\Revenue\ChatRevenueTransactionCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3410,14 +3307,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Chats\ChatStarsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Chats\ChatRevenuePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Chats\ChatStoriesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -3435,10 +3324,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Chats\Popups\ChatInviteLinkPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Chats\MessageStatisticsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3477,22 +3362,6 @@
     <Page Include="Views\Host\TabbedWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Monetization\Popups\AboutAdsPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Monetization\Popups\LearnMorePopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Monetization\Popups\TransactionPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Monetization\Popups\TransferPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Payments\PaymentAddressPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -3727,10 +3596,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Profile\ProfileGiftsTabPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\RevenuePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -3995,10 +3860,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChatScheduledPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Chats\ChatStatisticsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

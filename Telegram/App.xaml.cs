@@ -436,14 +436,8 @@ namespace Telegram
                 SettingsPrivacyNewChatPage => session.Resolve<SettingsPrivacyNewChatViewModel>(),
                 SettingsPrivacyAutosaveGiftsPage => session.Resolve<SettingsPrivacyAutosaveGiftsViewModel>(),
 
-                RevenuePage => session.Resolve<RevenueViewModel>(),
-
                 PaymentFormPage => session.Resolve<PaymentFormViewModel>(),
-                MessageStatisticsPage => session.Resolve<MessageStatisticsViewModel>(),
                 ChatInviteLinksPage => session.Resolve<ChatInviteLinksViewModel>(),
-                ChatStatisticsPage => session.Resolve<ChatStatisticsViewModel>(),
-                ChatRevenuePage => session.Resolve<ChatRevenueViewModel>(),
-                ChatStarsPage => session.Resolve<ChatStarsViewModel>(),
                 ChatStoriesPage => session.Resolve<ChatStoriesViewModel>(),
 
                 // Popups

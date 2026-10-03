@@ -470,10 +470,6 @@ namespace Telegram.ViewModels.Supergroups
 
         public void Statistics()
         {
-            if (_chat is Chat chat)
-            {
-                NavigationService.Navigate(typeof(RevenuePage), chat.Id);
-            }
         }
 
         public void EventLog()
