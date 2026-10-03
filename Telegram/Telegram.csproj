@@ -90,8 +90,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AI\RecognizedTextPointer.cs" />
-    <Compile Include="AI\RecognizedTextSpatialIndex.cs" />
     <Compile Include="Assets\Icons\ActionFile.cs" />
     <Compile Include="Assets\Icons\ActionGame.cs" />
     <Compile Include="Assets\Icons\ActionSticker.cs" />
@@ -308,7 +306,6 @@
       <DependentUpon>GiftAttributeGauge.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\GlassToggleButton.cs" />
-    <Compile Include="Controls\ImageTextSelection.cs" />
     <Compile Include="Controls\Media\LinearGaussianBrush.cs" />
     <Compile Include="Controls\Media\MessageBubbleBrush.cs" />
     <Compile Include="Controls\Media\PowerSavingBrushBase.cs" />
@@ -337,12 +334,6 @@
     <Compile Include="Controls\Messages\Content\StickerSetContent.xaml.cs">
       <DependentUpon>StickerSetContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AI\RecognizedTextBlock.cs" />
-    <Compile Include="AI\RecognizedTextBoundingBoxHelper.cs" />
-    <Compile Include="AI\RecognizedTextBoundingBoxRounding.cs" />
-    <Compile Include="AI\RecognizedTextBoundingBoxSimplifier.cs" />
-    <Compile Include="AI\RecognizedTextSelection.cs" />
-    <Compile Include="AI\RecognizedTextSelectionManager.cs" />
     <Compile Include="Common\ThumbnailController.cs" />
     <Compile Include="Controls\Messages\Content\SponsoredContent.xaml.cs">
       <DependentUpon>SponsoredContent.xaml</DependentUpon>
@@ -421,7 +412,6 @@
     <Compile Include="Services\Calls\VoipGroupCallEventArgs.cs" />
     <Compile Include="Services\ProxyService.cs" />
     <Compile Include="Services\Settings\ToolTipSettings.cs" />
-    <Compile Include="Services\TextRecognitionService.cs" />
     <Compile Include="Services\Session.Registrations.cs" />
     <Compile Include="Controls\Messages\MessageContentRecyclePool.cs" />
     <Compile Include="Streams\MediaRange.cs" />
@@ -1319,9 +1309,6 @@
     </Compile>
     <Compile Include="Views\Popups\ChooseDateTimePopup.xaml.cs">
       <DependentUpon>ChooseDateTimePopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Popups\TextRecognitionDownloadPopup.xaml.cs">
-      <DependentUpon>TextRecognitionDownloadPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Popups\CreateChecklistPopup.xaml.cs">
       <DependentUpon>CreateChecklistPopup.xaml</DependentUpon>
@@ -3452,10 +3439,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Popups\ChooseDateTimePopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Popups\TextRecognitionDownloadPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

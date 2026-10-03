@@ -55,7 +55,6 @@ namespace Telegram.Services
             typeof(Telegram.Services.IStorageService), typeof(Telegram.Services.StorageService),
             typeof(Telegram.Services.ITranslateService), typeof(Telegram.Services.TranslateService),
             typeof(Telegram.Services.IProfilePhotoService), typeof(Telegram.Services.ProfilePhotoService),
-            typeof(Telegram.Services.ITextRecognitionService), typeof(Telegram.Services.TextRecognitionService),
         },
         Instances = new Type[]
         {

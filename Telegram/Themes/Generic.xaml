@@ -6464,29 +6464,6 @@
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="local:ImageTextSelection">
-        <Setter Property="Background"
-                Value="#55000000" />
-        <Setter Property="Foreground"
-                Value="#510078D4" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="local:ImageTextSelection">
-                    <Grid>
-                        <Canvas>
-                            <Path x:Name="Highlight"
-                                  Fill="{TemplateBinding Foreground}"
-                                  IsHitTestVisible="False" />
-                        </Canvas>
-                        <Border x:Name="Overlay"
-                                Background="{TemplateBinding Background}" />
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style TargetType="local:SettingsButton">
