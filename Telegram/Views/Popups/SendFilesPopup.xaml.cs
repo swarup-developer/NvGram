@@ -1414,48 +1414,13 @@ namespace Telegram.Views.Popups
             }
         }
 
-        private async void Crop_Click(object sender, RoutedEventArgs e)
+        private void Crop_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as ToggleButton;
-            if (button.Tag is StorageMedia media)
-            {
-                var parent = button.GetParent<AspectView>();
-                if (parent != null)
-                {
-                    ConnectedAnimationServiceEx.PrepareToAnimate("EditMediaPopup", parent);
-                }
-
-                var popup = new EditMediaPopup(XamlRoot, media);
-
-                var confirm = await popup.ShowAsync();
-                if (confirm == ContentDialogResult.Primary)
-                {
-                    _thumbnails.Invalidate(media);
-
-                    UpdateView();
-                    UpdatePanel();
-                }
-            }
+            ToastPopup.Show(XamlRoot, "Media editing is not supported in this build.", ToastPopupIcon.Info);
         }
 
-        private async void Album_ItemClick(object sender, StorageMedia args)
+        private void Album_ItemClick(object sender, StorageMedia args)
         {
-            var parent = sender as UIElement;
-            if (parent != null)
-            {
-                ConnectedAnimationServiceEx.PrepareToAnimate("EditMediaPopup", parent);
-            }
-
-            var popup = new EditMediaPopup(XamlRoot, args);
-
-            var confirm = await popup.ShowAsync();
-            if (confirm == ContentDialogResult.Primary)
-            {
-                _thumbnails.Invalidate(args);
-
-                UpdateView();
-                UpdatePanel();
-            }
         }
 
         private void Remove_Click(object sender, RoutedEventArgs e)

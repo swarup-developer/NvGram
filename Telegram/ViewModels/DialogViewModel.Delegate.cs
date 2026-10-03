@@ -424,6 +424,20 @@ namespace Telegram.ViewModels
             {
                 NavigationService.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
             }
+            else if (message.Content is MessageVideo video)
+            {
+                if (video.Video?.VideoValue != null)
+                {
+                    if (video.Video.VideoValue.Local.IsDownloadingCompleted)
+                    {
+                        _ = _storageService.OpenFileAsync(video.Video.VideoValue);
+                    }
+                    else
+                    {
+                        ClientService.DownloadFile(video.Video.VideoValue.Id, 32);
+                    }
+                }
+            }
             else
             {
                 GalleryViewModelBase viewModel = null;

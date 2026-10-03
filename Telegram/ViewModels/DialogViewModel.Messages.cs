@@ -2440,13 +2440,7 @@ namespace Telegram.ViewModels
                     }
 
                     var media = await StorageMedia.CreateAsync(cached);
-                    var popup = new EditMediaPopup(XamlRoot, media, ImageCropperMask.Ellipse);
-
-                    var confirm = await popup.ShowAsync();
-                    if (confirm == ContentDialogResult.Primary)
-                    {
-                        await EditPhotoAsync(media);
-                    }
+                    await EditPhotoAsync(media);
                 }
             }
             else if (message.Content is MessageSuggestBirthdate suggestBirthdate && !message.IsOutgoing)

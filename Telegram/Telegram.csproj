@@ -188,7 +188,6 @@
     <Compile Include="Common\TextSelectionCoordinator.cs" />
     <Compile Include="Common\ThemeShadowEx.cs" />
     <Compile Include="Common\NormalizingStringBuilder.cs" />
-    <Compile Include="Common\VideoPreloader.cs" />
     <Compile Include="Common\VisualUtilities.Skeleton.cs" />
     <Compile Include="Common\WebAppStorage.cs" />
     <Compile Include="Composition\CompositionPropertySetColorSource.cs" />
@@ -817,7 +816,6 @@
       <DependentUpon>ChatThemeDrawer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ColorPicker.cs" />
-    <Compile Include="Controls\ColorSlider.cs" />
     <Compile Include="Controls\ColorTextBox.cs" />
     <Compile Include="Controls\ConfettiView.cs" />
     <Compile Include="Controls\ContentPopup.cs" />
@@ -870,7 +868,6 @@
     </Compile>
     <Compile Include="Controls\HeaderedControl.cs" />
     <Compile Include="Controls\IdentityIcon.cs" />
-    <Compile Include="Controls\ImageCropper.cs" />
     <Compile Include="Controls\InlineBotResultsView.xaml.cs">
       <DependentUpon>InlineBotResultsView.xaml</DependentUpon>
     </Compile>
@@ -973,7 +970,6 @@
     <Compile Include="Controls\Payments\CardTextBox.cs" />
     <Compile Include="Controls\Payments\DateTextBox.cs" />
     <Compile Include="Controls\Payments\LabeledPricesPanel.cs" />
-    <Compile Include="Controls\PencilCanvas.cs" />
     <Compile Include="Controls\PhoneTextBox.cs" />
     <Compile Include="Controls\PlaybackHeader.xaml.cs">
       <DependentUpon>PlaybackHeader.xaml</DependentUpon>
@@ -1722,9 +1718,6 @@
     </Compile>
     <Compile Include="Views\Popups\DeleteMessagesPopup.xaml.cs">
       <DependentUpon>DeleteMessagesPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Popups\EditMediaPopup.xaml.cs">
-      <DependentUpon>EditMediaPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Popups\EditShortcutPopup.xaml.cs">
       <DependentUpon>EditShortcutPopup.xaml</DependentUpon>
@@ -3675,10 +3668,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Popups\DeleteMessagesPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Popups\EditMediaPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
