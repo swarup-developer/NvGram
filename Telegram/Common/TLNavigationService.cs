@@ -24,7 +24,6 @@ using Telegram.Views.Premium.Popups;
 using Telegram.Views.Settings;
 using Telegram.Views.Settings.Password;
 using Telegram.Views.Settings.Popups;
-using Telegram.Views.Stars.Popups;
 using Telegram.Views.Tabbed;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.ViewManagement;
@@ -315,10 +314,9 @@ namespace Telegram.Common
                 return;
             }
 
-            // TODO: how can we do this while coming from a mini app?
             if (paymentForm.Type is PaymentFormTypeStars)
             {
-                await ShowPopupAsync(new PayPopup(), new PaymentFormArgs(inputInvoice, paymentForm, content));
+                ShowToast("Telegram Stars purchases are not supported in this build.", ToastPopupIcon.Info);
                 return;
             }
 
@@ -350,10 +348,9 @@ namespace Telegram.Common
                 return;
             }
 
-            // TODO: how can we do this while coming from a mini app?
             if (paymentReceipt.Type is PaymentReceiptTypeStars)
             {
-                await ShowPopupAsync(new ReceiptPopup(message.ClientService, this, paymentReceipt));
+                ShowToast("Telegram Stars receipts are not supported in this build.", ToastPopupIcon.Info);
                 return;
             }
 

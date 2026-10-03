@@ -302,9 +302,6 @@
     <Compile Include="Controls\Gallery\GalleryCompactOverlay.xaml.cs">
       <DependentUpon>GalleryCompactOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Gifts\GiftAttributeGauge.xaml.cs">
-      <DependentUpon>GiftAttributeGauge.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\GlassToggleButton.cs" />
     <Compile Include="Controls\Media\LinearGaussianBrush.cs" />
     <Compile Include="Controls\Media\MessageBubbleBrush.cs" />
@@ -440,9 +437,6 @@
       <DependentUpon>PlaybackOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PremiumStarHeader.cs" />
-    <Compile Include="Controls\ProfileGiftsCover.xaml.cs">
-      <DependentUpon>ProfileGiftsCover.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ProfileRating.cs" />
     <Compile Include="Controls\ProfilePatternCover.cs" />
     <Compile Include="Common\RectangleF.cs" />
@@ -653,7 +647,6 @@
     <Compile Include="ViewModels\Dialogs\MessageComposerHeader.cs" />
     <Compile Include="ViewModels\Profile\MediaTabsViewModelBase.cs" />
     <Compile Include="ViewModels\Profile\ProfileBotsTabViewModel.cs" />
-    <Compile Include="ViewModels\Profile\ProfileGiftsTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileTopicsTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileChannelsTabViewModel.cs" />
     <Compile Include="ViewModels\Profile\ProfileGroupsTabViewModel.cs" />
@@ -1073,9 +1066,6 @@
     <Compile Include="ViewModels\Settings\Privacy\SettingsPrivacyAutosaveGiftsViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsPasskeysViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsPowerSavingViewModel.cs" />
-    <Compile Include="ViewModels\Stars\PayViewModel.cs" />
-    <Compile Include="ViewModels\Stars\StarsViewModel.cs" />
-    <Compile Include="ViewModels\Stars\BuyViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatInviteLinksViewModel.cs" />
     <Compile Include="ViewModels\Supergroups\SupergroupProfileColorViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsProfileColorViewModel.cs" />
@@ -1182,15 +1172,6 @@
       <DependentUpon>ShareFolderPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Collections\MultiValueDictionary.cs" />
-    <Compile Include="Views\Gifts\Popups\GiftCraftPopup.xaml.cs">
-      <DependentUpon>GiftCraftPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Gifts\Popups\GiftVariantsPopup.xaml.cs">
-      <DependentUpon>GiftVariantsPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Gifts\Popups\GiftCraftChoosePopup.xaml.cs">
-      <DependentUpon>GiftCraftChoosePopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\HostedPage.cs" />
     <Compile Include="Views\Host\ShareWindow.xaml.cs">
       <DependentUpon>ShareWindow.xaml</DependentUpon>
@@ -1254,9 +1235,6 @@
     </Compile>
     <Compile Include="Views\Popups\PlaybackPopup.xaml.cs">
       <DependentUpon>PlaybackPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Popups\ChooseGiftsPopup.xaml.cs">
-      <DependentUpon>ChooseGiftsPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Popups\CocoonAboutPopup.xaml.cs">
       <DependentUpon>CocoonAboutPopup.xaml</DependentUpon>
@@ -1369,9 +1347,6 @@
     </Compile>
     <Compile Include="Views\Profile\ProfileBotsTabPage.xaml.cs">
       <DependentUpon>ProfileBotsTabPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Profile\ProfileGiftsTabPage.xaml.cs">
-      <DependentUpon>ProfileGiftsTabPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Profile\ProfileAnimationsTabPage.xaml.cs">
       <DependentUpon>ProfileAnimationsTabPage.xaml</DependentUpon>
@@ -1496,38 +1471,8 @@
     <Compile Include="Views\Calls\Popups\VideoChatStreamsPopup.xaml.cs">
       <DependentUpon>VideoChatStreamsPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Stars\Popups\ConnectedAffiliateProgramPopup.xaml.cs">
-      <DependentUpon>ConnectedAffiliateProgramPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\FoundAffiliateProgramPopup.xaml.cs">
-      <DependentUpon>FoundAffiliateProgramPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\ResoldGiftsPopup.xaml.cs">
-      <DependentUpon>ResoldGiftsPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\ReceivedGiftPopup.xaml.cs">
-      <DependentUpon>ReceivedGiftPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\SendGiftPopup.xaml.cs">
-      <DependentUpon>SendGiftPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\JoinChatPopup.xaml.cs">
-      <DependentUpon>JoinChatPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\ReactPopup.xaml.cs">
-      <DependentUpon>ReactPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\SubscriptionPopup.xaml.cs">
-      <DependentUpon>SubscriptionPopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Chats\ChatInviteLinksPage.xaml.cs">
       <DependentUpon>ChatInviteLinksPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\UpgradedGiftValuePopup.xaml.cs">
-      <DependentUpon>UpgradedGiftValuePopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\StarsPage.xaml.cs">
-      <DependentUpon>StarsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Supergroups\SupergroupDirectMessagesPage.xaml.cs">
       <DependentUpon>SupergroupDirectMessagesPage.xaml</DependentUpon>
@@ -1859,15 +1804,6 @@
     </Compile>
     <Compile Include="Views\Settings\SettingsProxyPopup.xaml.cs">
       <DependentUpon>SettingsProxyPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\ReceiptPopup.xaml.cs">
-      <DependentUpon>ReceiptPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\PayPopup.xaml.cs">
-      <DependentUpon>PayPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Stars\Popups\BuyPopup.xaml.cs">
-      <DependentUpon>BuyPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Cells\Premium\PremiumFeatureUpgradedStoriesCell.xaml.cs">
       <DependentUpon>PremiumFeatureUpgradedStoriesCell.xaml</DependentUpon>
@@ -2786,10 +2722,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\Gifts\GiftAttributeGauge.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\GroupCallActiveHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3038,10 +2970,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\ProfileGiftsCover.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\ProfileHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3234,18 +3162,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Gifts\Popups\GiftCraftPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Gifts\Popups\GiftVariantsPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Gifts\Popups\GiftCraftChoosePopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Host\ShareWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -3323,10 +3239,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Popups\PlaybackPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Popups\ChooseGiftsPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -3475,10 +3387,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Profile\ProfileBotsTabPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Profile\ProfileGiftsTabPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -3646,47 +3554,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Stars\Popups\ConnectedAffiliateProgramPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\FoundAffiliateProgramPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\ResoldGiftsPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\ReceivedGiftPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\SendGiftPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\JoinChatPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\ReactPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\SubscriptionPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Chats\ChatInviteLinksPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\UpgradedGiftValuePopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\StarsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -3915,18 +3783,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Settings\SettingsProxyPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\ReceiptPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\PayPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Stars\Popups\BuyPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

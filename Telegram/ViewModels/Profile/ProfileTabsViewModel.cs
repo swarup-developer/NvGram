@@ -143,7 +143,6 @@ namespace Telegram.ViewModels.Profile
         {
             return type switch
             {
-                ProfileTabGifts => (Strings.ProfileGifts, typeof(ProfileGiftsTabPage)),
                 ProfileTabSavedChats => (Strings.SavedDialogsTab, typeof(ProfileSavedChatsTabPage)),
                 ProfileTabTopics => (Strings.Topics, typeof(ProfileTopicsTabPage)),
                 ProfileTabGroups => (Strings.SharedGroupsTab2, typeof(ProfileGroupsTabPage)),
@@ -195,7 +194,6 @@ namespace Telegram.ViewModels.Profile
         protected readonly ProfileGroupsTabViewModel _groupsTabViewModel;
         protected readonly ProfileChannelsTabViewModel _channelsTabViewModel;
         protected readonly ProfileBotsTabViewModel _botsTabViewModel;
-        protected readonly ProfileGiftsTabViewModel _giftsTabViewModel;
         protected readonly ProfileMembersTabViewModel _membersTabVieModel;
 
         public ProfileTabsViewModel(IClientService clientService, ISettingsService settingsService, IStorageService storageService, IEventAggregator aggregator)
@@ -206,7 +204,6 @@ namespace Telegram.ViewModels.Profile
             _groupsTabViewModel = Session.Resolve<ProfileGroupsTabViewModel>();
             _channelsTabViewModel = Session.Resolve<ProfileChannelsTabViewModel>();
             _botsTabViewModel = Session.Resolve<ProfileBotsTabViewModel>();
-            _giftsTabViewModel = Session.Resolve<ProfileGiftsTabViewModel>();
             _membersTabVieModel = Session.Resolve<ProfileMembersTabViewModel>();
             _membersTabVieModel.IsEmbedded = true;
 
@@ -215,7 +212,6 @@ namespace Telegram.ViewModels.Profile
             Children.Add(_groupsTabViewModel);
             Children.Add(_channelsTabViewModel);
             Children.Add(_botsTabViewModel);
-            Children.Add(_giftsTabViewModel);
             Children.Add(_membersTabVieModel);
 
             Items = new RangeObservableCollection<ProfileTabItem>();

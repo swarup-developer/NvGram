@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -165,7 +165,6 @@ namespace Telegram.Controls
         {
             _verticalOffset = verticalOffset;
             Pattern.TransitionFraction = verticalOffset / (32 + 140 + 384);
-            GiftsCover.TransitionFraction = verticalOffset / (32 + 140 + 96);
 
             ShowHideBackground(verticalOffset >= HeaderRoot.ActualHeight - 48);
             ShowHideSubtitle(verticalOffset >= ActualHeight - 48);
@@ -377,7 +376,6 @@ namespace Telegram.Controls
 
         public void UpdateChatGifts(Chat chat)
         {
-            GiftsCover.TransitionFraction = _verticalOffset / (32 + 140 + 96);
         }
 
         public void UpdateChatAccentColors(Chat chat)
@@ -2106,16 +2104,10 @@ namespace Telegram.Controls
             if (ViewModel.IsSavedMessages)
             {
                 Pattern.TransitionFraction = float.MaxValue;
-                GiftsCover.TransitionFraction = float.MaxValue;
 
                 ShowHideSubtitle(true);
                 ShowHideBackground(true);
             }
-        }
-
-        private void GiftsCover_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            GiftsCover.TransitionFraction = _verticalOffset / (32 + 140 + 96);
         }
 
         private void Rating_Click(object sender, RoutedEventArgs e)

@@ -22,7 +22,6 @@ using Telegram.ViewModels.Payments;
 using Telegram.ViewModels.Premium;
 using Telegram.ViewModels.Settings;
 using Telegram.ViewModels.Settings.Privacy;
-using Telegram.ViewModels.Stars;
 using Telegram.ViewModels.Supergroups;
 using Telegram.ViewModels.Users;
 using Telegram.Views;
@@ -38,8 +37,6 @@ using Telegram.Views.Premium.Popups;
 using Telegram.Views.Settings;
 using Telegram.Views.Settings.Popups;
 using Telegram.Views.Settings.Privacy;
-using Telegram.Views.Stars;
-using Telegram.Views.Stars.Popups;
 using Telegram.Views.Supergroups;
 using Telegram.Views.Supergroups.Popups;
 using Telegram.Views.Users;
@@ -448,10 +445,6 @@ namespace Telegram
                 ChatNotificationsPopup => session.Resolve<ChatNotificationsViewModel>(),
                 CreateChatPhotoPopup => session.Resolve<CreateChatPhotoViewModel>(),
                 PromoPopup => session.Resolve<PromoViewModel>(),
-                StarsPage => session.Resolve<StarsViewModel>(),
-                BuyPopup => session.Resolve<BuyViewModel>(),
-                PayPopup => session.Resolve<PayViewModel>(),
-                StoryInteractionsPopup => session.Resolve<StoryInteractionsViewModel>(),
                 BackgroundsPopup => session.Resolve<SettingsBackgroundsViewModel>(),
                 BackgroundPopup backgroundPopup => session.Resolve<BackgroundViewModel, IBackgroundDelegate>(backgroundPopup),
                 _ => null

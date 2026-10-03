@@ -41,7 +41,6 @@ using Telegram.ViewModels.Chats;
 using Telegram.ViewModels.Delegates;
 using Telegram.Views.Popups;
 using Telegram.Views.Settings;
-using Telegram.Views.Stars.Popups;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.UI.Composition;
@@ -7679,7 +7678,7 @@ namespace Telegram.Views
             }
             else if (ViewModel.ClientService.TryGetSupergroup(ViewModel.Chat, out Supergroup supergroup))
             {
-                ViewModel.NavigationService.ShowPopup(new Views.Stars.Popups.BuyPopup(), BuyStarsArgs.ForChannel(supergroup.PaidMessageStarCount, 0));
+                ViewModel.NavigationService.ShowToast("Telegram Stars purchases are not supported in this build.", ToastPopupIcon.Info);
             }
         }
 

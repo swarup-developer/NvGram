@@ -85,7 +85,6 @@ namespace Telegram.Services
             typeof(Telegram.ViewModels.Profile.ProfileGroupsTabViewModel),
             typeof(Telegram.ViewModels.Profile.ProfileChannelsTabViewModel),
             typeof(Telegram.ViewModels.Profile.ProfileBotsTabViewModel),
-            typeof(Telegram.ViewModels.Profile.ProfileGiftsTabViewModel),
             typeof(Telegram.ViewModels.Profile.ProfileSavedChatsTabViewModel),
             typeof(Telegram.ViewModels.Profile.ProfileTopicsTabViewModel),
             typeof(Telegram.ViewModels.Users.UserEditViewModel),
@@ -173,9 +172,7 @@ namespace Telegram.Services
             typeof(Telegram.ViewModels.DownloadsViewModel),
             typeof(Telegram.ViewModels.ChooseSoundViewModel),
             typeof(Telegram.ViewModels.ChatNotificationsViewModel),
-            typeof(Telegram.ViewModels.Premium.PromoViewModel),
-            typeof(Telegram.ViewModels.Stars.StarsViewModel),
-            typeof(Telegram.ViewModels.Stars.BuyViewModel),
+            typeof(Telegram.ViewModels.Premium.PromoViewModel)
         })]
     public partial class SessionImpl
     {

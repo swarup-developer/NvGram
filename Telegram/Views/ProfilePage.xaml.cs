@@ -332,52 +332,6 @@ namespace Telegram.Views
 
         public void UpdateChatGifts(Chat chat)
         {
-            ProfileHeader.UpdateChatGifts(chat);
-
-            // TODO: this should be optimized, not the best approach at all
-            var item = ViewModel?.Items.FirstOrDefault(x => x.PageType == typeof(ProfileGiftsTabPage));
-            if (item != null)
-            {
-                var container = Navigation.ContainerFromItem(item) as SelectorItem;
-
-                var grid = container?.Content as Grid;
-                if (grid == null)
-                {
-                    return;
-                }
-
-                UpdateChatGifts(chat, grid);
-
-                container.Content = grid;
-                container.ContentTemplate = null;
-            }
-        }
-
-        private void UpdateChatGifts(Chat chat, Grid grid)
-        {
-            if (grid.Children.Count == 4)
-            {
-                return;
-            }
-
-            for (int i = 0; i < Math.Min(3, ViewModel.GiftsTab.Items.Count); i++)
-            {
-                var gift = ViewModel.GiftsTab.Items[i] as ReceivedGift;
-                var animated = new AnimatedImage
-                {
-                    Source = DelayedFileSource.FromSticker(ViewModel.ClientService, gift.GetSticker()),
-                    Width = 20,
-                    Height = 20,
-                    FrameSize = new Windows.Foundation.Size(20, 20),
-                    DecodeFrameType = Windows.UI.Xaml.Media.Imaging.DecodePixelType.Logical,
-                    IsViewportAware = true,
-                    LoopCount = 3,
-                    Margin = new Thickness(4, 0, 0, 0),
-                };
-
-                Grid.SetColumn(animated, grid.Children.Count);
-                grid.Children.Add(animated);
-            }
         }
 
         public void UpdateChatActiveStories(Chat chat)
@@ -506,18 +460,13 @@ namespace Telegram.Views
 
             tabPage.HeaderHeight = Math.Max(Header.ActualHeight, 48 + 10);
 
-            if (e.Content is ProfileSavedChatsTabPage or ProfileMediaTabPage or ProfileGiftsTabPage)
+            if (e.Content is ProfileSavedChatsTabPage or ProfileMediaTabPage)
             {
                 Menu.Visibility = Visibility.Visible;
             }
             else
             {
                 Menu.Visibility = Visibility.Collapsed;
-            }
-
-            if (e.Content is ProfileGiftsTabPage)
-            {
-                tabPage.DataContext = ViewModel.GiftsTab;
             }
 
             if (tabPage.ScrollingHost.ItemsSource != null)
@@ -1113,83 +1062,6 @@ namespace Telegram.Views
                 flyout.Items.Add(photos);
                 flyout.Items.Add(videos);
             }
-            else if (MediaFrame.Content is ProfileGiftsTabPage)
-            {
-                var sort = new MenuFlyoutItem
-                {
-                    Text = ViewModel.GiftsTab.SortByPrice
-                        ? Strings.Gift2FilterSortByValue
-                        : Strings.Gift2FilterSortByDate,
-                    Icon = MenuFlyoutHelper.CreateIcon(ViewModel.GiftsTab.SortByPrice ? Icons.DollarArrowUp : Icons.CalendarArrowUp)
-                };
-
-                var unlimited = new MenuFlyoutItem
-                {
-                    Text = Strings.Gift2FilterUnlimited,
-                    Icon = ViewModel.GiftsTab.ExcludeUnlimited ? null : MenuFlyoutHelper.CreateIcon(Icons.Checkmark)
-                };
-
-                var limited = new MenuFlyoutItem
-                {
-                    Text = Strings.Gift2FilterLimited,
-                    Icon = ViewModel.GiftsTab.ExcludeNonUpgradable ? null : MenuFlyoutHelper.CreateIcon(Icons.Checkmark)
-                };
-
-                var upgradable = new MenuFlyoutItem
-                {
-                    Text = Strings.Gift2FilterUpgradable,
-                    Icon = ViewModel.GiftsTab.ExcludeUpgradable ? null : MenuFlyoutHelper.CreateIcon(Icons.Checkmark)
-                };
-
-                var unique = new MenuFlyoutItem
-                {
-                    Text = Strings.Gift2FilterUnique,
-                    Icon = ViewModel.GiftsTab.ExcludeUpgraded ? null : MenuFlyoutHelper.CreateIcon(Icons.Checkmark)
-                };
-
-                void UpdateFilters(Action action)
-                {
-                    _hasBeenScrolled = false;
-                    RootGrid.Unsnap();
-
-                    action();
-                }
-
-                sort.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.SortByPrice = !ViewModel.GiftsTab.SortByPrice);
-                unlimited.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.ExcludeUnlimited = !ViewModel.GiftsTab.ExcludeUnlimited);
-                limited.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.ExcludeNonUpgradable = !ViewModel.GiftsTab.ExcludeNonUpgradable);
-                upgradable.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.ExcludeUpgradable = !ViewModel.GiftsTab.ExcludeUpgradable);
-                unique.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.ExcludeUpgraded = !ViewModel.GiftsTab.ExcludeUpgraded);
-
-                flyout.Items.Add(sort);
-                flyout.CreateFlyoutSeparator();
-                flyout.Items.Add(unlimited);
-                flyout.Items.Add(limited);
-                flyout.Items.Add(upgradable);
-                flyout.Items.Add(unique);
-
-                if (ViewModel.GiftsTab.IsOwned)
-                {
-                    var displayed = new MenuFlyoutItem
-                    {
-                        Text = Strings.Gift2FilterDisplayed,
-                        Icon = ViewModel.GiftsTab.ExcludeSaved ? null : MenuFlyoutHelper.CreateIcon(Icons.Checkmark)
-                    };
-
-                    var hidden = new MenuFlyoutItem
-                    {
-                        Text = Strings.Gift2FilterHidden,
-                        Icon = ViewModel.GiftsTab.ExcludeUnsaved ? null : MenuFlyoutHelper.CreateIcon(Icons.Checkmark)
-                    };
-
-                    displayed.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.ExcludeSaved = !ViewModel.GiftsTab.ExcludeSaved);
-                    hidden.Click += (s, args) => UpdateFilters(() => ViewModel.GiftsTab.ExcludeUnsaved = !ViewModel.GiftsTab.ExcludeUnsaved);
-
-                    flyout.CreateFlyoutSeparator();
-                    flyout.Items.Add(displayed);
-                    flyout.Items.Add(hidden);
-                }
-            }
 
             flyout.ShowAt(sender as Button, FlyoutPlacementMode.BottomEdgeAlignedRight);
         }
@@ -1318,26 +1190,6 @@ namespace Telegram.Views
 
         private void Navigation_PrepareContainerForItem(SelectorItem sender, object args)
         {
-            if (args is ProfileTabItem item && item.PageType == typeof(ProfileGiftsTabPage))
-            {
-                var textBlock = new TextBlock
-                {
-                    Text = item.Text,
-                    Margin = new Thickness(0, 0, 4, 0)
-                };
-
-                var grid = new Grid();
-                grid.ColumnDefinitions.Add(1, GridUnitType.Auto);
-                grid.ColumnDefinitions.Add(1, GridUnitType.Auto);
-                grid.ColumnDefinitions.Add(1, GridUnitType.Auto);
-                grid.ColumnDefinitions.Add(1, GridUnitType.Auto);
-                grid.Children.Add(textBlock);
-
-                UpdateChatGifts(ViewModel.Chat, grid);
-
-                sender.Content = grid;
-                sender.ContentTemplate = null;
-            }
         }
 
         private void Navigation_ItemContextRequested(UIElement sender, ContextRequestedEventArgs args)

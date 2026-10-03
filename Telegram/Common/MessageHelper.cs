@@ -30,7 +30,6 @@ using Telegram.Views.Host;
 using Telegram.Views.Popups;
 using Telegram.Views.Premium.Popups;
 using Telegram.Views.Settings;
-using Telegram.Views.Stars.Popups;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Resources.Core;
@@ -1237,20 +1236,9 @@ namespace Telegram.Common
             }
         }
 
-        public static async void NavigateToUpgradedGift(IClientService clientService, INavigationService navigation, string name)
+        public static void NavigateToUpgradedGift(IClientService clientService, INavigationService navigation, string name)
         {
-            var response = await clientService.SendAsync(new GetUpgradedGift(name));
-            if (response is UpgradedGift gift)
-            {
-                var text = gift.OriginalDetails?.Text ?? string.Empty.AsFormattedText();
-                var receivedGift = new ReceivedGift(string.Empty, null, text, 0, true, false, false, false, false, false, 0, new SentGiftUpgraded(gift), Array.Empty<int>(), 0, 0, false, 0, 0, 0, 0, 0, string.Empty, 0);
-
-                navigation.ShowPopup(new ReceivedGiftPopup(clientService, navigation, receivedGift, null, null));
-            }
-            else
-            {
-                navigation.ShowToast(Strings.UniqueGiftNotFound, ToastPopupIcon.Error);
-            }
+            navigation.ShowToast("Gifts are not supported in this build.", ToastPopupIcon.Info);
         }
 
         private static async void NavigateToPremiumGiftCode(IClientService clientService, INavigationService navigation, string code, OpenUrlSource source)

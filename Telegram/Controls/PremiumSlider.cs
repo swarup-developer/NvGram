@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.Numerics;
 using Telegram.Common;
 using Telegram.Native.Composition;
-using Telegram.Views.Stars.Popups;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

@@ -19,7 +19,6 @@ using Telegram.Services;
 using Telegram.Streams;
 using Telegram.Td.Api;
 using Telegram.Views.Popups;
-using Telegram.Views.Stars.Popups;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -327,23 +326,16 @@ namespace Telegram.Views.Premium.Popups
                     await _navigationService.ShowPopupAsync(new Views.Premium.Popups.PromoPopup(_clientService, availableGift));
                     confirm = ContentDialogResult.None;
                 }
-                else if (availableGift.Gift.OverallLimits == null || availableGift.Gift.OverallLimits.RemainingCount > 0)
-                {
-                    confirm = await _navigationService.ShowPopupAsync(new SendGiftPopup(_clientService, _navigationService, availableGift.Gift, _receiverId));
-                }
-                else if (availableGift.MinResaleStarCount > 0)
-                {
-                    confirm = await _navigationService.ShowPopupAsync(new ResoldGiftsPopup(_clientService, _navigationService, availableGift, _receiverId));
-                }
                 else
                 {
-                    await _navigationService.ShowPopupAsync(new ReceivedGiftPopup(_clientService, _navigationService, availableGift.Gift));
+                    ToastPopup.Show(XamlRoot, "Telegram Stars & gifts are not supported in this build.", ToastPopupIcon.Info);
                     confirm = ContentDialogResult.None;
                 }
             }
             else if (e.ClickedItem is PremiumGiftPaymentOption option && _receiverId is MessageSenderUser user)
             {
-                confirm = await _navigationService.ShowPopupAsync(new SendGiftPopup(_clientService, _navigationService, option, user.UserId));
+                ToastPopup.Show(XamlRoot, "Telegram Stars & gifts are not supported in this build.", ToastPopupIcon.Info);
+                confirm = ContentDialogResult.None;
             }
 
             if (confirm != ContentDialogResult.Primary)

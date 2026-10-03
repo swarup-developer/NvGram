@@ -14,7 +14,6 @@ using Telegram.Navigation;
 using Telegram.Navigation.Services;
 using Telegram.Services;
 using Telegram.Td.Api;
-using Telegram.Views.Stars.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -219,14 +218,7 @@ namespace Telegram.ViewModels.Chats
 
         public void OpenProgram(object item)
         {
-            if (item is FoundAffiliateProgram foundProgram)
-            {
-                ShowPopup(new FoundAffiliateProgramPopup(ClientService, NavigationService, foundProgram, _affiliateType));
-            }
-            else if (item is ConnectedAffiliateProgram program)
-            {
-                ShowPopup(new ConnectedAffiliateProgramPopup(ClientService, NavigationService, program, _affiliateType));
-            }
+            NavigationService.ShowToast("Affiliate programs are not supported in this build.", ToastPopupIcon.Info);
         }
 
         public void LaunchProgram(ConnectedAffiliateProgram program)
