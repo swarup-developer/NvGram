@@ -14,7 +14,6 @@ using Telegram.Services;
 using Telegram.Services.Updates;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Authorization;
-using Telegram.ViewModels.Business;
 using Telegram.ViewModels.Chats;
 using Telegram.ViewModels.Create;
 using Telegram.ViewModels.Delegates;
@@ -28,7 +27,6 @@ using Telegram.ViewModels.Supergroups;
 using Telegram.ViewModels.Users;
 using Telegram.Views;
 using Telegram.Views.Authorization;
-using Telegram.Views.Business;
 using Telegram.Views.Chats;
 using Telegram.Views.Create;
 using Telegram.Views.Folders;
@@ -437,16 +435,6 @@ namespace Telegram
                 SettingsPrivacyShowBirthdatePage => session.Resolve<SettingsPrivacyShowBirthdateViewModel>(),
                 SettingsPrivacyNewChatPage => session.Resolve<SettingsPrivacyNewChatViewModel>(),
                 SettingsPrivacyAutosaveGiftsPage => session.Resolve<SettingsPrivacyAutosaveGiftsViewModel>(),
-
-                BusinessPage => session.Resolve<BusinessViewModel>(),
-                BusinessLocationPage => session.Resolve<BusinessLocationViewModel>(),
-                BusinessHoursPage => session.Resolve<BusinessHoursViewModel>(),
-                BusinessRepliesPage businessRepliesPage => session.Resolve<BusinessRepliesViewModel, IBusinessRepliesDelegate>(businessRepliesPage),
-                BusinessGreetPage => session.Resolve<BusinessGreetViewModel>(),
-                BusinessAwayPage => session.Resolve<BusinessAwayViewModel>(),
-                BusinessBotsPage => session.Resolve<BusinessBotsViewModel>(),
-                BusinessIntroPage => session.Resolve<BusinessIntroViewModel>(),
-                BusinessChatLinksPage businessChatLinksPage => session.Resolve<BusinessChatLinksViewModel, IBusinessChatLinksDelegate>(businessChatLinksPage),
 
                 RevenuePage => session.Resolve<RevenueViewModel>(),
 

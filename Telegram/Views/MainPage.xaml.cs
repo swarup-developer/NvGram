@@ -1901,7 +1901,6 @@ namespace Telegram.Views
                 e.SourcePageType == typeof(ChatPinnedPage) ||
                 e.SourcePageType == typeof(ChatScheduledPage) ||
                 e.SourcePageType == typeof(ChatEventLogPage) ||
-                e.SourcePageType == typeof(ChatBusinessRepliesPage) ||
                 e.SourcePageType == typeof(ChatWelcomeMessagesPage) ||
                 e.SourcePageType == typeof(BlankPage);
 
@@ -1974,7 +1973,6 @@ namespace Telegram.Views
                 frame.CurrentSourcePageType == typeof(ChatPinnedPage) ||
                 frame.CurrentSourcePageType == typeof(ChatScheduledPage) ||
                 frame.CurrentSourcePageType == typeof(ChatEventLogPage) ||
-                frame.CurrentSourcePageType == typeof(ChatBusinessRepliesPage) ||
                 frame.CurrentSourcePageType == typeof(ChatWelcomeMessagesPage) ||
                 frame.CurrentSourcePageType == typeof(BlankPage);
 

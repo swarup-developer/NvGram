@@ -39,7 +39,6 @@ using Telegram.Td.Api;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Chats;
 using Telegram.ViewModels.Delegates;
-using Telegram.Views.Business;
 using Telegram.Views.Popups;
 using Telegram.Views.Settings;
 using Telegram.Views.Stars.Popups;
@@ -7785,7 +7784,6 @@ namespace Telegram.Views
 
         private void EmptyChatHow_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.NavigationService.Navigate(typeof(BusinessPage));
         }
 
         private void ClipperOuter_SizeChanged(object sender, SizeChangedEventArgs e)

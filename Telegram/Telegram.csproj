@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0" DefaultTargets="Build">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -31,14 +31,7 @@
     <LangVersion>14.0</LangVersion>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <ProjectPriIndexName>Telegram</ProjectPriIndexName>
-    <!-- EXPERIMENTAL: revert this first if builds in Visual Studio get noticeably slower.
-         Visual Studio's fast up to date check decides whether to invoke MSBuild at all, using its
-         own heuristic rather than the targets' Inputs and Outputs, and it does not track the
-         generated XAML files well. The symptom is a .g.cs older than the .xaml it came from, so
-         the build compiles yesterday's generated code against today's source and fails on types
-         that no longer exist. Seen on SendFilesPopup.g.cs, 17 hours behind its .xaml, and cleared
-         only by deleting obj. This makes Visual Studio ask MSBuild instead of deciding by itself,
-         at the cost of a second or two per build of an up to date project. -->
+    
     <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
     <PackageCertificateThumbprint>
     </PackageCertificateThumbprint>
@@ -244,15 +237,6 @@
     </Compile>
     <Compile Include="Controls\Calls\VerificationStateReel.xaml.cs">
       <DependentUpon>VerificationStateReel.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Cells\Business\BusinessHoursCell.xaml.cs">
-      <DependentUpon>BusinessHoursCell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Cells\Business\BusinessChatLinkCell.xaml.cs">
-      <DependentUpon>BusinessChatLinkCell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Cells\Business\BusinessRepliesCell.xaml.cs">
-      <DependentUpon>BusinessRepliesCell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Cells\CaptureSessionItemCell.xaml.cs">
       <DependentUpon>CaptureSessionItemCell.xaml</DependentUpon>
@@ -728,17 +712,6 @@
     <Compile Include="Td\TdJsonReader.cs" />
     <Compile Include="Td\Vector.cs" />
     <Compile Include="Td\Api\UpdateChatMember.cs" />
-    <Compile Include="ViewModels\Business\BusinessFeatureViewModelBase.cs" />
-    <Compile Include="ViewModels\Business\BusinessLocationViewModel.cs" />
-    <Compile Include="ViewModels\Business\BusinessChatLinksViewModel.cs" />
-    <Compile Include="ViewModels\Business\BusinessViewModel.cs" />
-    <Compile Include="ViewModels\Business\BusinessGreetViewModel.cs" />
-    <Compile Include="ViewModels\Business\BusinessBotsViewModel.cs" />
-    <Compile Include="ViewModels\Business\BusinessHoursViewModel.cs" />
-    <Compile Include="ViewModels\Business\BusinessRecipientsViewModelBase.cs" />
-    <Compile Include="ViewModels\Business\BusinessAwayViewModel.cs" />
-    <Compile Include="ViewModels\Business\BusinessIntroViewModel.cs" />
-    <Compile Include="ViewModels\Business\BusinessRepliesViewModel.cs" />
     <Compile Include="ViewModels\ChatNotificationsViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatAffiliateViewModel.cs" />
     <Compile Include="ViewModels\Chats\ChatBoostsViewModel.cs" />
@@ -756,7 +729,6 @@
     <Compile Include="ViewModels\Delegates\ISupergroupMembersDelegate.cs" />
     <Compile Include="ViewModels\Delegates\ITopicListDelegate.cs" />
     <Compile Include="ViewModels\DialogWelcomeMessagesViewModel.cs" />
-    <Compile Include="ViewModels\DialogBusinessRepliesViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\DialogPendingTextMessage.cs" />
     <Compile Include="ViewModels\Dialogs\DialogPinnedMessagesViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\DialogUnreadMessagesViewModel.cs" />
@@ -852,7 +824,6 @@
     <Compile Include="Common\WatchDog.cs" />
     <Compile Include="Common\XamlResourceLoader.cs" />
     <Compile Include="Common\ZoomableListHandler.cs" />
-    <Compile Include="Constants.Secret.cs" />
     <Compile Include="Controls\AnimatedIconButton.cs" />
     <Compile Include="Controls\AnimatedGlyphButton.cs" />
     <Compile Include="Controls\AnimatedGlyphToggleButton.cs" />
@@ -1253,45 +1224,6 @@
     <Compile Include="Views\Authorization\AuthorizationRegistrationPage.xaml.cs">
       <DependentUpon>AuthorizationRegistrationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Business\BusinessBotsPage.xaml.cs">
-      <DependentUpon>BusinessBotsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\BusinessAwayPage.xaml.cs">
-      <DependentUpon>BusinessAwayPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\BusinessGreetPage.xaml.cs">
-      <DependentUpon>BusinessGreetPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\BusinessIntroPage.xaml.cs">
-      <DependentUpon>BusinessIntroPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\BusinessChatLinksPage.xaml.cs">
-      <DependentUpon>BusinessChatLinksPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\BusinessRepliesPage.xaml.cs">
-      <DependentUpon>BusinessRepliesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\BusinessHoursPage.xaml.cs">
-      <DependentUpon>BusinessHoursPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\BusinessLocationPage.xaml.cs">
-      <DependentUpon>BusinessLocationPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\BusinessPage.xaml.cs">
-      <DependentUpon>BusinessPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\Popups\BusinessChatLinkPopup.xaml.cs">
-      <DependentUpon>BusinessChatLinkPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\Popups\ChooseHoursPopup.xaml.cs">
-      <DependentUpon>ChooseHoursPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\Popups\ChooseAwayPopup.xaml.cs">
-      <DependentUpon>ChooseAwayPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Business\Popups\BusinessFeaturesPopup.xaml.cs">
-      <DependentUpon>BusinessFeaturesPopup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Calls\GroupCallWindow.xaml.cs">
       <DependentUpon>GroupCallWindow.xaml</DependentUpon>
     </Compile>
@@ -1339,9 +1271,6 @@
     </Compile>
     <Compile Include="Views\Chats\Popups\ChatBoostReassignPopup.xaml.cs">
       <DependentUpon>ChatBoostReassignPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ChatBusinessRepliesPage.xaml.cs">
-      <DependentUpon>ChatBusinessRepliesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Chats\Popups\ChatInviteLinkPopup.xaml.cs">
       <DependentUpon>ChatInviteLinkPopup.xaml</DependentUpon>
@@ -1667,9 +1596,6 @@
     </Compile>
     <Compile Include="Views\Popups\IdenticonPopup.xaml.cs">
       <DependentUpon>IdenticonPopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Popups\InputTeachingTip.xaml.cs">
-      <DependentUpon>InputTeachingTip.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Popups\InputPopup.xaml.cs">
       <DependentUpon>InputPopup.xaml</DependentUpon>
@@ -2247,9 +2173,6 @@
     <Compile Include="Views\Users\UserEditPage.xaml.cs">
       <DependentUpon>UserEditPage.xaml</DependentUpon>
     </Compile>
-    <Content Include="..\Libraries\unigram-iv-editor\editor.html">
-      <Link>Assets\editor.html</Link>
-    </Content>
     <Content Include="Assets\Audio\received.mp3" />
     <Content Include="Assets\Audio\sent.mp3" />
     <Content Include="Assets\Audio\voicechat_join.mp3" />
@@ -2264,7 +2187,7 @@
     <Compile Include="Controls\ProgressVoice.cs" />
     <Compile Include="Converters\LastSeenConverter.cs" />
     <Compile Include="ViewModels\InstantViewModel.cs" />
-  </ItemGroup>
+  <Compile Include="Entities\BusinessHours.cs" /></ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -2422,9 +2345,6 @@
     <Content Include="Assets\Toasts\Info.tgs" />
     <Content Include="Assets\Toasts\LinkCopied.tgs" />
     <Content Include="Assets\Animations\Banned.tgs" />
-    <Content Include="..\Libraries\libprisma\libprisma\grammars.dat">
-      <Link>Assets\grammars.dat</Link>
-    </Content>
     <Content Include="Assets\Emoji\microsoft.ttf" />
     <Content Include="Assets\Animations\TwoFactorSetupMail.tgs" />
     <Content Include="Assets\Animations\ChangePrivacyLastSeen.tgs" />
@@ -2470,96 +2390,6 @@
     <Content Include="Assets\Animations\GiftCraftingFailed.tgs" />
     <Content Include="Assets\Animations\GiftCrafting.tgs" />
     <Content Include="Assets\Animations\DisableSharing.tgs" />
-    <Content Include="..\Libraries\MicroTeX\res\fonts\base\cmex10.ttf">
-      <Link>res\fonts\base\cmex10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\base\cmmi10.ttf">
-      <Link>res\fonts\base\cmmi10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\base\cmmib10.ttf">
-      <Link>res\fonts\base\cmmib10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\bi10.ttf">
-      <Link>res\fonts\latin\bi10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\bx10.ttf">
-      <Link>res\fonts\latin\bx10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\cmr10.ttf">
-      <Link>res\fonts\latin\cmr10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\i10.ttf">
-      <Link>res\fonts\latin\i10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\r10.ttf">
-      <Link>res\fonts\latin\r10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\sb10.ttf">
-      <Link>res\fonts\latin\sb10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\sbi10.ttf">
-      <Link>res\fonts\latin\sbi10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\si10.ttf">
-      <Link>res\fonts\latin\si10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\ss10.ttf">
-      <Link>res\fonts\latin\ss10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\tt10.ttf">
-      <Link>res\fonts\latin\tt10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\maths\cmbsy10.ttf">
-      <Link>res\fonts\maths\cmbsy10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\maths\cmsy10.ttf">
-      <Link>res\fonts\maths\cmsy10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\maths\msam10.ttf">
-      <Link>res\fonts\maths\msam10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\maths\msbm10.ttf">
-      <Link>res\fonts\maths\msbm10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\maths\rsfs10.ttf">
-      <Link>res\fonts\maths\rsfs10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\maths\special.ttf">
-      <Link>res\fonts\maths\special.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\maths\stmary10.ttf">
-      <Link>res\fonts\maths\stmary10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\optional\cmbx10.ttf">
-      <Link>res\fonts\latin\optional\cmbx10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\optional\cmbxti10.ttf">
-      <Link>res\fonts\latin\optional\cmbxti10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\optional\cmss10.ttf">
-      <Link>res\fonts\latin\optional\cmss10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\optional\cmssbx10.ttf">
-      <Link>res\fonts\latin\optional\cmssbx10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\optional\cmssi10.ttf">
-      <Link>res\fonts\latin\optional\cmssi10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\optional\cmti10.ttf">
-      <Link>res\fonts\latin\optional\cmti10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\latin\optional\cmtt10.ttf">
-      <Link>res\fonts\latin\optional\cmtt10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\euler\eufb10.ttf">
-      <Link>res\fonts\euler\eufb10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\euler\eufm10.ttf">
-      <Link>res\fonts\euler\eufm10.ttf</Link>
-    </Content>
-    <Content Include="..\Libraries\MicroTeX\res\fonts\maths\optional\dsrom10.ttf">
-      <Link>res\fonts\maths\optional\dsrom10.ttf</Link>
-    </Content>
     <None Include="Assets\i420.hlsl" />
     <Content Include="Assets\Images\Reply.scale-100.png" />
     <Content Include="Assets\Images\Reply.scale-125.png" />
@@ -2817,18 +2647,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Calls\VerificationStateReel.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Cells\Business\BusinessHoursCell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\Cells\Business\BusinessChatLinkCell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\Cells\Business\BusinessRepliesCell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -3552,58 +3370,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Business\BusinessBotsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Business\BusinessAwayPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Business\BusinessGreetPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Business\BusinessIntroPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Business\BusinessChatLinksPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Business\BusinessRepliesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Business\BusinessHoursPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Business\BusinessLocationPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Business\BusinessPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Business\Popups\BusinessChatLinkPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Business\Popups\ChooseHoursPopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Business\Popups\ChooseAwayPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Business\Popups\BusinessFeaturesPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Calls\GroupCallWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -3665,10 +3431,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Chats\Popups\ChatBoostReassignPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ChatBusinessRepliesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -4093,10 +3855,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Popups\IdenticonPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Popups\InputTeachingTip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -4747,22 +4505,14 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
-    <!-- OpenSSL is the one copied dependency whose file name carries the architecture. -->
+    
     <OpenSSLPlatform>-$(Platform)</OpenSSLPlatform>
   </PropertyGroup>
   <PropertyGroup>
-    <!-- Which JSON parser the app is built with, and it is one or the other: a second set for the
-         same schema is ~44k lines of .NET Native compile time for something nothing calls.
-           Reader  - Utf8JsonReader, what shipped for years.
-           Pointer - TdJsonReader over td_receive's buffer. 2.0-2.9x on the full parse on .NET
-                     Native, where indexing a Span costs ~10x what a raw pointer does.
-           Both    - only Telegram.Benchmarks, which races them.
-         See Telegram.Benchmarks/README.md. Currently Both while the pointer path has yet to be
-         built and run even once; Pointer is where this is going. -->
+    
     <TdParsers>Pointer</TdParsers>
   </PropertyGroup>
-  <!-- One switch, two consumers: the generator reads the property and emits parsers, the
-       hand-written code reads the constants and calls them. -->
+  
   <PropertyGroup Condition="'$(TdParsers)' != 'Pointer'">
     <DefineConstants>$(DefineConstants);TD_READER_PARSER</DefineConstants>
   </PropertyGroup>
@@ -4773,9 +4523,7 @@
     <CompilerVisibleProperty Include="TdParsers" />
     <AdditionalFiles Include="$(ProjectDir)\..\Libraries\tdjson\td_api.tl" />
     <ReferenceCopyLocalPaths Include="$(ProjectDir)\..\Libraries\tdjson\$(Platform)\tdjson.dll" />
-    <!-- tdjson comes in as a copy-local path rather than a Reference, so RAR never runs its
-         related-file discovery and the .pdb has to be named explicitly. Without it the appxsym
-         carries no tdjson symbols and every crash inside TDLib is unresolvable. -->
+    
     <ReferenceCopyLocalPaths Include="$(ProjectDir)\..\Libraries\tdjson\$(Platform)\tdjson.pdb" />
     <ReferenceCopyLocalPaths Include="$(ProjectDir)\..\Libraries\tdjson\$(Platform)\libcrypto-3$(OpenSSLPlatform).dll" />
     <ReferenceCopyLocalPaths Include="$(ProjectDir)\..\Libraries\tdjson\$(Platform)\libssl-3$(OpenSSLPlatform).dll" />

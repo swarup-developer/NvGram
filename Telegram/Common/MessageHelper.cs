@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -24,7 +24,6 @@ using Telegram.ViewModels.Settings;
 using Telegram.ViewModels.Stories;
 using Telegram.ViewModels.Supergroups;
 using Telegram.Views;
-using Telegram.Views.Business;
 using Telegram.Views.Chats.Popups;
 using Telegram.Views.Create;
 using Telegram.Views.Folders;
@@ -851,15 +850,6 @@ namespace Telegram.Common
                     }
                     break;
                 case SettingsSectionAskQuestion:
-                    break;
-                case SettingsSectionBusiness business:
-                    switch (business.Subsection)
-                    {
-                        case "do-not-hide-ads":
-                        default:
-                            navigation.Navigate(typeof(BusinessPage));
-                            break;
-                    }
                     break;
                 case SettingsSectionChatFolders chatFolders:
                     switch (chatFolders.Subsection)

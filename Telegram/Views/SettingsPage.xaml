@@ -264,13 +264,7 @@
                         </controls:SettingsButton.IconSource>
                     </controls:SettingsButton>
 
-                    <controls:SettingsButton Click="Business_Click"
-                                             Content="{CustomResource TelegramBusiness}"
-                                             Style="{StaticResource IconBadgeButtonStyle}">
-                        <controls:SettingsButton.IconSource>
-                            <icons:Business />
-                        </controls:SettingsButton.IconSource>
-                    </controls:SettingsButton>
+
 
                     <controls:SettingsButton x:Name="PremiumGifting"
                                              Click="{x:Bind ViewModel.PremiumGifting}"
