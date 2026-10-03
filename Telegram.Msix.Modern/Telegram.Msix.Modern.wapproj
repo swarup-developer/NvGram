@@ -1,26 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-  Packages Telegram.Modern.csproj, the same way Telegram.Msix packages Telegram.csproj.
+  Packages Telegram.Modern.csproj as an NvGram development package.
 
-  A second project rather than a switch on the first one, because the two have to be installable
-  at the same time: every fix in the AOT port so far was verified by running it beside the
-  shipping build. That means a different Identity/Name, which means a different manifest, which
-  is the one thing a single wapproj cannot condition cleanly.
+  A separate project keeps this NativeAOT packaging flow independent of the upstream UWP bundle.
 
-  Nothing is duplicated but this file. The manifest is generated from the packaging manifest,
-  Telegram.Msix\Package.appxmanifest - the one that describes the real bundle, Telegram plus
-  Telegram.Stub. Telegram\Package.appxmanifest is not the source: that one is only used when
-  deploying the app project straight from Visual Studio.
+  The manifest is generated from Telegram.Msix\Package.appxmanifest so both package flavours keep
+  the same capabilities and extensions. Telegram\Package.appxmanifest is only used when deploying
+  the app project directly from Visual Studio.
 
   Only the name and display name are poked into the copy, so this installs beside both the
-  shipping package and the loose layout Telegram.Modern.csproj registers. The publisher is left
-  alone: the source carries the Store one, CN=Telegram FZ-LLC, while the certificate is issued to
-  CN=D89C87B4, and the packaging targets substitute the certificate's subject into the generated
-  manifest at package time.
+  upstream package and the NvGram loose layout Telegram.Modern.csproj registers. The source
+  publisher is preserved in the copy, and package targets substitute the signing certificate's
+  subject when generating the package manifest.
 
   Build it through Telegram.Modern.slnx, never this file directly - $(SolutionDir) is empty
-  otherwise - and see net10-port-todo.md for the bundle command. It has its own solution so that
-  a plain Telegram.slnx build does not pay for a NativeAOT compile.
+  otherwise. It has its own solution so that a plain Telegram.slnx build does not pay for a
+  NativeAOT compile.
 -->
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0'">
@@ -119,19 +114,18 @@
   <!--
     The generated manifest.
 
-    A third identity, deliberately: NOT Telegram.Modern.csproj's 38833FF26BA1D.UnigramNet10.
-    Windows cannot move an installed app between a registered loose layout and a bundle any more
-    than it can between an msix and an msixbundle, so sharing the name would leave whichever was
-    installed first blocking the other. The csproj keeps the layout identity for
-    Add-AppxPackage -Register during development; this one owns the bundle.
+    A separate NvGram identity for this bundle. Windows cannot move an installed app between a
+    registered loose layout and a bundle, so sharing the name would leave whichever was installed
+    first blocking the other. The csproj keeps the layout identity for Add-AppxPackage -Register during
+    development; this one owns the bundle.
   -->
   <PropertyGroup>
-    <ModernPackageIdentity>38833FF26BA1D.UnigramNet10Bundle</ModernPackageIdentity>
-    <ModernPackageDisplayName>Unigram .NET 10 (bundle)</ModernPackageDisplayName>
+    <ModernPackageIdentity>NvGram.DesktopModernBundle</ModernPackageIdentity>
+    <ModernPackageDisplayName>NvGram</ModernPackageDisplayName>
+    <ModernPackagePublisherDisplayName>NvGram</ModernPackagePublisherDisplayName>
     <ModernSourceManifest>..\Telegram.Msix\Package.appxmanifest</ModernSourceManifest>
-    <!-- Alternative installs beside Telegram.Msix's bundle; Original is the identity to ship a
-         beta under. In the path as well as the condition, because the target is incremental on the
-         source manifest and this file - flipping the property alone would reuse the old manifest. -->
+    <!-- Alternative installs alongside the other package identities. In the path as well as the
+         condition because the target is incremental on the source manifest and this file. -->
     <ModernIdentity Condition="'$(ModernIdentity)' == ''">Alternative</ModernIdentity>
     <ModernAppxManifest>$(BaseIntermediateOutputPath)Package.$(ModernIdentity).appxmanifest</ModernAppxManifest>
     <ModernManifestNamespaces>&lt;Namespace Prefix='f' Uri='http://schemas.microsoft.com/appx/manifest/foundation/windows10' /&gt;&lt;Namespace Prefix='uap' Uri='http://schemas.microsoft.com/appx/manifest/uap/windows10' /&gt;&lt;Namespace Prefix='uap5' Uri='http://schemas.microsoft.com/appx/manifest/uap/windows10/5' /&gt;</ModernManifestNamespaces>
@@ -151,16 +145,18 @@
           Outputs="$(ModernAppxManifest)">
     <MakeDir Directories="$(BaseIntermediateOutputPath)" />
     <Copy SourceFiles="$(ModernSourceManifest)" DestinationFiles="$(ModernAppxManifest)" />
-    <!-- -p:ModernIdentity=Original leaves the copy alone, so the bundle carries the identity
-         Telegram.Msix ships - which is what a beta for testers wants, and which means it can no
-         longer be installed beside it. The Executable rewrite below is not part of this: that one
-         is about where the payload sits in the package and is always needed. -->
+    <!-- -p:ModernIdentity=Original leaves the copied identity unchanged, replacing the package
+         whose manifest was used as the source. The Executable rewrite below is separate: it fixes
+         the payload path for the startupTask and appExecutionAlias extensions. -->
     <XmlPoke Condition="'$(ModernIdentity)' != 'Original'"
              XmlInputPath="$(ModernAppxManifest)" Namespaces="$(ModernManifestNamespaces)"
              Query="/f:Package/f:Identity/@Name" Value="$(ModernPackageIdentity)" />
     <XmlPoke Condition="'$(ModernIdentity)' != 'Original'"
              XmlInputPath="$(ModernAppxManifest)" Namespaces="$(ModernManifestNamespaces)"
              Query="/f:Package/f:Properties/f:DisplayName" Value="$(ModernPackageDisplayName)" />
+    <XmlPoke Condition="'$(ModernIdentity)' != 'Original'"
+             XmlInputPath="$(ModernAppxManifest)" Namespaces="$(ModernManifestNamespaces)"
+             Query="/f:Package/f:Properties/f:PublisherDisplayName" Value="$(ModernPackagePublisherDisplayName)" />
     <XmlPoke Condition="'$(ModernIdentity)' != 'Original'"
              XmlInputPath="$(ModernAppxManifest)" Namespaces="$(ModernManifestNamespaces)"
              Query="/f:Package/f:Applications/f:Application/uap:VisualElements/@DisplayName" Value="$(ModernPackageDisplayName)" />

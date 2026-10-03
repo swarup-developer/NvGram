@@ -253,15 +253,15 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <!-- Registered is the loose publish folder that Add-AppxPackage -Register points at; Bundle is
          the signed msixbundle. They cannot share an identity: Windows will not move an installed
-         app between a registered layout and a bundle, which is the same reason Telegram.Msix.Modern
-         has its own. So this is a fourth. -->
+         app between a registered layout and a bundle. -->
     <Win32Identity Condition="'$(Win32Identity)' == ''">Registered</Win32Identity>
-    <Win32PackageIdentity Condition="'$(Win32Identity)' == 'Registered'">38833FF26BA1D.UnigramWin32</Win32PackageIdentity>
-    <Win32PackageDisplayName Condition="'$(Win32Identity)' == 'Registered'">Unigram Win32</Win32PackageDisplayName>
-    <Win32PackageIdentity Condition="'$(Win32Identity)' == 'Bundle'">38833FF26BA1D.UnigramWin32Bundle</Win32PackageIdentity>
-    <Win32PackageDisplayName Condition="'$(Win32Identity)' == 'Bundle'">Unigram Win32 (Bundle)</Win32PackageDisplayName>
+    <Win32PackageIdentity Condition="'$(Win32Identity)' == 'Registered'">NvGram.DesktopWin32</Win32PackageIdentity>
+    <Win32PackageDisplayName Condition="'$(Win32Identity)' == 'Registered'">NvGram</Win32PackageDisplayName>
+    <Win32PackageIdentity Condition="'$(Win32Identity)' == 'Bundle'">NvGram.DesktopWin32Bundle</Win32PackageIdentity>
+    <Win32PackageDisplayName Condition="'$(Win32Identity)' == 'Bundle'">NvGram</Win32PackageDisplayName>
+    <Win32PackagePublisherDisplayName>NvGram</Win32PackagePublisherDisplayName>
     <Win32AppxManifest>$(BaseIntermediateOutputPath)Package.Win32.appxmanifest</Win32AppxManifest>
-    <!-- The one key in the repository, shared by every project that packages the app. -->
+    <!-- The shared development certificate for local package signing. -->
     <PackageCertificateKeyFile>..\Telegram_TemporaryKey.pfx</PackageCertificateKeyFile>
     <Win32ManifestNamespaces>&lt;Namespace Prefix='f' Uri='http://schemas.microsoft.com/appx/manifest/foundation/windows10' /&gt;&lt;Namespace Prefix='uap' Uri='http://schemas.microsoft.com/appx/manifest/uap/windows10' /&gt;&lt;Namespace Prefix='uap5' Uri='http://schemas.microsoft.com/appx/manifest/uap/windows10/5' /&gt;&lt;Namespace Prefix='rescap' Uri='http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities' /&gt;</Win32ManifestNamespaces>
   </PropertyGroup>
@@ -290,6 +290,8 @@
              Query="/f:Package/f:Identity/@Name" Value="$(Win32PackageIdentity)" />
     <XmlPoke XmlInputPath="$(Win32AppxManifest)" Namespaces="$(Win32ManifestNamespaces)"
              Query="/f:Package/f:Properties/f:DisplayName" Value="$(Win32PackageDisplayName)" />
+    <XmlPoke XmlInputPath="$(Win32AppxManifest)" Namespaces="$(Win32ManifestNamespaces)"
+             Query="/f:Package/f:Properties/f:PublisherDisplayName" Value="$(Win32PackagePublisherDisplayName)" />
     <XmlPoke XmlInputPath="$(Win32AppxManifest)" Namespaces="$(Win32ManifestNamespaces)"
              Query="/f:Package/f:Applications/f:Application/uap:VisualElements/@DisplayName" Value="$(Win32PackageDisplayName)" />
 

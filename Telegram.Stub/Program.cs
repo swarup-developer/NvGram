@@ -15,9 +15,9 @@ namespace Telegram.Stub
     static class Program
     {
 #if DEBUG
-        const string MUTEX_NAME = "TelegramBridgeMutexV2";
+        const string MUTEX_NAME = "NvGramDebugBridgeMutexV2";
 #else
-        const string MUTEX_NAME = "UnigramBridgeMutexV2";
+        const string MUTEX_NAME = "NvGramBridgeMutexV2";
 #endif
 
         private static readonly Mutex _mutex = new Mutex(true, MUTEX_NAME);
@@ -40,7 +40,7 @@ namespace Telegram.Stub
 
                 // The three icons are resources of this executable, addressed by the id
                 // NotifyIconIcon carries. The app resolves the same names to files instead.
-                _context = new NotifyIcon(ResolveIcon, "Unigram");
+                _context = new NotifyIcon(ResolveIcon, "NvGram");
                 _mutex.ReleaseMutex();
             }
         }

@@ -2415,7 +2415,7 @@ namespace Telegram
         public static string AnonymousQuizPoll => Resource.GetString("AnonymousQuizPoll");
         
         /// <summary>
-        /// Localized resource similar to "Unigram"
+        /// Localized resource similar to "NvGram"
         /// </summary>
         public static string AppDisplayName => Resource.GetString("AppDisplayName");
         
@@ -3682,14 +3682,14 @@ namespace Telegram
         public static string AutoplayVideo => Resource.GetString("AutoplayVideo");
         
         /// <summary>
-        /// Localized resource similar to "Launch Unigram When System Starts"
+        /// Localized resource similar to "Launch NvGram When System Starts"
         /// </summary>
         public static string AutoStart => Resource.GetString("AutoStart");
         
         /// <summary>
         /// Localized resource similar to "Starting with the system was disabled in Windows Settings.
         ///
-        ///Please enable Unigram in the Startup Apps Settings."
+        ///Please enable NvGram in the Startup Apps Settings."
         /// </summary>
         public static string AutoStartDisabledInfo => Resource.GetString("AutoStartDisabledInfo");
         
@@ -7554,7 +7554,7 @@ namespace Telegram
         public static string CloseTopic => Resource.GetString("CloseTopic");
         
         /// <summary>
-        /// Localized resource similar to "A new version of Unigram is being installed..."
+        /// Localized resource similar to "A new version of NvGram is being installed..."
         /// </summary>
         public static string CloudUpdateInstallingText => Resource.GetString("CloudUpdateInstallingText");
         
@@ -16019,7 +16019,7 @@ namespace Telegram
         public static string NotificationMessageGame => Resource.GetString("NotificationMessageGame");
         
         /// <summary>
-        /// Localized resource similar to "via Unigram"
+        /// Localized resource similar to "via NvGram"
         /// </summary>
         public static string NotificationPreviewAttribution => Resource.GetString("NotificationPreviewAttribution");
         
@@ -16176,12 +16176,12 @@ namespace Telegram
         public static string NotificationsUnmutedHint => Resource.GetString("NotificationsUnmutedHint");
         
         /// <summary>
-        /// Localized resource similar to "Quit Unigram"
+        /// Localized resource similar to "Quit NvGram"
         /// </summary>
         public static string NotifyIconExit => Resource.GetString("NotifyIconExit");
         
         /// <summary>
-        /// Localized resource similar to "Open Unigram"
+        /// Localized resource similar to "Open NvGram"
         /// </summary>
         public static string NotifyIconOpen => Resource.GetString("NotifyIconOpen");
         
@@ -17005,7 +17005,7 @@ namespace Telegram
         public static string PermissionNoAudio => Resource.GetString("PermissionNoAudio");
         
         /// <summary>
-        /// Localized resource similar to "Unigram needs microphone access so that you can have calls. Please enable it in Settings."
+        /// Localized resource similar to "NvGram needs microphone access so that you can have calls. Please enable it in Settings."
         /// </summary>
         public static string PermissionNoAudioCalls => Resource.GetString("PermissionNoAudioCalls");
         
@@ -17015,7 +17015,7 @@ namespace Telegram
         public static string PermissionNoAudioVideo => Resource.GetString("PermissionNoAudioVideo");
         
         /// <summary>
-        /// Localized resource similar to "Unigram needs microphone and camera access so that you can have video calls. Please enable it in Settings."
+        /// Localized resource similar to "NvGram needs microphone and camera access so that you can have video calls. Please enable it in Settings."
         /// </summary>
         public static string PermissionNoAudioVideoCalls => Resource.GetString("PermissionNoAudioVideoCalls");
         
@@ -17030,7 +17030,7 @@ namespace Telegram
         public static string PermissionNoLocationPosition => Resource.GetString("PermissionNoLocationPosition");
         
         /// <summary>
-        /// Localized resource similar to "Unigram needs camera access so that you can have video calls. Please enable it in Settings."
+        /// Localized resource similar to "NvGram needs camera access so that you can have video calls. Please enable it in Settings."
         /// </summary>
         public static string PermissionNoVideoCalls => Resource.GetString("PermissionNoVideoCalls");
         
