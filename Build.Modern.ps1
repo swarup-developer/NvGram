@@ -1,11 +1,11 @@
 <#
 .SYNOPSIS
-    Builds a signed NativeAOT msixbundle from Telegram.Modern.csproj.
+    Builds a signed NvGram NativeAOT msixbundle from Telegram.Modern.csproj.
 
 .DESCRIPTION
-    The .NET 10 / CsWinRT / NativeAOT build, packaged by Telegram.Msix.Modern. Installs beside the
-    shipping app and beside the loose development layout: all three have different identities,
-    because Windows will not move an installed app between a registered layout and a bundle.
+    The .NET 10 / CsWinRT / NativeAOT build, packaged by Telegram.Msix.Modern. The bundle and the
+    loose development layout have separate package identities, because Windows will not move an
+    installed app between a registered layout and a bundle.
 
     Takes tens of minutes - most of it the ILC link.
 
@@ -19,10 +19,6 @@
 .EXAMPLE
     .\UpdateManifest.ps1 -path Telegram.Msix -config RELEASE -mode SideloadOnly
     .\Build.Modern.ps1 -Identity Original -Instrumented
-
-.EXAMPLE
-    .\UpdateManifest.ps1 -path Telegram.Msix -config RELEASE -mode StoreUpload
-    .\Build.Modern.ps1 -Platform ARM64, x64 -Mode StoreUpload -Identity Original
 #>
 [CmdletBinding()]
 param(
@@ -38,12 +34,11 @@ param(
     [ValidateSet('Release', 'Debug')]
     [string] $Configuration = 'Release',
 
-    [ValidateSet('SideloadOnly', 'StoreUpload')]
+    [ValidateSet('SideloadOnly')]
     [string] $Mode = 'SideloadOnly',
 
-    # Alternative installs beside the shipping bundle. Original carries Telegram.Msix's own
-    # identity, which is what a beta for testers wants - and which means it replaces the shipping
-    # app rather than sitting next to it.
+    # Alternative is the independent NvGram identity. Original reuses the source manifest identity
+    # and should only be used intentionally when replacing that package.
     [ValidateSet('Alternative', 'Original')]
     [string] $Identity = 'Alternative',
 
@@ -77,8 +72,8 @@ foreach ($name in ($Platform -split '[,|]')) {
 
 $Platform = $resolved
 
-if ($Mode -eq 'StoreUpload' -and $Identity -ne 'Original') {
-    Write-Warning "Mode StoreUpload with the $Identity identity: the .msixupload will carry the patched package name and the Store will reject it. Pass -Identity Original for a real submission."
+if ($Mode -eq 'StoreUpload') {
+    throw "StoreUpload is disabled for NvGram until its own Partner Center package association is configured. The repository's StoreAssociation metadata belongs to upstream Unigram."
 }
 
 # vswhere has to be on PATH, not merely findable: ILC shells out to it while looking for link.exe,
@@ -168,8 +163,6 @@ function Get-Newest {
         Sort-Object LastWriteTime | Select-Object -Last 1
 }
 
-# StoreUpload is the legacy name for store-and-sideload: it produces the signed bundle as well, so
-# the bundle is the one artifact both modes always have.
 $bundle = Get-Newest '.msixbundle'
 
 if (-not $bundle) {
@@ -179,15 +172,5 @@ if (-not $bundle) {
 Write-Host ''
 Write-Host ("{0}  ({1:N0} bytes)" -f $bundle.FullName, $bundle.Length) -ForegroundColor Green
 
-if ($Mode -eq 'StoreUpload') {
-    $upload = Get-Newest '.msixupload'
-
-    if (-not $upload) {
-        throw "The build reported success but no .msixupload was found under $packages."
-    }
-
-    Write-Host ("{0}  ({1:N0} bytes)" -f $upload.FullName, $upload.Length) -ForegroundColor Green
-    Write-Host 'The .msixupload is what Partner Center takes; it is unsigned by design.'
-}
 
 Write-Host 'Install with Add-AppDevPackage.ps1 beside the bundle, which also trusts the test certificate.'

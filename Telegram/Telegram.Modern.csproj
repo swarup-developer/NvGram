@@ -83,8 +83,8 @@
 
     <!-- Properties\AssemblyInfo.cs stays with the legacy project (see the Compile Remove below);
          these carry its values over to the attributes the SDK generates in its place. -->
-    <AssemblyTitle>Telegram</AssemblyTitle>
-    <Product>Telegram</Product>
+    <AssemblyTitle>NvGram</AssemblyTitle>
+    <Product>NvGram</Product>
     <Copyright>Copyright ©  2015</Copyright>
 
     <!-- The .NET Native project's constants, minus the ones that were only ever about it.
@@ -135,8 +135,9 @@
          targets are half-configured and fail on IntermediateExtension. -->
     <AppxPackage>true</AppxPackage>
     <EnableMsixTooling>true</EnableMsixTooling>
-    <ModernPackageIdentity>38833FF26BA1D.UnigramNet10</ModernPackageIdentity>
-    <ModernPackageDisplayName>Unigram .NET 10</ModernPackageDisplayName>
+    <ModernPackageIdentity>NvGram.DesktopModern</ModernPackageIdentity>
+    <ModernPackagePublisherDisplayName>NvGram</ModernPackagePublisherDisplayName>
+    <ModernPackageDisplayName>NvGram</ModernPackageDisplayName>
     <!-- BaseIntermediateOutputPath, not IntermediateOutputPath: the latter is still empty when
          this evaluates, which collapses the destination onto Package.appxmanifest itself and
          rewrites the source manifest in place. The guard below is there because that happened. -->
@@ -167,6 +168,9 @@
     <XmlPoke Condition="'$(ModernIdentity)' != 'Original'"
              XmlInputPath="$(ModernAppxManifest)" Namespaces="$(ModernManifestNamespaces)"
              Query="/f:Package/f:Properties/f:DisplayName" Value="$(ModernPackageDisplayName)" />
+    <XmlPoke Condition="'$(ModernIdentity)' != 'Original'"
+             XmlInputPath="$(ModernAppxManifest)" Namespaces="$(ModernManifestNamespaces)"
+             Query="/f:Package/f:Properties/f:PublisherDisplayName" Value="$(ModernPackagePublisherDisplayName)" />
     <XmlPoke Condition="'$(ModernIdentity)' != 'Original'"
              XmlInputPath="$(ModernAppxManifest)" Namespaces="$(ModernManifestNamespaces)"
              Query="/f:Package/f:Applications/f:Application/uap:VisualElements/@DisplayName" Value="$(ModernPackageDisplayName)" />

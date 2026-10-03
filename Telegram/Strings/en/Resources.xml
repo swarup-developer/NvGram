@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="AppName">Telegram</string>
+    <string name="AppName">NvGram</string>
 
     <string name="LanguageName">English</string>
 
@@ -10996,8 +10996,8 @@
     <string name="ArchiveMoveToMainMenu">Move to Main Menu</string>
     <string name="ArchiveMoveToMainMenuInfo">Archive moved to the main menu\nRight click the archive button to return the Archive to your chat list.</string>
     <string name="AreTyping">are typing...</string>
-    <string name="AutoStart">Launch Unigram When System Starts</string>
-    <string name="AutoStartDisabledInfo">Starting with the system was disabled in Windows Settings.\n\nPlease enable Unigram in the Startup Apps Settings.</string>
+    <string name="AutoStart">Launch NvGram When System Starts</string>
+    <string name="AutoStartDisabledInfo">Starting with the system was disabled in Windows Settings.\n\nPlease enable NvGram in the Startup Apps Settings.</string>
     <string name="AutoStartMinized">Launch minimized</string>
     <string name="BizBotStatusAccess">bot has access to this chat</string>
     <string name="BoostLevel">Level {0}</string>
@@ -11026,7 +11026,7 @@
     <string name="ClearSelection">Clear Selection</string>
     <string name="CloseFriendsHint">Only people from **{0}’s** Close Friends list can view this story</string>
     <string name="CloseFriendsHintSelf">Only people from your Close Friends list can view this story</string>
-    <string name="CloudUpdateInstallingText">A new version of Unigram is being installed...</string>
+    <string name="CloudUpdateInstallingText">A new version of NvGram is being installed...</string>
     <string name="CloudUpdateInstallingTitle">Please Wait...</string>
     <string name="ConnectWithIPv6">Try Connecting Through IPv6</string>
     <string name="CopyImage">Copy Image</string>
@@ -11098,16 +11098,16 @@
     <string name="NotificationExceptionsPreviewHide">Hide Preview</string>
     <string name="NotificationExceptionsPreviewShow">Show Preview</string>
     <string name="NotificationExceptionsSoundCustom">Sound: Custom</string>
-    <string name="NotifyIconExit">Quit Unigram</string>
-    <string name="NotifyIconOpen">Open Unigram</string>
+    <string name="NotifyIconExit">Quit NvGram</string>
+    <string name="NotifyIconOpen">Open NvGram</string>
     <string name="OpenImageUnsupported">Sorry, Telegram can\'t process that type of image.</string>
     <string name="OpenInNewWindow">Open in new window</string>
     <string name="OpenSupergroup">Open Supergroup</string>
     <string name="OpenTelegram">Open Telegram</string>
     <string name="OpenWith">Open With</string>
-    <string name="PermissionNoAudioCalls">Unigram needs microphone access so that you can have calls. Please enable it in Settings.</string>
-    <string name="PermissionNoAudioVideoCalls">Unigram needs microphone and camera access so that you can have video calls. Please enable it in Settings.</string>
-    <string name="PermissionNoVideoCalls">Unigram needs camera access so that you can have video calls. Please enable it in Settings.</string>
+    <string name="PermissionNoAudioCalls">NvGram needs microphone access so that you can have calls. Please enable it in Settings.</string>
+    <string name="PermissionNoAudioVideoCalls">NvGram needs microphone and camera access so that you can have video calls. Please enable it in Settings.</string>
+    <string name="PermissionNoVideoCalls">NvGram needs camera access so that you can have video calls. Please enable it in Settings.</string>
     <string name="PhotoOrVideo">Photo or Video</string>
     <string name="PlayerAudioMute">Mute</string>
     <string name="PlayerAudioUnmute">Unmute</string>
@@ -11511,7 +11511,7 @@
     <string name="NotificationPreviewName">Name</string>
     <string name="NotificationPreviewText">Text</string>
     <string name="NotificationPreviewReply">Reply</string>
-    <string name="NotificationPreviewAttribution">via Unigram</string>
+    <string name="NotificationPreviewAttribution">via NvGram</string>
 
     <string name="BlockUserAlert">Do you want to block **{0}** from messaging and calling you on Telegram?</string>
     <string name="BlockUserTitle">Block {0}</string>
@@ -12097,7 +12097,7 @@
     <string name="Gift2ProfileVisible3">This gift is visible on your profile. **Hide &gt;**</string>
     <string name="Gift2ChannelProfileVisible3">This gift is visible on your channel\'s profile. **Hide &gt;**</string>
     <string name="Gift2ChannelProfileInvisible3">This gift is hidden from visitors to your channel. **Show &gt;**</string>
-    <string name="AppDisplayName">Unigram</string>
+    <string name="AppDisplayName">NvGram</string>
     <string name="CreateGeneralTopicTitle">Choose topic name</string>
     <string name="ViewAnonymously">View\nAnonymously</string>
     <string name="EnableStealthModeAndOpenStory">Enable and open the story</string>
