@@ -1,0 +1,167 @@
+name: Shared validation
+on:
+  workflow_call:
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  quality:
+    name: Policy and regression tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.22.2'
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.24.13'
+          cache: false
+      - name: Workflow static analysis
+        run: |
+          go install github.com/rhysd/actionlint/cmd/actionlint@v1.7.7
+          actionlint -shellcheck=''
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: '10.0.301'
+      - name: Package-independent settings regression checks
+        run: dotnet run --project Tools/UnpackagedTests/UnpackagedTests.csproj --configuration Release
+      - name: Install pinned automation validation dependencies
+        run: npm ci --prefix Tools/Automation --ignore-scripts --no-fund
+      - name: Regression and policy checks
+        run: |
+          node --test Tools/Automation/tests/*.test.mjs
+          node Tools/Automation/check.mjs
+  secrets:
+    name: Secret detection
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.24.13'
+          cache: false
+      - name: Scan committed history (redacted evidence)
+        run: |
+          go install github.com/zricethezav/gitleaks/v8@v8.24.3
+          mkdir -p artifacts/security
+          gitleaks git --redact --config .github/automation/gitleaks.toml --report-format sarif --report-path artifacts/security/secrets.sarif .
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: secret-scan
+          path: artifacts/security
+          retention-days: 30
+  dependencies:
+    name: Dependency and license review
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Review dependency changes
+        if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@2031cfc080254a8a887f58cffee85186f0e49e48 # v4
+        with:
+          fail-on-severity: high
+          deny-licenses: AGPL-1.0-only, AGPL-3.0-only, SSPL-1.0, BUSL-1.1
+          comment-summary-in-pr: never
+      - name: Install pinned policy validator
+        run: npm ci --prefix Tools/Automation --ignore-scripts --no-fund
+      - name: Dependency provenance and license policy
+        run: |
+          node Tools/Automation/check.mjs
+          npm audit --prefix Tools/Automation --audit-level=high
+  build:
+    name: Windows build and CodeQL
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 180
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - name: Verify build failure workspace cleanup
+        shell: pwsh
+        run: ./Tools/Automation/tests/build-cleanup.ps1
+      - name: Initialize context-aware security analysis
+        uses: github/codeql-action/init@1190a975f95ce23525efb6a3fc21ea29567c1b52 # v3
+        with:
+          languages: csharp, cpp
+          build-mode: manual
+          queries: security-extended
+      - name: Compile, analyze, discover tests, validate package
+        shell: pwsh
+        run: ./Tools/Automation/Build.ps1 -Platform x64 -Channel validation
+      - name: CodeQL analysis
+        uses: github/codeql-action/analyze@1190a975f95ce23525efb6a3fc21ea29567c1b52 # v3
+        with:
+          output: artifacts/codeql
+          upload: never
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: validation-evidence
+          path: |
+            artifacts/logs
+            artifacts/tests
+            artifacts/dependencies
+            artifacts/codeql
+            artifacts/validation.json
+          retention-days: 30
+  review:
+    name: Evidence-based automated review
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: validation-evidence
+          path: artifacts/evidence
+      - name: Context and actionable findings
+        run: node Tools/Automation/review.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: automated-review
+          path: artifacts/review
+          retention-days: 30
+  gate:
+    name: Validation gate
+    if: always()
+    needs: [quality, secrets, dependencies, build, review]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every validation job
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          node -e 'const jobs=JSON.parse(process.env.RESULTS); for(const [name,job] of Object.entries(jobs)){console.log(`${name}: ${job.result}`); if(job.result!=="success") process.exitCode=1;}'
+      - name: Developer feedback
+        if: always()
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: |
+          node -e 'const jobs=JSON.parse(process.env.RESULTS); const fs=require("fs"); fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,"## Validation results\n"+Object.entries(jobs).map(([name,j])=>`- ${name}: **${j.result}**`).join("\n")+"\n\nFailed checks block merging. Inspect the failed step and retained evidence, fix the affected code, and push a new commit. The PR remains open. No automatic approval, close, or merge is performed.\n");'

@@ -1,0 +1,5 @@
+# GitHub-hosted VS2026 image, verified in actions/runner-images documentation.
+# actionlint 1.7.7 predates this hosted label; this is not a skipped rule.
+self-hosted-runner:
+  labels:
+    - windows-2025-vs2026

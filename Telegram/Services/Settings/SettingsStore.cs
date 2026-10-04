@@ -10,26 +10,6 @@ using Windows.Storage;
 
 namespace Telegram.Services.Settings
 {
-    // The only thing in the app that knows where a setting is stored. An implementation that does
-    // not depend on the app container can be dropped in here without touching a single accessor.
-    public interface ISettingsStore
-    {
-        bool TryGetValue(string key, out object value);
-        void SetValue(string key, object value);
-        bool ContainsKey(string key);
-        void Remove(string key);
-        void Clear();
-
-        IEnumerable<string> ContainerNames { get; }
-        ISettingsStore GetContainer(string name);
-        bool TryGetContainer(string name, out ISettingsStore container);
-        void DeleteContainer(string name);
-
-        // ApplicationData persists as it goes. A file-backed store will not, and needs a save
-        // point that does not depend on guessing when the last write happened.
-        void Flush();
-    }
-
     public static class SettingsStoreExtensions
     {
         public static T GetValueOrDefault<T>(this ISettingsStore store, string key, T defaultValue)

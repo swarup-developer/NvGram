@@ -1,0 +1,21 @@
+name: Bleeding Edge release
+on:
+  push:
+    branches: [develop]
+permissions:
+  contents: read
+  pull-requests: read
+  security-events: write
+  actions: read
+jobs:
+  validation:
+    uses: ./.github/workflows/validation.yml
+  release:
+    needs: validation
+    uses: ./.github/workflows/release.yml
+    with:
+      channel: development
+    permissions:
+      contents: write
+      actions: read
+    secrets: inherit

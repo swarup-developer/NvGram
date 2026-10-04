@@ -1,0 +1,42 @@
+name: Propose verified issue fix
+on:
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: Open issue labeled status:confirmed
+        type: string
+        required: true
+      branch:
+        description: Existing reviewed candidate-fix branch (not protected branch)
+        type: string
+        required: true
+      problem:
+        description: Verified problem and supporting evidence
+        type: string
+        required: true
+      solution:
+        description: Proposed reliable solution and regression coverage
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  propose:
+    environment: issue-fix
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - name: Create or associate draft PR (never merge)
+        run: node Tools/Automation/fix.mjs
+        env:
+          # GitHub App installation token or fine-grained automation token, NOT GITHUB_TOKEN:
+          # PRs created with GITHUB_TOKEN do not trigger normal pull_request workflows.
+          GH_TOKEN: ${{ secrets.ISSUE_FIX_TOKEN }}
+          ISSUE_NUMBER: ${{ inputs.issue }}
+          FIX_BRANCH: ${{ inputs.branch }}
+          FIX_PROBLEM: ${{ inputs.problem }}
+          FIX_SOLUTION: ${{ inputs.solution }}

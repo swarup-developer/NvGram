@@ -1,0 +1,13 @@
+name: Scheduled security validation
+on:
+  schedule:
+    - cron: '23 4 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read
+  security-events: write
+jobs:
+  security:
+    uses: ./.github/workflows/validation.yml

@@ -1,0 +1,5 @@
+title = "NvGram secret detection"
+[extend]
+useDefault = true
+# No broad allowlists. Confirmed false positives require an exact fingerprint in
+# .gitleaksignore, evidence in a reviewed PR, and SECURITY.md policy compliance.

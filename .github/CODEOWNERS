@@ -1,0 +1,11 @@
+# Confirm this owner has write access; replace with accountable teams as NvGram grows.
+* @swarup-developer
+/.github/ @swarup-developer
+/Tools/Automation/ @swarup-developer
+/Telegram/Common/Passkey* @swarup-developer
+/Telegram/Services/ @swarup-developer
+/Telegram.Native/ @swarup-developer
+/Telegram.Native.Calls/ @swarup-developer
+/Telegram.Msix*/ @swarup-developer
+/Libraries/ @swarup-developer
+/SECURITY.md @swarup-developer

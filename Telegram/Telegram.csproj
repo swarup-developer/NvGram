@@ -1534,6 +1534,7 @@
     <Compile Include="Services\AppSettings.cs" />
     <Compile Include="Services\NightModeService.cs" />
     <Compile Include="Services\Settings\SettingsStore.cs" />
+    <Compile Include="Services\Settings\ISettingsStore.cs" />
     <Compile Include="Services\Settings\PlaybackSettings.cs" />
     <Compile Include="Services\Settings\RecentEmojiSettings.cs" />
     <Compile Include="Services\Settings\StickersSettings.cs" />

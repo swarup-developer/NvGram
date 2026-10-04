@@ -1,0 +1,16 @@
+name: Pull request validation
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+  merge_group:
+permissions:
+  contents: read
+  pull-requests: read
+  security-events: write
+  actions: read
+concurrency:
+  group: pr-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  validation:
+    uses: ./.github/workflows/validation.yml

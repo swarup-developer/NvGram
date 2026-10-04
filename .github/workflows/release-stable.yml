@@ -1,0 +1,33 @@
+name: Stable release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+  pull-requests: read
+  security-events: write
+  actions: read
+jobs:
+  tag-policy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Validate explicit Stable tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: node --input-type=module -e 'import {versions} from "./Tools/Automation/core.mjs"; versions("stable",process.env.TAG,0,0,process.env.GITHUB_SHA);'
+  validation:
+    needs: tag-policy
+    uses: ./.github/workflows/validation.yml
+  release:
+    needs: validation
+    uses: ./.github/workflows/release.yml
+    with:
+      channel: stable
+    permissions:
+      contents: write
+      actions: read
+    secrets: inherit

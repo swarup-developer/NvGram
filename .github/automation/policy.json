@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "developmentBranch": "develop",
+  "protectedBranches": ["develop", "main"],
+  "stableTagPattern": "^v([1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$",
+  "channels": {
+    "development": {
+      "identity": "NvGram.Desktop.Development",
+      "displayName": "NvGram Bleeding Edge",
+      "environment": "release-development",
+      "prerelease": true,
+      "warning": "Bleeding Edge / Development: opt-in only. May contain bugs, experimental or unfinished features, regressions, breaking changes, and development-only changes. Do not use for production-critical work."
+    },
+    "stable": {
+      "identity": "NvGram.Desktop.Bundle",
+      "displayName": "NvGram",
+      "environment": "release-stable",
+      "prerelease": false,
+      "warning": "Stable release. Install only from the official NvGram repository and verify the publisher and checksums."
+    }
+  },
+  "requiredChecks": ["Validation gate"],
+  "minimumApprovals": 1,
+  "blockingSecuritySeverities": ["critical", "high"],
+  "deniedLicenses": ["AGPL-1.0-only", "AGPL-3.0-only", "SSPL-1.0", "BUSL-1.1"],
+  "components": {
+    "area:client": ["Telegram/"],
+    "area:native": ["Telegram.Native/", "Telegram.Native.Calls/"],
+    "area:packaging": ["Telegram.Msix/", "Telegram.Msix.Modern/"],
+    "area:generators": ["Telegram.Generators/", "Telegram.Generators.Cli/", "Telegram.Generators.WinRT/"],
+    "area:dependencies": ["Libraries/", "vcpkg.json", "vcpkg-configuration.json", "nuget.config"],
+    "area:automation": [".github/", "Tools/Automation/"],
+    "area:documentation": ["Documentation/", "README.md", "CONTRIBUTING.md"]
+  },
+  "issueTypes": ["bug", "feature", "enhancement", "security", "performance", "documentation", "accessibility", "ci", "regression", "general"],
+  "priorities": ["critical", "high", "medium", "low"],
+  "statuses": ["triage", "confirmed", "in-progress", "blocked", "resolved", "duplicate", "invalid"]
+}

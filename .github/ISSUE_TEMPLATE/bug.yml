@@ -1,0 +1,69 @@
+name: "Bug report"
+description: "Report a reproducible defect"
+title: "[bug] "
+labels: ["type:bug", "status:triage"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not include API keys, account tokens, passwords, private messages, or unredacted personal data. Report vulnerabilities through the private Security reporting link."
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Concise description of the problem or request.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: NvGram version
+      description: Exact version, Stable or Bleeding Edge channel, and commit SHA if available (use not applicable for documentation-only requests).
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Windows version/build, x64 or ARM64, installation channel, hardware and relevant runtime/tool versions.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details / reproduction
+      description: "Expected behavior, actual behavior, and numbered reproduction steps."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: regression
+    attributes:
+      label: Regression information
+      description: Last working version and first failing version, or state that this is unknown.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Relevant error output with credentials and personal data removed.
+      render: text
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshots or recordings
+      description: Attach evidence with private data redacted.
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Related issues/PRs, affected components, workarounds, and supporting evidence.

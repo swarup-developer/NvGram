@@ -1,0 +1,91 @@
+name: Shared release
+on:
+  workflow_call:
+    inputs:
+      channel:
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  publish:
+    name: Package and publish
+    runs-on: windows-2025-vs2026
+    timeout-minutes: 360
+    environment: release-${{ inputs.channel }}
+    # Atomic channel lock queues pushes without concurrency's pending-run cancellation.
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+      - name: Retain validated security and review evidence
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: automated-review
+          path: artifacts/prerelease-review
+      - name: Acquire channel publication lock
+        id: lock
+        shell: pwsh
+        run: node Tools/Automation/lock.mjs acquire $env:CHANNEL
+        env:
+          CHANNEL: ${{ inputs.channel }}
+          GH_TOKEN: ${{ github.token }}
+      - name: Prepare unique version and channel-specific changelog
+        shell: pwsh
+        run: node Tools/Automation/release.mjs prepare $env:CHANNEL
+        env:
+          CHANNEL: ${{ inputs.channel }}
+          GH_TOKEN: ${{ github.token }}
+      - name: Build exact source (unsigned)
+        shell: pwsh
+        run: ./Tools/Automation/Build.ps1 -Platform x64 -Channel $env:CHANNEL
+        env:
+          CHANNEL: ${{ inputs.channel }}
+          NVGRAM_API_ID: ${{ secrets.NVGRAM_API_ID }}
+          NVGRAM_API_HASH: ${{ secrets.NVGRAM_API_HASH }}
+          NVGRAM_APP_CHANNEL: ${{ vars.NVGRAM_APP_CHANNEL }}
+          NVGRAM_PUBLISHER: ${{ vars.NVGRAM_PUBLISHER }}
+      - name: Sign and verify complete installation package
+        shell: pwsh
+        run: ./Tools/Automation/Package.ps1 -Channel $env:CHANNEL
+        env:
+          CHANNEL: ${{ inputs.channel }}
+          NVGRAM_SIGNING_PFX: ${{ secrets.NVGRAM_SIGNING_PFX }}
+          NVGRAM_SIGNING_PASSWORD: ${{ secrets.NVGRAM_SIGNING_PASSWORD }}
+          NVGRAM_PUBLISHER: ${{ vars.NVGRAM_PUBLISHER }}
+      - name: Publish immutable release after all stages pass
+        shell: pwsh
+        run: node Tools/Automation/release.mjs publish $env:CHANNEL
+        env:
+          CHANNEL: ${{ inputs.channel }}
+          GH_TOKEN: ${{ github.token }}
+      - name: Release owned channel lock
+        if: always() && steps.lock.outputs.owner != ''
+        shell: pwsh
+        run: node Tools/Automation/lock.mjs release $env:CHANNEL
+        env:
+          CHANNEL: ${{ inputs.channel }}
+          LOCK_OWNER: ${{ steps.lock.outputs.owner }}
+          GH_TOKEN: ${{ github.token }}
+      - name: Preserve failed-stage diagnostics and release provenance
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-${{ inputs.channel }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            artifacts/logs
+            artifacts/release
+            artifacts/validation.json
+          retention-days: 90
+      - name: Failure guidance
+        if: failure()
+        shell: pwsh
+        run: |
+          '## Release failed' >> $env:GITHUB_STEP_SUMMARY
+          'Inspect the failed step and retained logs. No existing release is replaced. An upload failure may leave an unpublished draft; investigate it before retrying. Stable tags cannot reuse a published or draft version.' >> $env:GITHUB_STEP_SUMMARY
