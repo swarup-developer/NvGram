@@ -98,6 +98,16 @@ namespace Telegram {
         $packaging.DocumentElement.AppendChild($contentGroup) | Out-Null
         $packaging.Save((Join-Path $root 'Telegram.Msix/Telegram.Msix.wapproj'))
     }
+    # tdlib generates MIME tables in its host-only `prepare` step and requires GNU gperf, which the
+    # runner image does not ship (its MSYS2 package set is empty). Install the baseline-pinned gperf
+    # port as a host tool and expose it on PATH so find_program(GPERF_EXECUTABLE gperf) succeeds.
+    Push-Location $env:VCPKG_ROOT
+    try {
+        Invoke-Checked (Join-Path $env:VCPKG_ROOT 'vcpkg.exe') @('install', 'gperf:x64-windows', '--x-install-root', (Join-Path $env:VCPKG_ROOT 'installed'))
+    } finally { Pop-Location }
+    $gperf = Get-ChildItem (Join-Path $env:VCPKG_ROOT 'installed') -Recurse -Filter 'gperf.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $gperf) { throw 'tdlib code generation requires gperf, but the vcpkg gperf host tool was not produced.' }
+    $env:PATH = "$($gperf.Directory.FullName);$env:PATH"
     Push-Location Libraries/tdjson
     try { & ./build.ps1 -arch $Platform -vcpkg_root $env:VCPKG_ROOT } finally { Pop-Location }
     $common = @('Telegram.slnx', '-restore', '-m', '-nologo', '-verbosity:minimal', '-p:RestorePackagesConfig=true', '-p:Configuration=Release', "-p:Platform=$Platform", '-p:Deterministic=true', '-p:ContinuousIntegrationBuild=true', '-p:NuGetAudit=true', '-p:NuGetAuditMode=all', '-p:NuGetAuditLevel=high', '-p:WarningsAsErrors=NU1903%3BNU1904', '-p:RunAnalyzersDuringBuild=true', '-p:EnableNETAnalyzers=true', '-p:RunCodeAnalysis=true')

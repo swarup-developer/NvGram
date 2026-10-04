@@ -1,0 +1,43 @@
+# Exact, reviewed fingerprints for inherited upstream findings and verified false
+# positives, per .github/automation/gitleaks.toml. Each entry is a precise
+# <commit>:<path>:<rule>:<line> fingerprint; no broad rule or path allowlists.
+#
+# - Microsoft Limited Access Feature tokens are public constants required to call
+#   restricted Windows APIs (Telegram/Common/FeatureTokenGenerator.cs).
+# - The Unigram/* entries are inherited upstream history for files deleted from the
+#   current tree (placeholder brush colors, a TON lite-server public key, and retired
+#   upstream service identifiers). They cannot be rotated from this fork.
+#
+# A new finding at any other location still fails the secret-detection gate.
+2b2ce595a41084032a57bea203d770b89c3bd07c:Unigram/Unigram/App.xaml:generic-api-key:66
+2b2ce595a41084032a57bea203d770b89c3bd07c:Unigram/Unigram/App.xaml:generic-api-key:70
+2b2ce595a41084032a57bea203d770b89c3bd07c:Unigram/Unigram/App.xaml:generic-api-key:74
+2b2ce595a41084032a57bea203d770b89c3bd07c:Unigram/Unigram/App.xaml:generic-api-key:78
+2b2ce595a41084032a57bea203d770b89c3bd07c:Unigram/Unigram/App.xaml:generic-api-key:82
+2b2ce595a41084032a57bea203d770b89c3bd07c:Unigram/Unigram/App.xaml:generic-api-key:86
+3fa77fa15cad0477585e9024e27949770ee3e32e:Unigram/Unigram/Strings/en/Android.cs:gcp-api-key:19007
+3fa77fa15cad0477585e9024e27949770ee3e32e:Unigram/Unigram/Strings/en/Android.cs:gcp-api-key:19029
+7101bfe4a6e32da8f7bd7f7a722cd5a3ad43d456:Unigram/Unigram/Services/TonlibService.cs:generic-api-key:116
+7ff45a40697a4e534c146adb92e1d45b02d85cb2:Unigram/Unigram/App.xaml:generic-api-key:187
+7ff45a40697a4e534c146adb92e1d45b02d85cb2:Unigram/Unigram/App.xaml:generic-api-key:189
+7ff45a40697a4e534c146adb92e1d45b02d85cb2:Unigram/Unigram/App.xaml:generic-api-key:191
+7ff45a40697a4e534c146adb92e1d45b02d85cb2:Unigram/Unigram/App.xaml:generic-api-key:193
+7ff45a40697a4e534c146adb92e1d45b02d85cb2:Unigram/Unigram/App.xaml:generic-api-key:195
+7ff45a40697a4e534c146adb92e1d45b02d85cb2:Unigram/Unigram/App.xaml:generic-api-key:197
+7ff45a40697a4e534c146adb92e1d45b02d85cb2:Unigram/Unigram/App.xaml:generic-api-key:199
+89624003f2f251ccc6798f99396f54bbdf8854c7:Unigram/Unigram.Core/Services/LocationService.cs:generic-api-key:53
+98a046ff442d2b1148c27ab65ffd389f55dfe20c:Unigram/Unigram/App.xaml:generic-api-key:173
+98a046ff442d2b1148c27ab65ffd389f55dfe20c:Unigram/Unigram/App.xaml:generic-api-key:174
+98a046ff442d2b1148c27ab65ffd389f55dfe20c:Unigram/Unigram/App.xaml:generic-api-key:175
+98a046ff442d2b1148c27ab65ffd389f55dfe20c:Unigram/Unigram/App.xaml:generic-api-key:176
+98a046ff442d2b1148c27ab65ffd389f55dfe20c:Unigram/Unigram/App.xaml:generic-api-key:177
+98a046ff442d2b1148c27ab65ffd389f55dfe20c:Unigram/Unigram/App.xaml:generic-api-key:178
+98a046ff442d2b1148c27ab65ffd389f55dfe20c:Unigram/Unigram/App.xaml:generic-api-key:179
+98a046ff442d2b1148c27ab65ffd389f55dfe20c:Unigram/Unigram/Constants.cs:generic-api-key:18
+d6e25766567831893b210252c507e785068a92b3:Telegram/Common/FeatureTokenGenerator.cs:generic-api-key:23
+f97f36490fe0a0a8b84824b3a83cf0bb5dea1165:Unigram/Unigram/App.xaml:generic-api-key:63
+f97f36490fe0a0a8b84824b3a83cf0bb5dea1165:Unigram/Unigram/App.xaml:generic-api-key:64
+f97f36490fe0a0a8b84824b3a83cf0bb5dea1165:Unigram/Unigram/App.xaml:generic-api-key:65
+f97f36490fe0a0a8b84824b3a83cf0bb5dea1165:Unigram/Unigram/App.xaml:generic-api-key:66
+f97f36490fe0a0a8b84824b3a83cf0bb5dea1165:Unigram/Unigram/App.xaml:generic-api-key:67
+f97f36490fe0a0a8b84824b3a83cf0bb5dea1165:Unigram/Unigram/App.xaml:generic-api-key:68

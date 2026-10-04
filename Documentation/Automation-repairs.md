@@ -11,8 +11,17 @@ Scope: the repository automation and unpackaged-settings checkpoint added in thi
 - Release hashing streams assets rather than reading entire packages into memory. Non-file/empty assets and assets at or above GitHub's 2 GiB per-file limit are rejected before upload. No throughput or performance speedup is claimed.
 - File settings enforce a maximum supported container depth so every accepted nesting level can be read back within the JSON parser's limit. A regression test verifies persistence/reload at the boundary and rejection beyond it.
 
+## CI follow-up repairs — 2026-10-04
+
+Two jobs of the first pushed validation run ("Bleeding Edge release", run 37207905798) failed. Both root causes were reproduced locally and fixed.
+
+- Secret detection failed because Gitleaks reported 32 findings across the 13,847-commit history. Every finding was reviewed: they are Microsoft Limited Access Feature tokens and inherited upstream history (a TON lite-server public key, XAML brush colors, and retired upstream identifiers in files deleted from the current tree). The exact fingerprints are now recorded in `.gitleaksignore` per the SECURITY.md exception policy; no broad allowlist was added. Classification and owner/expiry are documented in [Secret-detection-baseline.md](Secret-detection-baseline.md).
+- The Windows build failed in tdlib's host `prepare` step: `Could NOT find gperf.` The runner image ships no gperf (its MSYS2 package set is empty). Build.ps1 now installs the baseline-pinned `gperf` port with the already-provisioned vcpkg and exposes it on PATH, which is what tdlib's `find_program(GPERF_EXECUTABLE gperf)` searches. The CodeQL "configuration error" was a downstream consequence of the failed build.
+
 ## Executed verification
 
+- Gitleaks v8.24.3 full-history scan with the committed config and `.gitleaksignore`: **0 findings, exit 0** (was 32 findings, exit 1). The same command, run before writing the ignore file, reproduced the CI total exactly.
+- `Tools/Automation/Build.ps1` parses under Windows PowerShell after the gperf change.
 - Node regression/interface suites: **15/15 passed**, no skips. New coverage includes invalid analyzer evidence, indexed extension rules and release blocking before draft creation for inconsistent review results.
 - .NET 10 settings harness: **61 assertions passed** after compiling the actual implementation. This is an executable regression harness, not a claim of full application tests.
 - Actual PowerShell Build.ps1 failure-path invocation in an isolated Git/workspace fixture: source mismatch failed as expected; project/manifest inputs and existing API configuration were preserved byte-for-byte; absent secret configuration remained absent.
