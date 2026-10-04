@@ -34,12 +34,7 @@ try {
     $apiId = 0; $apiHash = ''; $appChannel = ''
     if ($Channel -ne 'validation') {
         if ($env:NVGRAM_API_ID -notmatch '^[1-9][0-9]*$' -or $env:NVGRAM_API_HASH -notmatch '^[a-fA-F0-9]{32}$') {
-            if ($Channel -eq 'development') {
-                $env:NVGRAM_API_ID = '21719913'
-                $env:NVGRAM_API_HASH = '033968afa7d6622b8616285a1aebbbac'
-            } else {
-                throw 'Release environment requires a valid NVGRAM_API_ID and NVGRAM_API_HASH.'
-            }
+            throw 'Release environment requires a valid NVGRAM_API_ID and NVGRAM_API_HASH.'
         }
         if ($env:NVGRAM_APP_CHANNEL -and $env:NVGRAM_APP_CHANNEL -notmatch '^[A-Za-z0-9_]*$') { throw 'NVGRAM_APP_CHANNEL must be a Telegram username or empty.' }
         $apiId = $env:NVGRAM_API_ID; $apiHash = $env:NVGRAM_API_HASH; $appChannel = $(if ($env:NVGRAM_APP_CHANNEL) { $env:NVGRAM_APP_CHANNEL } else { '' })
