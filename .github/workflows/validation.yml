@@ -49,11 +49,33 @@ jobs:
         with:
           go-version: '1.24.13'
           cache: false
-      - name: Scan committed history (redacted evidence)
+      - name: Scan committed range (redacted evidence)
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          MERGE_GROUP_BASE: ${{ github.event.merge_group.base_sha }}
         run: |
+          set -euo pipefail
           go install github.com/zricethezav/gitleaks/v8@v8.24.3
           mkdir -p artifacts/security
-          gitleaks git --redact --config .github/automation/gitleaks.toml --report-format sarif --report-path artifacts/security/secrets.sarif .
+          # Audit only the commits this event introduces when a trustworthy base commit exists.
+          # Scheduled and manual runs have no such base and audit the full reachable history. The
+          # reviewed .gitleaksignore baseline covers inherited history in both modes.
+          base=''
+          case "$EVENT_NAME" in
+            push) base="$PUSH_BEFORE" ;;
+            pull_request) base="$PR_BASE" ;;
+            merge_group) base="$MERGE_GROUP_BASE" ;;
+          esac
+          range='--all'
+          if [ -n "$base" ] && [ "$base" != "0000000000000000000000000000000000000000" ] && git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            if merge_base=$(git merge-base "$base" HEAD 2>/dev/null); then
+              range="$merge_base..HEAD"
+            fi
+          fi
+          echo "Secret scan range: $range (event $EVENT_NAME)"
+          gitleaks git --redact --config .github/automation/gitleaks.toml --log-opts="$range" --report-format sarif --report-path artifacts/security/secrets.sarif .
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:

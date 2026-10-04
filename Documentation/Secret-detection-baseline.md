@@ -2,12 +2,17 @@
 
 Recorded: 2026-10-04 · Owner: repository maintainer (`swarup-developer`) · Review before: 2027-01-04
 
-The `secrets` job of [validation.yml](../.github/workflows/validation.yml) scans the full commit
-history with Gitleaks. Full-history scanning of a fork inevitably reports findings inherited from
-upstream history, so the job failed with 32 findings that predate this repository's automation.
+The `secrets` job of [validation.yml](../.github/workflows/validation.yml) scans with Gitleaks. On a
+push, pull request, or merge group it audits only the commits that event introduces (the merge base
+of the reported base against `HEAD`); a scheduled or manual run has no such base and audits the full
+reachable history. The reviewed baseline below applies in both modes.
+
+Full-history scanning of a fork inevitably reports findings inherited from upstream history, so the
+initial whole-history job failed with 32 findings that predate this repository's automation.
 Each was reviewed and the exact Gitleaks fingerprint was recorded in `.gitleaksignore`, per the
 exception policy in [SECURITY.md](../SECURITY.md). No broad rule, path, or directory allowlist was
-added, and a new finding anywhere else still fails the gate.
+added, and a new finding anywhere else still fails the gate — including a new secret in a commit an
+event introduces, which fails the step and is retained in the SARIF evidence.
 
 ## Reviewed findings
 
