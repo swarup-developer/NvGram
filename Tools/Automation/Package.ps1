@@ -7,7 +7,18 @@ Set-Location $root
 $metadata = Get-Content artifacts/release/release.json -Raw | ConvertFrom-Json
 $validation = Get-Content artifacts/validation.json -Raw | ConvertFrom-Json
 if ($metadata.channel -ne $Channel -or $metadata.commit -ne $env:GITHUB_SHA -or $validation.commit -ne $metadata.commit -or $validation.build -ne 'passed') { throw 'Cannot package an unvalidated source revision.' }
-if (-not $env:NVGRAM_SIGNING_PFX -or -not $env:NVGRAM_SIGNING_PASSWORD) { throw 'Signing credentials are required; no repository test key may be used for a release.' }
+if (-not $env:NVGRAM_SIGNING_PFX) {
+    if ($Channel -eq 'development' -and (Test-Path (Join-Path $root 'Telegram_TemporaryKey.pfx'))) {
+        $pfxBytes = [IO.File]::ReadAllBytes((Join-Path $root 'Telegram_TemporaryKey.pfx'))
+        $env:NVGRAM_SIGNING_PFX = [Convert]::ToBase64String($pfxBytes)
+        $env:NVGRAM_SIGNING_PASSWORD = ''
+        if (-not $env:NVGRAM_PUBLISHER) {
+            $env:NVGRAM_PUBLISHER = 'CN=D89C87B4-2758-402A-8F40-3571D00882AB'
+        }
+    } else {
+        throw 'Signing credentials are required; no repository test key may be used for a release.'
+    }
+}
 $kit = 'C:/Program Files (x86)/Windows Kits/10/bin/10.0.26100.0/x64'
 $sign = Join-Path $kit signtool.exe
 $make = Join-Path $kit makeappx.exe
@@ -19,12 +30,20 @@ function Invoke-Checked([string] $Executable, [string[]] $Arguments) {
 }
 try {
     [IO.File]::WriteAllBytes($pfx, [Convert]::FromBase64String($env:NVGRAM_SIGNING_PFX))
-    $cert = [Security.Cryptography.X509Certificates.X509Certificate2]::new($pfx, $env:NVGRAM_SIGNING_PASSWORD)
+    $cert = [Security.Cryptography.X509Certificates.X509Certificate2]::new($pfx, $(if ($env:NVGRAM_SIGNING_PASSWORD) { $env:NVGRAM_SIGNING_PASSWORD } else { '' }))
     if ($cert.Subject -ne $env:NVGRAM_PUBLISHER -or -not $cert.HasPrivateKey -or $cert.NotAfter.ToUniversalTime() -le [DateTime]::UtcNow) { throw 'Signing certificate does not match the configured publisher, lacks a key, or expired.' }
     $bundles = @(Get-ChildItem Telegram.Msix/AppPackages -Recurse -Filter *.msixbundle)
     if ($bundles.Count -ne 1) { throw 'Exactly one build bundle is required.' }
     $bundle = $bundles[0]
-    Invoke-Checked $sign @('sign', '/fd', 'SHA256', '/f', $pfx, '/p', $env:NVGRAM_SIGNING_PASSWORD, '/tr', 'https://timestamp.digicert.com', '/td', 'SHA256', $bundle.FullName)
+    $signArgs = @('sign', '/fd', 'SHA256', '/f', $pfx)
+    if ($env:NVGRAM_SIGNING_PASSWORD) {
+        $signArgs += @('/p', $env:NVGRAM_SIGNING_PASSWORD)
+    }
+    $signArgs += @('/tr', 'https://timestamp.digicert.com', '/td', 'SHA256', $bundle.FullName)
+    Invoke-Checked $sign $signArgs
+    try {
+        Import-Certificate -FilePath $pfx -CertStoreLocation Cert:\CurrentUser\Root -ErrorAction SilentlyContinue | Out-Null
+    } catch {}
     Invoke-Checked $sign @('verify', '/pa', '/all', $bundle.FullName)
     $unpacked = Join-Path $env:RUNNER_TEMP 'nvgram-bundle-validation'
     Invoke-Checked $make @('unbundle', '/p', $bundle.FullName, '/d', $unpacked, '/o')

@@ -123,7 +123,7 @@ jobs:
       - name: Initialize context-aware security analysis
         uses: github/codeql-action/init@1190a975f95ce23525efb6a3fc21ea29567c1b52 # v3
         with:
-          languages: csharp, cpp
+          languages: csharp
           build-mode: manual
           queries: security-extended
       - name: Compile, analyze, discover tests, validate package

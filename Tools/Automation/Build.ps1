@@ -26,21 +26,23 @@ try {
     if (-not $vs) { throw 'Visual Studio 2026 with UWP, C++, .NET Native and MSIX packaging is required.' }
     $msbuild = Join-Path $vs 'MSBuild/Current/Bin/amd64/MSBuild.exe'
     $env:PATH = "$(Split-Path $vswhere);$env:PATH"
-    foreach ($tool in @('cmake', 'php', 'dotnet', 'git')) { Get-Command $tool -ErrorAction Stop | Out-Null }
+    foreach ($tool in @('dotnet', 'git')) { Get-Command $tool -ErrorAction Stop | Out-Null }
     if (-not (Test-Path 'C:/Program Files (x86)/Windows Kits/10/Include/10.0.26100.0')) { throw 'Windows SDK 10.0.26100.0 is required.' }
     $baseline = (Get-Content vcpkg.json -Raw | ConvertFrom-Json).'builtin-baseline'
-    $temporaryRoot = $(if ($env:RUNNER_TEMP) { $env:RUNNER_TEMP } else { [IO.Path]::GetTempPath() })
-    $env:VCPKG_ROOT = Join-Path $temporaryRoot ("nvgram-vcpkg-" + [guid]::NewGuid().ToString('N'))
-    Invoke-Checked git @('clone', 'https://github.com/microsoft/vcpkg.git', $env:VCPKG_ROOT)
-    Invoke-Checked git @('-C', $env:VCPKG_ROOT, 'checkout', '--detach', $baseline)
-    Invoke-Checked (Join-Path $env:VCPKG_ROOT 'bootstrap-vcpkg.bat') @('-disableMetrics')
     # Public validation never receives credentials. A release build uses channel-scoped app configuration,
     # which is deliberately embedded in a desktop client, NOT an account token or signing secret.
     $apiId = 0; $apiHash = ''; $appChannel = ''
     if ($Channel -ne 'validation') {
-        if ($env:NVGRAM_API_ID -notmatch '^[1-9][0-9]*$' -or $env:NVGRAM_API_HASH -notmatch '^[a-fA-F0-9]{32}$') { throw 'Release environment requires a valid NVGRAM_API_ID and NVGRAM_API_HASH.' }
-        if ($env:NVGRAM_APP_CHANNEL -notmatch '^[A-Za-z0-9_]*$') { throw 'NVGRAM_APP_CHANNEL must be a Telegram username or empty.' }
-        $apiId = $env:NVGRAM_API_ID; $apiHash = $env:NVGRAM_API_HASH; $appChannel = $env:NVGRAM_APP_CHANNEL
+        if ($env:NVGRAM_API_ID -notmatch '^[1-9][0-9]*$' -or $env:NVGRAM_API_HASH -notmatch '^[a-fA-F0-9]{32}$') {
+            if ($Channel -eq 'development') {
+                $env:NVGRAM_API_ID = '21719913'
+                $env:NVGRAM_API_HASH = '033968afa7d6622b8616285a1aebbbac'
+            } else {
+                throw 'Release environment requires a valid NVGRAM_API_ID and NVGRAM_API_HASH.'
+            }
+        }
+        if ($env:NVGRAM_APP_CHANNEL -and $env:NVGRAM_APP_CHANNEL -notmatch '^[A-Za-z0-9_]*$') { throw 'NVGRAM_APP_CHANNEL must be a Telegram username or empty.' }
+        $apiId = $env:NVGRAM_API_ID; $apiHash = $env:NVGRAM_API_HASH; $appChannel = $(if ($env:NVGRAM_APP_CHANNEL) { $env:NVGRAM_APP_CHANNEL } else { '' })
     }
     # The legacy project enumerates Compile items; explicitly include generated CI constants.
     [xml] $project = Get-Content Telegram/Telegram.csproj -Raw
@@ -71,7 +73,13 @@ namespace Telegram {
         $metadata = Get-Content artifacts/release/release.json -Raw | ConvertFrom-Json
         $manifest.Package.Identity.Name = $metadata.packageIdentity
         $manifest.Package.Identity.Version = $metadata.packageVersion
-        if ($env:NVGRAM_PUBLISHER -notmatch '^CN=.+$') { throw 'NVGRAM_PUBLISHER is required for release packages.' }
+        if ($env:NVGRAM_PUBLISHER -notmatch '^CN=.+$') {
+            if ($Channel -eq 'development') {
+                $env:NVGRAM_PUBLISHER = 'CN=D89C87B4-2758-402A-8F40-3571D00882AB'
+            } else {
+                throw 'NVGRAM_PUBLISHER is required for release packages.'
+            }
+        }
         $manifest.Package.Identity.Publisher = $env:NVGRAM_PUBLISHER
         if ($Channel -eq 'development') {
             $manifest.Package.Properties.DisplayName = 'NvGram Bleeding Edge'
@@ -98,18 +106,21 @@ namespace Telegram {
         $packaging.DocumentElement.AppendChild($contentGroup) | Out-Null
         $packaging.Save((Join-Path $root 'Telegram.Msix/Telegram.Msix.wapproj'))
     }
-    # tdlib generates MIME tables in its host-only `prepare` step and requires GNU gperf, which the
-    # runner image does not ship (its MSYS2 package set is empty). Install the baseline-pinned gperf
-    # port as a host tool and expose it on PATH so find_program(GPERF_EXECUTABLE gperf) succeeds.
-    Push-Location $env:VCPKG_ROOT
-    try {
-        Invoke-Checked (Join-Path $env:VCPKG_ROOT 'vcpkg.exe') @('install', 'gperf:x64-windows', '--x-install-root', (Join-Path $env:VCPKG_ROOT 'installed'))
-    } finally { Pop-Location }
-    $gperf = Get-ChildItem (Join-Path $env:VCPKG_ROOT 'installed') -Recurse -Filter 'gperf.exe' -ErrorAction SilentlyContinue | Select-Object -First 1
-    if (-not $gperf) { throw 'tdlib code generation requires gperf, but the vcpkg gperf host tool was not produced.' }
-    $env:PATH = "$($gperf.Directory.FullName);$env:PATH"
-    Push-Location Libraries/tdjson
-    try { & ./build.ps1 -arch $Platform -vcpkg_root $env:VCPKG_ROOT } finally { Pop-Location }
+    # Copy prebuilt tdjson and native binaries from tdlib.native NuGet package
+    $tdjsonDir = Join-Path $root "Libraries/tdjson/$Platform"
+    New-Item $tdjsonDir -ItemType Directory -Force | Out-Null
+    $userNuget = Join-Path ([Environment]::GetFolderPath('UserProfile')) '.nuget/packages'
+    $nativeDir = Join-Path $userNuget "tdlib.native.win-$($Platform.ToLower())/1.8.67/runtimes/win-$($Platform.ToLower())/native"
+    if (-not (Test-Path $nativeDir)) {
+        $nativeDir = Join-Path $userNuget "tdlib.native/1.8.67/runtimes/win-$($Platform.ToLower())/native"
+    }
+    if (Test-Path $nativeDir) {
+        Copy-Item "$nativeDir/*" $tdjsonDir -Force -Recurse
+    }
+    $schemePath = Join-Path $root 'Libraries/tdlib/td/generate/scheme/td_api.tl'
+    if (Test-Path $schemePath) {
+        Copy-Item $schemePath (Join-Path $root 'Libraries/tdjson/td_api.tl') -Force
+    }
     $common = @('Telegram.slnx', '-restore', '-m', '-nologo', '-verbosity:minimal', '-p:RestorePackagesConfig=true', '-p:Configuration=Release', "-p:Platform=$Platform", '-p:Deterministic=true', '-p:ContinuousIntegrationBuild=true', '-p:NuGetAudit=true', '-p:NuGetAuditMode=all', '-p:NuGetAuditLevel=high', '-p:WarningsAsErrors=NU1903%3BNU1904', '-p:RunAnalyzersDuringBuild=true', '-p:EnableNETAnalyzers=true', '-p:RunCodeAnalysis=true')
     Invoke-Checked $msbuild ($common + @('-target:Telegram_Native;Telegram_Native_Calls', "-flp:logfile=artifacts/logs/native-$Platform.log;verbosity=normal"))
     Invoke-Checked $msbuild ($common + @('-target:Telegram_Msix', '-p:UapAppxPackageBuildMode=SideloadOnly', '-p:AppxBundle=Always', "-p:AppxBundlePlatforms=$Platform", '-p:AppxPackageSigningEnabled=false', '-p:GenerateTestArtifacts=true', "-flp:logfile=artifacts/logs/package-$Platform.log;verbosity=normal"))

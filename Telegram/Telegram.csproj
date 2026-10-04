@@ -3947,6 +3947,9 @@
     <PackageReference Include="System.Reflection.Metadata">
       <Version>10.0.10</Version>
     </PackageReference>
+    <PackageReference Include="tdlib.native">
+      <Version>1.8.67</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Telegram.Generators\Telegram.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false">
