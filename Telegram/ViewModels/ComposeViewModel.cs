@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -19,7 +19,6 @@ using Telegram.Services.Factories;
 using Telegram.Td;
 using Telegram.Td.Api;
 using Telegram.Views.Popups;
-using Telegram.Views.Premium.Popups;
 using Windows.Media.Capture;
 using Windows.Storage;
 using Windows.Storage.Pickers;
@@ -147,7 +146,7 @@ namespace Telegram.ViewModels
 
             if (sticker.FullType is StickerFullTypeRegular regular && regular.PremiumAnimation != null && ClientService.IsPremiumAvailable && !ClientService.IsPremium)
             {
-                await ShowPopupAsync(new UniqueStickersPopup(ClientService, sticker));
+                ToastPopup.ShowFeaturePromo(NavigationService, new PremiumFeatureUniqueStickers());
                 return;
             }
 

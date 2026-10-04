@@ -17,7 +17,6 @@ using Telegram.Services;
 using Telegram.Td.Api;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Folders;
-using Telegram.ViewModels.Stories;
 using Telegram.Views;
 using Windows.Foundation;
 using Windows.UI;

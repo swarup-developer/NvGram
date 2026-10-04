@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -15,7 +15,6 @@ using Telegram.Services.Calls;
 using Telegram.Td;
 using Telegram.Td.Api;
 using Telegram.ViewModels;
-using Telegram.Views.Stars.Popups;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 
@@ -82,7 +81,7 @@ namespace Telegram.Services
         {
             if (_clientService.OwnedStarCount.StarCount < _pendingCount + starCount)
             {
-                _ = message.Delegate.NavigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(starCount, _chatId));
+                message.Delegate.NavigationService.ShowToast("Telegram Stars purchases are not supported in this build.", ToastPopupIcon.Info);
                 return null;
             }
 
@@ -194,7 +193,7 @@ namespace Telegram.Services
         {
             if (_clientService.OwnedStarCount.StarCount < _pendingCount + starCount)
             {
-                _ = navigationService.ShowPopupAsync(new BuyPopup(), BuyStarsArgs.ForChannel(starCount, 0));
+                navigationService.ShowToast("Telegram Stars purchases are not supported in this build.", ToastPopupIcon.Info);
                 return false;
             }
 

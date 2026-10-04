@@ -254,32 +254,6 @@
                             <icons:Premium />
                         </controls:SettingsButton.IconSource>
                     </controls:SettingsButton>
-
-                    <controls:SettingsButton Click="Stars_Click"
-                                             Badge="{x:Bind ViewModel.OwnedStarCount, Mode=OneWay}"
-                                             Content="{CustomResource MenuTelegramStars}"
-                                             Style="{StaticResource IconBadgeButtonStyle}">
-                        <controls:SettingsButton.IconSource>
-                            <icons:PremiumStars />
-                        </controls:SettingsButton.IconSource>
-                    </controls:SettingsButton>
-
-                    <controls:SettingsButton Click="Business_Click"
-                                             Content="{CustomResource TelegramBusiness}"
-                                             Style="{StaticResource IconBadgeButtonStyle}">
-                        <controls:SettingsButton.IconSource>
-                            <icons:Business />
-                        </controls:SettingsButton.IconSource>
-                    </controls:SettingsButton>
-
-                    <controls:SettingsButton x:Name="PremiumGifting"
-                                             Click="{x:Bind ViewModel.PremiumGifting}"
-                                             Content="{CustomResource SendAGift}"
-                                             Style="{StaticResource IconBadgeButtonStyle}">
-                        <controls:SettingsButton.IconSource>
-                            <icons:PremiumGifting />
-                        </controls:SettingsButton.IconSource>
-                    </controls:SettingsButton>
                 </StackPanel>
                 <Rectangle Fill="{ThemeResource NavigationViewItemSeparatorForeground}"
                            Margin="12,2"

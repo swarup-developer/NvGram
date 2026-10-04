@@ -31,8 +31,6 @@
     <Border x:Name="Panel"
             IsHitTestVisible="False" />
 
-    <controls:ImageTextSelection x:Name="Selection"
-                                 LinkClicked="Selection_LinkClicked"
-                                 Visibility="Collapsed" />
+
 
 </controls:AspectView>

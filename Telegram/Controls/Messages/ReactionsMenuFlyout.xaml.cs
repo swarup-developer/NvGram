@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -17,8 +17,6 @@ using Telegram.Td.Api;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Delegates;
 using Telegram.ViewModels.Drawers;
-using Telegram.ViewModels.Stories;
-using Telegram.Views.Stars.Popups;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
@@ -1064,16 +1062,8 @@ namespace Telegram.Controls.Messages
                 Object added;
                 if (reaction.Type is ReactionTypePaid)
                 {
-                    var popup = new ReactPopup(message.ClientService, message);
-
-                    var confirm = await popup.ShowQueuedAsync(XamlRoot);
-                    if (confirm != ContentDialogResult.Primary)
-                    {
-                        return;
-                    }
-
-                    message.ClientService.Send(new SetPaidMessageReactionType(message.ChatId, message.Id, popup.Type));
-                    added = await PaidReactionService.AddPendingAsync(XamlRoot, message, popup.StarCount, popup.Type);
+                    ToastPopup.Show(XamlRoot, "Telegram Stars reactions are not supported in this build.", ToastPopupIcon.Info);
+                    return;
                 }
                 else
                 {

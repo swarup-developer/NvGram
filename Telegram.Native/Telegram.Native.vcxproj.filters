@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <ItemGroup>
     <Filter Include="Helpers">
       <UniqueIdentifier>{903ec3d1-7f79-41e7-a41d-2ef61411b312}</UniqueIdentifier>
@@ -669,21 +669,6 @@
     <ClCompile Include="Composition\WindowVisual.cpp">
       <Filter>Composition</Filter>
     </ClCompile>
-    <ClCompile Include="AI\TextRecognizer.cpp">
-      <Filter>AI</Filter>
-    </ClCompile>
-    <ClCompile Include="AI\TextRecognizerDefault.cpp">
-      <Filter>AI</Filter>
-    </ClCompile>
-    <ClCompile Include="AI\RecognizedLine.cpp">
-      <Filter>AI</Filter>
-    </ClCompile>
-    <ClCompile Include="AI\RecognizedText.cpp">
-      <Filter>AI</Filter>
-    </ClCompile>
-    <ClCompile Include="AI\RecognizedWord.cpp">
-      <Filter>AI</Filter>
-    </ClCompile>
     <ClCompile Include="Media\AsyncMediaPlayer.cpp">
       <Filter>Media</Filter>
     </ClCompile>
@@ -1330,24 +1315,6 @@
     <ClInclude Include="Composition\DwmThumbnail.h">
       <Filter>Composition</Filter>
     </ClInclude>
-    <ClInclude Include="AI\TextRecognizer.h">
-      <Filter>AI</Filter>
-    </ClInclude>
-    <ClInclude Include="AI\TextRecognizerDefault.h">
-      <Filter>AI</Filter>
-    </ClInclude>
-    <ClInclude Include="AI\TextRecognizerOne.h">
-      <Filter>AI</Filter>
-    </ClInclude>
-    <ClInclude Include="AI\RecognizedLine.h">
-      <Filter>AI</Filter>
-    </ClInclude>
-    <ClInclude Include="AI\RecognizedText.h">
-      <Filter>AI</Filter>
-    </ClInclude>
-    <ClInclude Include="AI\RecognizedWord.h">
-      <Filter>AI</Filter>
-    </ClInclude>
     <ClInclude Include="Helpers\BlurHelper.h">
       <Filter>Helpers</Filter>
     </ClInclude>
@@ -1572,25 +1539,12 @@
     <Midl Include="LokiRng.idl" />
     <Midl Include="SurfaceImage.idl" />
     <Midl Include="FatalError.idl" />
-    <Midl Include="ParticlesAnimation.idl" />
     <Midl Include="TextFormat.idl" />
     <Midl Include="Composition\DirectRectangleClip2.idl">
       <Filter>Composition</Filter>
     </Midl>
     <Midl Include="Composition\WindowVisual.idl">
       <Filter>Composition</Filter>
-    </Midl>
-    <Midl Include="AI\TextRecognizer.idl">
-      <Filter>AI</Filter>
-    </Midl>
-    <Midl Include="AI\RecognizedLine.idl">
-      <Filter>AI</Filter>
-    </Midl>
-    <Midl Include="AI\RecognizedText.idl">
-      <Filter>AI</Filter>
-    </Midl>
-    <Midl Include="AI\RecognizedWord.idl">
-      <Filter>AI</Filter>
     </Midl>
     <Midl Include="AnimationEffects.idl" />
     <Midl Include="ChatBackgroundPattern.idl" />
@@ -1637,7 +1591,6 @@
     <Midl Include="Controls\DirectTextBlockBase.idl">
       <Filter>Controls</Filter>
     </Midl>
-    <Midl Include="FreeformGradientSurface.idl" />
     <Midl Include="GarbageCollectionMonitor.idl" />
     <Midl Include="RichMathSurface.idl" />
   </ItemGroup>

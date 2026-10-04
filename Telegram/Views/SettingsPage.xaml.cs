@@ -13,10 +13,8 @@ using Telegram.Controls.Gallery;
 using Telegram.Td.Api;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Delegates;
-using Telegram.Views.Business;
 using Telegram.Views.Folders;
 using Telegram.Views.Settings;
-using Telegram.Views.Stars;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -161,15 +159,8 @@ namespace Telegram.Views
             ViewModel.NavigationService.ShowPromo(new PremiumSourceSettings());
         }
 
-        private void Stars_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.NavigationService.Navigate(typeof(StarsPage));
-        }
 
-        private void Business_Click(object sender, RoutedEventArgs e)
-        {
-            ViewModel.NavigationService.Navigate(typeof(BusinessPage));
-        }
+
 
         private async void Photo_Click(object sender, RoutedEventArgs e)
         {

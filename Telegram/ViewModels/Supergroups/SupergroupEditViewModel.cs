@@ -470,10 +470,6 @@ namespace Telegram.ViewModels.Supergroups
 
         public void Statistics()
         {
-            if (_chat is Chat chat)
-            {
-                NavigationService.Navigate(typeof(RevenuePage), chat.Id);
-            }
         }
 
         public void EventLog()
@@ -481,14 +477,6 @@ namespace Telegram.ViewModels.Supergroups
             if (_chat is Chat chat)
             {
                 NavigationService.Navigate(typeof(ChatEventLogPage), chat.Id);
-            }
-        }
-
-        public void AffiliatePrograms()
-        {
-            if (_chat is Chat chat)
-            {
-                NavigationService.Navigate(typeof(ChatAffiliatePage), new AffiliateTypeChannel(chat.Id));
             }
         }
 

@@ -14,7 +14,6 @@ using Telegram.Services;
 using Telegram.Services.Updates;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Authorization;
-using Telegram.ViewModels.Business;
 using Telegram.ViewModels.Chats;
 using Telegram.ViewModels.Create;
 using Telegram.ViewModels.Delegates;
@@ -23,12 +22,10 @@ using Telegram.ViewModels.Payments;
 using Telegram.ViewModels.Premium;
 using Telegram.ViewModels.Settings;
 using Telegram.ViewModels.Settings.Privacy;
-using Telegram.ViewModels.Stars;
 using Telegram.ViewModels.Supergroups;
 using Telegram.ViewModels.Users;
 using Telegram.Views;
 using Telegram.Views.Authorization;
-using Telegram.Views.Business;
 using Telegram.Views.Chats;
 using Telegram.Views.Create;
 using Telegram.Views.Folders;
@@ -40,9 +37,6 @@ using Telegram.Views.Premium.Popups;
 using Telegram.Views.Settings;
 using Telegram.Views.Settings.Popups;
 using Telegram.Views.Settings.Privacy;
-using Telegram.Views.Stars;
-using Telegram.Views.Stars.Popups;
-using Telegram.Views.Stories.Popups;
 using Telegram.Views.Supergroups;
 using Telegram.Views.Supergroups.Popups;
 using Telegram.Views.Users;
@@ -361,7 +355,6 @@ namespace Telegram
                 NewGroupPopup => session.Resolve<NewGroupViewModel>(),
                 NewBotPopup => session.Resolve<NewBotViewModel>(),
                 UserEditPage userEdit => session.Resolve<UserEditViewModel, IUserDelegate>(userEdit),
-                UserAffiliatePage => session.Resolve<UserAffiliateViewModel>(),
                 //
                 SupergroupChooseMemberPopup => session.Resolve<SupergroupChooseMemberViewModel>(),
                 SupergroupAdministratorsPage supergroupAdministrators => session.Resolve<SupergroupAdministratorsViewModel, ISupergroupMembersDelegate>(supergroupAdministrators),
@@ -379,7 +372,6 @@ namespace Telegram
                 SupergroupReactionsPopup => session.Resolve<SupergroupReactionsViewModel>(),
                 SupergroupProfileColorPage => session.Resolve<SupergroupProfileColorViewModel>(),
                 ChatBoostsPage => session.Resolve<ChatBoostsViewModel>(),
-                ChatAffiliatePage => session.Resolve<ChatAffiliateViewModel>(),
                 //
                 AuthorizationRecoveryPage => session.Resolve<AuthorizationRecoveryViewModel>(),
                 AuthorizationRegistrationPage => session.Resolve<AuthorizationRegistrationViewModel>(),
@@ -438,25 +430,8 @@ namespace Telegram
                 SettingsPrivacyNewChatPage => session.Resolve<SettingsPrivacyNewChatViewModel>(),
                 SettingsPrivacyAutosaveGiftsPage => session.Resolve<SettingsPrivacyAutosaveGiftsViewModel>(),
 
-                BusinessPage => session.Resolve<BusinessViewModel>(),
-                BusinessLocationPage => session.Resolve<BusinessLocationViewModel>(),
-                BusinessHoursPage => session.Resolve<BusinessHoursViewModel>(),
-                BusinessRepliesPage businessRepliesPage => session.Resolve<BusinessRepliesViewModel, IBusinessRepliesDelegate>(businessRepliesPage),
-                BusinessGreetPage => session.Resolve<BusinessGreetViewModel>(),
-                BusinessAwayPage => session.Resolve<BusinessAwayViewModel>(),
-                BusinessBotsPage => session.Resolve<BusinessBotsViewModel>(),
-                BusinessIntroPage => session.Resolve<BusinessIntroViewModel>(),
-                BusinessChatLinksPage businessChatLinksPage => session.Resolve<BusinessChatLinksViewModel, IBusinessChatLinksDelegate>(businessChatLinksPage),
-
-                RevenuePage => session.Resolve<RevenueViewModel>(),
-
                 PaymentFormPage => session.Resolve<PaymentFormViewModel>(),
-                MessageStatisticsPage => session.Resolve<MessageStatisticsViewModel>(),
                 ChatInviteLinksPage => session.Resolve<ChatInviteLinksViewModel>(),
-                ChatStatisticsPage => session.Resolve<ChatStatisticsViewModel>(),
-                ChatRevenuePage => session.Resolve<ChatRevenueViewModel>(),
-                ChatStarsPage => session.Resolve<ChatStarsViewModel>(),
-                ChatStoriesPage => session.Resolve<ChatStoriesViewModel>(),
 
                 // Popups
                 ContactsPopup => session.Resolve<ContactsViewModel>(),
@@ -468,10 +443,6 @@ namespace Telegram
                 ChatNotificationsPopup => session.Resolve<ChatNotificationsViewModel>(),
                 CreateChatPhotoPopup => session.Resolve<CreateChatPhotoViewModel>(),
                 PromoPopup => session.Resolve<PromoViewModel>(),
-                StarsPage => session.Resolve<StarsViewModel>(),
-                BuyPopup => session.Resolve<BuyViewModel>(),
-                PayPopup => session.Resolve<PayViewModel>(),
-                StoryInteractionsPopup => session.Resolve<StoryInteractionsViewModel>(),
                 BackgroundsPopup => session.Resolve<SettingsBackgroundsViewModel>(),
                 BackgroundPopup backgroundPopup => session.Resolve<BackgroundViewModel, IBackgroundDelegate>(backgroundPopup),
                 _ => null

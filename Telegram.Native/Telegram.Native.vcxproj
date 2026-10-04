@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version='1.0' encoding='utf-8'?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="14.0">
   <Import Project="..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|ARM64">
@@ -339,10 +339,6 @@
       <DependentUpon>Controls\DirectTextBlockBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="FreeformGradientSurface.h">
-      <DependentUpon>FreeformGradientSurface.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="GarbageCollectionMonitor.h">
       <DependentUpon>GarbageCollectionMonitor.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -388,30 +384,8 @@
     <ClInclude Include="TextHost.h">
       <DependentUpon>TextHost.idl</DependentUpon>
     </ClInclude>
-    <ClInclude Include="AI\TextRecognizer.h">
-      <DependentUpon>AI\TextRecognizer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="AI\TextRecognizerDefault.h" />
-    <ClInclude Include="AI\TextRecognizerOne.h" />
-    <ClInclude Include="AI\RecognizedLine.h">
-      <DependentUpon>AI\RecognizedLine.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="AI\RecognizedText.h">
-      <DependentUpon>AI\RecognizedText.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="AI\RecognizedWord.h">
-      <DependentUpon>AI\RecognizedWord.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Opus\OpusOutput.h">
       <DependentUpon>Opus\OpusOutput.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ParticlesAnimation.h">
-      <DependentUpon>ParticlesAnimation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="PixelBuffer.h">
@@ -1266,10 +1240,6 @@
       <DependentUpon>Controls\DirectTextBlockBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="FreeformGradientSurface.cpp">
-      <DependentUpon>FreeformGradientSurface.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="GarbageCollectionMonitor.cpp">
       <DependentUpon>GarbageCollectionMonitor.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1280,23 +1250,6 @@
     <ClCompile Include="InternalsRT\CoreWindowHelpers.cpp" />
     <ClCompile Include="LokiRng.cpp">
       <DependentUpon>LokiRng.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="AI\TextRecognizer.cpp">
-      <DependentUpon>AI\TextRecognizer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="AI\TextRecognizerDefault.cpp" />
-    <ClCompile Include="AI\RecognizedLine.cpp">
-      <DependentUpon>AI\RecognizedLine.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="AI\RecognizedText.cpp">
-      <DependentUpon>AI\RecognizedText.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="AI\RecognizedWord.cpp">
-      <DependentUpon>AI\RecognizedWord.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Media\AsyncMediaPlayer.cpp" />
@@ -1311,10 +1264,6 @@
     <ClCompile Include="Media\SoundPlayer.cpp" />
     <ClCompile Include="MessageBubbleNineGrid.cpp">
       <DependentUpon>MessageBubbleNineGrid.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ParticlesAnimation.cpp">
-      <DependentUpon>ParticlesAnimation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="RichMathSurface.cpp">
@@ -1452,9 +1401,6 @@
     <Midl Include="Controls\DirectTextBlockBase.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="FreeformGradientSurface.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="GarbageCollectionMonitor.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1484,14 +1430,7 @@
     </Midl>
     <Midl Include="NativeUtils.idl" />
     <Midl Include="TextHost.idl" />
-    <Midl Include="AI\TextRecognizer.idl" />
-    <Midl Include="AI\RecognizedLine.idl" />
-    <Midl Include="AI\RecognizedText.idl" />
-    <Midl Include="AI\RecognizedWord.idl" />
     <Midl Include="Opus\OpusOutput.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ParticlesAnimation.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="PixelBuffer.idl" />
@@ -1521,11 +1460,7 @@
       <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>
-  <!--
-    tlottie is a prebuilt Rust static library, one per shipping platform. Item definitions are
-    cumulative, so this appends to whichever configuration is active.
-    Regenerate the .lib with the command in Libraries\tlottie\README.md.
-  -->
+  
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>..\Libraries\tlottie\lib\$(Platform)\tlottie.lib;%(AdditionalDependencies)</AdditionalDependencies>

@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -11,7 +11,6 @@ using Telegram.Controls;
 using Telegram.Controls.Cells;
 using Telegram.Navigation.Services;
 using Telegram.Services;
-using Telegram.Services.Updates;
 using Telegram.Td.Api;
 using Telegram.ViewModels.Supergroups;
 using Windows.UI.Xaml;
@@ -202,9 +201,6 @@ namespace Telegram.Views.Chats.Popups
                     {
                         _slots = slots;
                         Progress.Animate(++_boostCount);
-
-                        var aggregator = _clientService.Session.Resolve<IEventAggregator>();
-                        aggregator.Publish(new UpdateConfetti());
                     }
                 }
                 else if (already.Count < _slots.Slots.Count)

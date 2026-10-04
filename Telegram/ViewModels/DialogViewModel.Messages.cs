@@ -27,7 +27,6 @@ using Telegram.Views.Chats;
 using Telegram.Views.Create;
 using Telegram.Views.Popups;
 using Telegram.Views.Settings.Popups;
-using Telegram.Views.Stars.Popups;
 using Telegram.Views.Users;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
@@ -1055,7 +1054,6 @@ namespace Telegram.ViewModels
 
         public void OpenMessageStatistics(MessageViewModel message)
         {
-            NavigationService.Navigate(typeof(MessageStatisticsPage), new MessageId(message.ChatId, message.Id));
         }
 
         #endregion
@@ -2442,13 +2440,7 @@ namespace Telegram.ViewModels
                     }
 
                     var media = await StorageMedia.CreateAsync(cached);
-                    var popup = new EditMediaPopup(XamlRoot, media, ImageCropperMask.Ellipse);
-
-                    var confirm = await popup.ShowAsync();
-                    if (confirm == ContentDialogResult.Primary)
-                    {
-                        await EditPhotoAsync(media);
-                    }
+                    await EditPhotoAsync(media);
                 }
             }
             else if (message.Content is MessageSuggestBirthdate suggestBirthdate && !message.IsOutgoing)
@@ -2502,39 +2494,15 @@ namespace Telegram.ViewModels
             }
             else if (message.Content is MessageGift gift)
             {
-                ReceivedGift receivedGift = null;
-                if (gift.UpgradedReceivedGiftId.Length > 0)
-                {
-                    receivedGift = await ClientService.SendAsync(new GetReceivedGift(gift.UpgradedReceivedGiftId)) as ReceivedGift;
-                }
-                else if (gift.ReceivedGiftId.Length > 0)
-                {
-                    receivedGift = await ClientService.SendAsync(new GetReceivedGift(gift.ReceivedGiftId)) as ReceivedGift;
-                }
-
-                receivedGift ??= new ReceivedGift(gift.ReceivedGiftId, gift.SenderId, gift.Text, gift.UniqueGiftNumber, gift.IsPrivate, gift.IsSaved, false, gift.CanBeUpgraded && !gift.WasUpgraded, false, gift.WasRefunded, message.Date, new SentGiftRegular(gift.Gift), Array.Empty<int>(), gift.SellStarCount, gift.PrepaidUpgradeStarCount, gift.IsUpgradeSeparate, 0, 0, 0, 0, 0, gift.PrepaidUpgradeHash, 0);
-
-                ShowPopup(new ReceivedGiftPopup(ClientService, NavigationService, receivedGift, gift.ReceiverId, null));
+                ShowToast("Profile gifts are not supported in this build.", ToastPopupIcon.Info);
             }
             else if (message.Content is MessageUpgradedGift upgradedGift)
             {
-                ReceivedGift receivedGift = null;
-                if (upgradedGift.ReceivedGiftId.Length > 0)
-                {
-                    receivedGift = await ClientService.SendAsync(new GetReceivedGift(upgradedGift.ReceivedGiftId)) as ReceivedGift;
-                }
-
-                receivedGift ??= new ReceivedGift(upgradedGift.ReceivedGiftId, upgradedGift.SenderId, upgradedGift.Gift.OriginalDetails?.Text ?? string.Empty.AsFormattedText(), 0, true, upgradedGift.IsSaved, false, false, upgradedGift.CanBeTransferred, false, message.Date, new SentGiftUpgraded(upgradedGift.Gift), Array.Empty<int>(), 0, 0, false, upgradedGift.TransferStarCount, upgradedGift.DropOriginalDetailsStarCount, upgradedGift.NextTransferDate, upgradedGift.NextResaleDate, upgradedGift.ExportDate, string.Empty, upgradedGift.CraftDate);
-
-                ShowPopup(new ReceivedGiftPopup(ClientService, NavigationService, receivedGift, upgradedGift.ReceiverId, null));
+                ShowToast("Profile gifts are not supported in this build.", ToastPopupIcon.Info);
             }
             else if (message.Content is MessageGiftedStars giftedStars)
             {
-                var type = new StarTransactionTypeUserDeposit(giftedStars.GifterUserId, giftedStars.Sticker);
-                var amount = new StarAmount(giftedStars.StarCount, 0);
-                var transaction = new StarTransaction(giftedStars.TransactionId, amount, false, message.Date, type);
-
-                ShowPopup(new Views.Stars.Popups.ReceiptPopup(ClientService, NavigationService, transaction));
+                ShowToast("Star transactions are not supported in this build.", ToastPopupIcon.Info);
             }
             else if (message.Content is MessageGiftedPremium giftedPremium)
             {

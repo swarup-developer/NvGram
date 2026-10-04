@@ -13,7 +13,6 @@ using Telegram.Controls;
 using Telegram.Entities;
 using Telegram.Navigation.Services;
 using Telegram.Td.Api;
-using Telegram.Views.Popups;
 using Windows.Foundation;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml.Controls;
@@ -49,13 +48,7 @@ namespace Telegram.Services
                 var media = await picker.PickSingleMediaAsync(navigation.XamlRoot);
                 if (media is StoragePhoto or StorageVideo)
                 {
-                    var popup = new EditMediaPopup(navigation.XamlRoot, media, ImageCropperMask.Ellipse);
-
-                    var confirm = await popup.ShowAsync();
-                    if (confirm == ContentDialogResult.Primary)
-                    {
-                        return await EditPhotoAsync(navigation, media);
-                    }
+                    return await EditPhotoAsync(navigation, media);
                 }
                 else if (media is StorageInvalid)
                 {

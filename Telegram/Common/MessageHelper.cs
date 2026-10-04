@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using Telegram.Controls;
 using Telegram.Controls.Cells;
 using Telegram.Controls.Media;
-using Telegram.Controls.Stories;
 using Telegram.Converters;
 using Telegram.Native;
 using Telegram.Navigation;
@@ -21,10 +20,8 @@ using Telegram.Td;
 using Telegram.Td.Api;
 using Telegram.ViewModels;
 using Telegram.ViewModels.Settings;
-using Telegram.ViewModels.Stories;
 using Telegram.ViewModels.Supergroups;
 using Telegram.Views;
-using Telegram.Views.Business;
 using Telegram.Views.Chats.Popups;
 using Telegram.Views.Create;
 using Telegram.Views.Folders;
@@ -33,7 +30,6 @@ using Telegram.Views.Host;
 using Telegram.Views.Popups;
 using Telegram.Views.Premium.Popups;
 using Telegram.Views.Settings;
-using Telegram.Views.Stars.Popups;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Resources.Core;
@@ -852,15 +848,6 @@ namespace Telegram.Common
                     break;
                 case SettingsSectionAskQuestion:
                     break;
-                case SettingsSectionBusiness business:
-                    switch (business.Subsection)
-                    {
-                        case "do-not-hide-ads":
-                        default:
-                            navigation.Navigate(typeof(BusinessPage));
-                            break;
-                    }
-                    break;
                 case SettingsSectionChatFolders chatFolders:
                     switch (chatFolders.Subsection)
                     {
@@ -1249,20 +1236,9 @@ namespace Telegram.Common
             }
         }
 
-        public static async void NavigateToUpgradedGift(IClientService clientService, INavigationService navigation, string name)
+        public static void NavigateToUpgradedGift(IClientService clientService, INavigationService navigation, string name)
         {
-            var response = await clientService.SendAsync(new GetUpgradedGift(name));
-            if (response is UpgradedGift gift)
-            {
-                var text = gift.OriginalDetails?.Text ?? string.Empty.AsFormattedText();
-                var receivedGift = new ReceivedGift(string.Empty, null, text, 0, true, false, false, false, false, false, 0, new SentGiftUpgraded(gift), Array.Empty<int>(), 0, 0, false, 0, 0, 0, 0, 0, string.Empty, 0);
-
-                navigation.ShowPopup(new ReceivedGiftPopup(clientService, navigation, receivedGift, null, null));
-            }
-            else
-            {
-                navigation.ShowToast(Strings.UniqueGiftNotFound, ToastPopupIcon.Error);
-            }
+            navigation.ShowToast("Gifts are not supported in this build.", ToastPopupIcon.Info);
         }
 
         private static async void NavigateToPremiumGiftCode(IClientService clientService, INavigationService navigation, string code, OpenUrlSource source)
@@ -1373,73 +1349,14 @@ namespace Telegram.Common
 
         private static async void NavigateToStory(IClientService clientService, INavigationService navigation, string username, int storyId)
         {
-            var response = await clientService.SendAsync(new SearchPublicChat(username));
-            if (response is Chat chat)
-            {
-                var response2 = await clientService.SendAsync(new GetStory(chat.Id, storyId, false));
-                if (response2 is Story story)
-                {
-                    var settings = clientService.Session.Resolve<ISettingsService>();
-                    var aggregator = clientService.Session.Resolve<IEventAggregator>();
-
-                    var activeStories = new ActiveStoriesViewModel(clientService, settings, aggregator, story);
-                    var viewModel = StoryListViewModel.Create(navigation, activeStories);
-
-                    var window = new StoriesWindow(navigation.XamlRoot);
-                    window.Update(viewModel, activeStories, StoryOpenOrigin.Card, Rect.Empty, null);
-                    _ = window.ShowAsync();
-                }
-                else
-                {
-                    navigation.ShowToast(Strings.StoryNotFound, ToastPopupIcon.ExpiredStory);
-                }
-            }
-            else
-            {
-                navigation.ShowToast(Strings.NoUsernameFound, ToastPopupIcon.Info);
-            }
+            await Task.Yield();
+            navigation.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
         }
 
         private static async void NavigateToLiveStory(IClientService clientService, INavigationService navigation, string username)
         {
-            var response = await clientService.SendAsync(new SearchPublicChat(username));
-            if (response is Chat chat)
-            {
-                var response2 = await clientService.SendAsync(new GetChatActiveStories(chat.Id));
-                if (response2 is ChatActiveStories stories)
-                {
-                    var liveStory = stories.Stories.FirstOrDefault(x => x.IsLive);
-                    if (liveStory != null)
-                    {
-                        var response3 = await clientService.SendAsync(new GetStory(chat.Id, liveStory.StoryId, false));
-                        if (response3 is Story story)
-                        {
-                            if (story.Content is StoryContentLive live && !clientService.TryGetGroupCall(live.GroupCallId, out _))
-                            {
-                                await clientService.SendAsync(new GetGroupCall(live.GroupCallId));
-                            }
-
-                            var settings = clientService.Session.Resolve<ISettingsService>();
-                            var aggregator = clientService.Session.Resolve<IEventAggregator>();
-
-                            var activeStories = new ActiveStoriesViewModel(clientService, settings, aggregator, story);
-                            var viewModel = StoryListViewModel.Create(navigation, activeStories);
-
-                            var window = new StoriesWindow(navigation.XamlRoot);
-                            window.Update(viewModel, activeStories, StoryOpenOrigin.Card, Rect.Empty, null);
-                            _ = window.ShowAsync();
-
-                            return;
-                        }
-                    }
-                }
-
-                navigation.ShowToast(Strings.StoryNotFound, ToastPopupIcon.ExpiredStory);
-            }
-            else
-            {
-                navigation.ShowToast(Strings.NoUsernameFound, ToastPopupIcon.Info);
-            }
+            await Task.Yield();
+            navigation.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
         }
 
         public static async void NavigateToWebApp(IClientService clientService, INavigationService navigation, string botUsername, string startParameter, string webAppShortName, WebAppOpenMode mode, OpenUrlSource source)

@@ -9,7 +9,6 @@ using System;
 using System.Numerics;
 using System.Threading.Tasks;
 using Telegram.Common;
-using Telegram.Native.AI;
 using Telegram.Navigation;
 using Telegram.Services;
 using Telegram.Td.Api;
@@ -613,142 +612,31 @@ namespace Telegram.Controls.Gallery
 
         public bool IsTextSelectionEnabled
         {
-            get => Selection.Visibility == Visibility.Visible;
-            private set => Selection.Visibility = value
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            get => false;
+            private set { }
         }
 
         public void SelectAllText()
         {
-            VisualUtilities.QueueCallbackForCompositionRendered(Selection.SelectAll);
         }
 
         public void CopySelectedText()
         {
-            MessageHelper.CopyText(XamlRoot, Selection.SelectedText);
         }
 
-        public string RecognizedText => Selection.Text;
+        public string RecognizedText => string.Empty;
 
-        public string SelectedText => Selection.SelectedText;
+        public string SelectedText => string.Empty;
 
-        public bool IsTextSelected => Selection.SelectedText.Length > 0;
+        public bool IsTextSelected => false;
 
-        public bool IsTextNotRecognized { get; private set; }
+        public bool IsTextNotRecognized => true;
 
-        private RecognizedText _recognizedText;
-        private int _recognizedTextFileId;
-
-        public async void RecognizeText()
+        public void RecognizeText()
         {
-            if (IsTextSelectionEnabled)
-            {
-                Selection.ClearSelection();
-                IsTextSelectionEnabled = false;
-                return;
-            }
-            else if (_recognizedText != null && _recognizedTextFileId == _itemId)
-            {
-                IsTextSelectionEnabled = true;
-                return;
-            }
-
-            var viewModel = _window?.ViewModel;
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            var fileId = _itemId;
-            var service = viewModel.Session.Resolve<ITextRecognitionService>();
-
-            var status = await service.EnsureReadyAsync();
-            if (status is TextRecognitionStatusUnavailable unavailable)
-            {
-                // TODO: Error: not available
-
-                WatchDog.TrackEvent("TextRecognizer", new Properties { { "Status", "Unavailable" } });
-                return;
-            }
-            else if (status is TextRecognitionStatusDownloading downloading && fileId == _fileId && IsLoaded)
-            {
-                WatchDog.TrackEvent("TextRecognizer", new Properties { { "Status", "Downloading" } });
-
-                var confirm = await viewModel.ShowPopupAsync(new TextRecognitionDownloadPopup(viewModel.ClientService, viewModel.Aggregator, downloading.Document), requestedTheme: ElementTheme.Dark);
-                if (confirm != ContentDialogResult.Primary)
-                {
-                    return;
-                }
-
-                status = await service.EnsureReadyAsync();
-            }
-            else
-            {
-                WatchDog.TrackEvent("TextRecognizer", new Properties { { "Status", "Available" } });
-            }
-
-            if (status is not TextRecognitionStatusAvailable available || fileId != _itemId || !IsLoaded)
-            {
-                // TODO: Error: not available
-                return;
-            }
-
-            IsTextSelectionEnabled = true;
-            Selection.ShowSkeleton();
-
-            var bitmap = await GetSoftwareBitmapAsync(_item?.File);
-            if (bitmap == null)
-            {
-                // TODO: Error: text recognition is not available
-
-                IsTextSelectionEnabled = false;
-                return;
-            }
-
-            if (bitmap.PixelWidth < 50 || bitmap.PixelHeight < 50)
-            {
-                ToastPopup.Show(XamlRoot, Strings.ScanTextTooSmall, ToastPopupIcon.Error);
-
-                IsTextSelectionEnabled = false;
-                return;
-            }
-
-            if (bitmap.PixelWidth > 10000 || bitmap.PixelHeight > 10000)
-            {
-                ToastPopup.Show(XamlRoot, Strings.ScanTextTooLarge, ToastPopupIcon.Error);
-
-                IsTextSelectionEnabled = false;
-                return;
-            }
-
-            if (fileId != _itemId || !IsLoaded)
-            {
-                IsTextSelectionEnabled = false;
-                return;
-            }
-
-            var result = await available.Recognizer.RecognizeAsync(bitmap);
-            if (result == null || result.Lines.Empty())
-            {
-                ToastPopup.Show(XamlRoot, Strings.ScanTextNoTextDetected, ToastPopupIcon.Info);
-
-                IsTextSelectionEnabled = false;
-                IsTextNotRecognized = true;
-                return;
-            }
-
-            if (fileId != _itemId || !IsLoaded)
-            {
-                return;
-            }
-
-            _recognizedText = result;
-            _recognizedTextFileId = _itemId;
-
-            Selection.ImageSize = new Vector2(bitmap.PixelWidth, bitmap.PixelHeight);
-            Selection.RecognizedText = result;
         }
+
+
 
         public async Task<SoftwareBitmap> GetSoftwareBitmapAsync(File file)
         {
@@ -774,14 +662,6 @@ namespace Telegram.Controls.Gallery
             catch
             {
                 return null;
-            }
-        }
-
-        private void Selection_LinkClicked(object sender, ImageTextSelectionLinkClickedEventArgs e)
-        {
-            if (Uri.TryCreate(e.Link, UriKind.Absolute, out _))
-            {
-                MessageHelper.OpenUrl(_window.ViewModel.ClientService, _window.ViewModel.NavigationService, e.Link, true);
             }
         }
     }

@@ -143,12 +143,8 @@ namespace Telegram.ViewModels.Profile
         {
             return type switch
             {
-                ProfileTabPosts => (Strings.ProfileStories, typeof(ProfileStoriesTabPage)),
-                ProfileTabGifts => (Strings.ProfileGifts, typeof(ProfileGiftsTabPage)),
-                ProfileTabArchivedPosts => (Strings.ArchivedStories, typeof(ProfileStoriesTabPage)),
                 ProfileTabSavedChats => (Strings.SavedDialogsTab, typeof(ProfileSavedChatsTabPage)),
                 ProfileTabTopics => (Strings.Topics, typeof(ProfileTopicsTabPage)),
-                ProfileTabPreviews => (Strings.ProfileBotPreviewTab, typeof(ProfileStoriesTabPage)),
                 ProfileTabGroups => (Strings.SharedGroupsTab2, typeof(ProfileGroupsTabPage)),
                 ProfileTabSimilarBots => (Strings.SimilarBotsTab, typeof(ProfileBotsTabPage)),
                 ProfileTabSimilarChannels => (Strings.SimilarChannelsTab, typeof(ProfileChannelsTabPage)),
@@ -195,12 +191,9 @@ namespace Telegram.ViewModels.Profile
     {
         protected readonly ProfileSavedChatsTabViewModel _savedChatsTabViewModel;
         protected readonly ProfileTopicsTabViewModel _topicsTabViewModel;
-        protected readonly ProfileStoriesTabViewModel _pinnedStoriesTabViewModel;
-        protected readonly ProfileStoriesTabViewModel _archivedStoriesTabViewModel;
         protected readonly ProfileGroupsTabViewModel _groupsTabViewModel;
         protected readonly ProfileChannelsTabViewModel _channelsTabViewModel;
         protected readonly ProfileBotsTabViewModel _botsTabViewModel;
-        protected readonly ProfileGiftsTabViewModel _giftsTabViewModel;
         protected readonly ProfileMembersTabViewModel _membersTabVieModel;
 
         public ProfileTabsViewModel(IClientService clientService, ISettingsService settingsService, IStorageService storageService, IEventAggregator aggregator)
@@ -208,26 +201,17 @@ namespace Telegram.ViewModels.Profile
         {
             _savedChatsTabViewModel = Session.Resolve<ProfileSavedChatsTabViewModel>();
             _topicsTabViewModel = Session.Resolve<ProfileTopicsTabViewModel>();
-            _pinnedStoriesTabViewModel = Session.Resolve<ProfileStoriesTabViewModel>();
-            _archivedStoriesTabViewModel = Session.Resolve<ProfileStoriesTabViewModel>();
             _groupsTabViewModel = Session.Resolve<ProfileGroupsTabViewModel>();
             _channelsTabViewModel = Session.Resolve<ProfileChannelsTabViewModel>();
             _botsTabViewModel = Session.Resolve<ProfileBotsTabViewModel>();
-            _giftsTabViewModel = Session.Resolve<ProfileGiftsTabViewModel>();
             _membersTabVieModel = Session.Resolve<ProfileMembersTabViewModel>();
             _membersTabVieModel.IsEmbedded = true;
 
-            _pinnedStoriesTabViewModel.SetType(ChatStoriesType.Pinned);
-            _archivedStoriesTabViewModel.SetType(ChatStoriesType.Archive);
-
             Children.Add(_savedChatsTabViewModel);
             Children.Add(_topicsTabViewModel);
-            Children.Add(_pinnedStoriesTabViewModel);
-            Children.Add(_archivedStoriesTabViewModel);
             Children.Add(_groupsTabViewModel);
             Children.Add(_channelsTabViewModel);
             Children.Add(_botsTabViewModel);
-            Children.Add(_giftsTabViewModel);
             Children.Add(_membersTabVieModel);
 
             Items = new RangeObservableCollection<ProfileTabItem>();

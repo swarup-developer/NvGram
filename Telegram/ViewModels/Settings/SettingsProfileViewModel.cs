@@ -13,7 +13,6 @@ using Telegram.Navigation.Services;
 using Telegram.Services;
 using Telegram.Td.Api;
 using Telegram.ViewModels.Delegates;
-using Telegram.Views.Business;
 using Telegram.Views.Settings;
 using Telegram.Views.Settings.Popups;
 using Windows.UI.Xaml.Controls;
@@ -260,42 +259,6 @@ namespace Telegram.ViewModels.Settings
                 {
                     ShowToast(Strings.EditProfileChannelSet, ToastPopupIcon.Success);
                 }
-            }
-        }
-
-        public void ChangeHours()
-        {
-            if (IsPremium)
-            {
-                NavigationService.Navigate(typeof(BusinessHoursPage));
-            }
-            else
-            {
-                NavigationService.Navigate(typeof(BusinessPage));
-            }
-        }
-
-        public void ChangeLocation()
-        {
-            if (IsPremium)
-            {
-                NavigationService.Navigate(typeof(BusinessLocationPage));
-            }
-            else
-            {
-                NavigationService.Navigate(typeof(BusinessPage));
-            }
-        }
-
-        public void ChangeAutomation()
-        {
-            if (IsPremium)
-            {
-                NavigationService.Navigate(typeof(BusinessBotsPage));
-            }
-            else
-            {
-                NavigationService.Navigate(typeof(BusinessPage));
             }
         }
     }

@@ -101,12 +101,6 @@ namespace Telegram.ViewModels.Users
             }
         }
 
-        private StarAmount _starCount;
-        public StarAmount StarCount
-        {
-            get => _starCount;
-            set => Set(ref _starCount, value);
-        }
 
         private long _userId;
 
@@ -156,12 +150,6 @@ namespace Telegram.ViewModels.Users
                     {
                         _originalDescription = text2.TextValue;
                         Description = text2.TextValue;
-                    }
-
-                    var response2 = await ClientService.GetStarTransactionsAsync(new MessageSenderUser(userId), string.Empty, null, string.Empty, 1);
-                    if (response2 is StarTransactions transactions)
-                    {
-                        StarCount = transactions.StarAmount;
                     }
                 }
             }
@@ -331,16 +319,6 @@ namespace Telegram.ViewModels.Users
         public async void ChangeUsername()
         {
             await ShowPopupAsync(new SettingsUsernamePopup(), _userId);
-        }
-
-        public void OpenAffiliate()
-        {
-            NavigationService.Navigate(typeof(UserAffiliatePage), _userId);
-        }
-
-        public void ShowBalance()
-        {
-            NavigationService.Navigate(typeof(ChatStarsPage), new MessageSenderUser(_userId));
         }
 
         public void EditCommands()

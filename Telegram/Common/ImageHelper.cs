@@ -730,10 +730,7 @@ namespace Telegram.Common
                 session.Transform = Matrix3x2.Multiply(session.Transform, Matrix3x2.CreateScale(scaleX, scaleY));
                 session.Transform = Matrix3x2.Multiply(session.Transform, Matrix3x2.CreateTranslation(-(offsetX * size.X), -(offsetY * size.Y)));
 
-                foreach (var builder in strokes)
-                {
-                    PencilCanvas.DrawPath(session, builder, size);
-                }
+                // Drawing strokes removed with EditMediaPopup
             }
 
             using (var session = target.CreateDrawingSession())

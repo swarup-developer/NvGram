@@ -6,7 +6,6 @@
 //
 
 using System;
-using Telegram.Services.Updates;
 using Telegram.Streams;
 using Telegram.Td;
 using Telegram.Td.Api;
@@ -118,7 +117,6 @@ namespace Telegram.Controls.Messages.Content
         {
             if (_message?.Content is MessageDice dice && dice.SuccessAnimationFrameNumber == e.Position)
             {
-                _message.Delegate.Aggregator.Publish(new UpdateConfetti());
                 Player.PositionChanged -= OnPositionChanged;
             }
         }

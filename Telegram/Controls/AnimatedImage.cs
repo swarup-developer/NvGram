@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -2116,30 +2116,7 @@ namespace Telegram.Controls
         }
     }
 
-    public partial class ParticlesAnimatedImageTask : AnimatedImageTask
-    {
-        private readonly ParticlesAnimation _animation;
 
-        public ParticlesAnimatedImageTask(ParticlesAnimation animation, AnimatedImagePresentation presentation)
-            : base(presentation)
-        {
-            _animation = animation;
-
-            PixelWidth = animation.PixelWidth;
-            PixelHeight = animation.PixelHeight;
-
-            Interval = TimeSpan.FromMilliseconds(Math.Floor(1000d / 30));
-            FrameRate = 30;
-        }
-
-        public override AnimatedImageTaskState NextFrame(IBuffer frame, out double position)
-        {
-            _animation.RenderSync(frame);
-
-            position = 0;
-            return AnimatedImageTaskState.None;
-        }
-    }
 
     /// <summary>
     /// A dice: up to three lottie layers stacked into one frame, and the switch from the state it
@@ -2810,9 +2787,9 @@ namespace Telegram.Controls
                         }
                     }
                 }
-                else if (work.Presentation.Source is ParticlesImageSource particles)
+                else if (work.Presentation.Source is ParticlesImageSource)
                 {
-                    LoadParticles(weakDelegate, work, particles);
+                    NotifyDelegate(weakDelegate, null, null);
                 }
                 else
                 {
@@ -2888,11 +2865,6 @@ namespace Telegram.Controls
             }
         }
 
-        private void LoadParticles(WeakReference<AnimatedImagePresenter> weakDelegate, WorkItem work, ParticlesImageSource particles)
-        {
-            var animation = new ParticlesAnimation(work.Presentation.PixelWidth, work.Presentation.PixelHeight, work.Presentation.RasterizationScale, particles.Type, particles.Foreground, particles.Background);
-            NotifyDelegate(weakDelegate, null, new ParticlesAnimatedImageTask(animation, work.Presentation));
-        }
 
         private void LoadLottie(WeakReference<AnimatedImagePresenter> weakDelegate, WorkItem work, LocalFileSource local)
         {

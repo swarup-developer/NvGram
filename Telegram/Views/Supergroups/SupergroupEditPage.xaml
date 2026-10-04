@@ -227,12 +227,6 @@
                                              Click="{x:Bind ViewModel.EventLog}"
                                              IsChevronVisible="True"
                                              Glyph="&#xE984;" />
-
-                    <controls:SettingsButton x:Name="AffiliatePrograms"
-                                             Content="{CustomResource ChannelAffiliatePrograms}"
-                                             Click="{x:Bind ViewModel.AffiliatePrograms}"
-                                             IsChevronVisible="True"
-                                             Glyph="&#xEAA6;" />
                 </controls:HeaderedControl>
 
                 <controls:HeaderedControl x:Name="DeletePanel">

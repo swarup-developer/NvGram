@@ -11,15 +11,12 @@ using System.Text;
 using Telegram.Common;
 using Telegram.Controls;
 using Telegram.Controls.Messages.Content;
-using Telegram.Controls.Stories;
 using Telegram.Converters;
 using Telegram.Navigation.Services;
 using Telegram.Services;
-using Telegram.Services.Updates;
 using Telegram.Td.Api;
 using Telegram.ViewModels.Chats;
 using Telegram.ViewModels.Gallery;
-using Telegram.ViewModels.Stories;
 using Telegram.Views;
 using Telegram.Views.Popups;
 using Windows.Foundation;
@@ -307,7 +304,6 @@ namespace Telegram.ViewModels
 
                 if (ids1.SequenceEqual(ids2))
                 {
-                    Aggregator.Publish(new UpdateConfetti());
                 }
                 else
                 {
@@ -422,27 +418,23 @@ namespace Telegram.ViewModels
                     }
                 }
             }
-            else if (message.Content is MessageAsyncStory story && story.Story != null)
+            else if (message.Content is MessageAsyncStory)
             {
-                Rect GetOrigin(ActiveStoriesViewModel activeStories)
+                NavigationService.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
+            }
+            else if (message.Content is MessageVideo video)
+            {
+                if (video.Video?.VideoValue != null)
                 {
-                    var transform = target.TransformToVisual(null);
-                    var point = transform.TransformPoint(new Point());
-
-                    return new Rect(point.X, point.Y, target.ActualWidth, target.ActualHeight);
+                    if (video.Video.VideoValue.Local.IsDownloadingCompleted)
+                    {
+                        _ = _storageService.OpenFileAsync(video.Video.VideoValue);
+                    }
+                    else
+                    {
+                        ClientService.DownloadFile(video.Video.VideoValue.Id, 32);
+                    }
                 }
-
-                var transform = target.TransformToVisual(null);
-
-                var point = transform.TransformPoint(new Point());
-                var origin = new Rect(point.X, point.Y, target.ActualWidth, target.ActualHeight);
-
-                var activeStories = new ActiveStoriesViewModel(ClientService, Settings, Aggregator, story.Story);
-                var viewModel = StoryListViewModel.Create(NavigationService, activeStories);
-
-                var window = new StoriesWindow(XamlRoot);
-                window.Update(viewModel, activeStories, StoryOpenOrigin.Card, origin, GetOrigin);
-                _ = window.ShowAsync();
             }
             else
             {

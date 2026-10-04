@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "Direct2DDevice.h"
 #if __has_include("Direct2DDevice.g.cpp")
 #include "Direct2DDevice.g.cpp"
@@ -1577,18 +1577,6 @@ namespace winrt::Telegram::Native::implementation
         }
 
         return families;
-    }
-
-    winrt::Telegram::Native::FreeformGradientSurface Direct2DDevice::CreateFreeformGradient(IVectorView<int32_t> colors)
-    {
-        auto surface = CreateDrawingSurface({ 50, 50 });
-        if (surface)
-        {
-            auto gradient = winrt::make_self<FreeformGradientSurface>(m_compositionDevice, m_d2dFactory, m_compositor, surface, colors);
-            return gradient.as<winrt::Telegram::Native::FreeformGradientSurface>();
-        }
-
-        return nullptr;
     }
 
     // Nothing reports that a XamlRoot has gone, so expired buckets are dropped whenever a window is

@@ -1,4 +1,4 @@
-﻿<local:HostedPage x:Class="Telegram.Views.Settings.SettingsProfilePage"
+<local:HostedPage x:Class="Telegram.Views.Settings.SettingsProfilePage"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -122,20 +122,11 @@
                                              Foreground="{ThemeResource DangerButtonBackground}" />
                 </controls:HeaderedControl>
 
-                <controls:HeaderedControl Footer="{CustomResource EditProfileChatAutomationInfo}">
+                <controls:HeaderedControl>
                     <controls:SettingsButton x:Name="PersonalChannel"
                                              Content="{CustomResource EditProfileChannelTitle}"
                                              Click="{x:Bind ViewModel.ChangePersonalChannel}"
                                              Glyph="&#xE789;" />
-                    <controls:SettingsButton Content="{CustomResource EditProfileHours}"
-                                             Click="{x:Bind ViewModel.ChangeHours}"
-                                             Glyph="&#xE911;" />
-                    <controls:SettingsButton Content="{CustomResource EditProfileLocation}"
-                                             Click="{x:Bind ViewModel.ChangeLocation}"
-                                             Glyph="&#xE1C4;" />
-                    <controls:SettingsButton Content="{CustomResource EditProfileChatAutomation}"
-                                             Click="{x:Bind ViewModel.ChangeAutomation}"
-                                             Glyph="&#xEB02;" />
                 </controls:HeaderedControl>
 
                 <controls:HeaderedControl>

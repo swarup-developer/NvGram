@@ -21,7 +21,6 @@ using Telegram.Services.Updates;
 using Telegram.Td;
 using Telegram.Td.Api;
 using Telegram.ViewModels.Folders;
-using Telegram.ViewModels.Stories;
 using Telegram.Views;
 using Telegram.Views.Folders;
 using Telegram.Views.Popups;
@@ -57,7 +56,6 @@ namespace Telegram.ViewModels
 
             Chats = new ChatListViewModel(clientService, settingsService, aggregator, pushService, chatList);
             SearchChats = new SearchChatsViewModel(clientService, settingsService, aggregator);
-            Stories = new StoryListViewModel(clientService, settingsService, aggregator, new StoryListMain());
             Topics = new TopicListViewModel(clientService, settingsService, aggregator, pushService, true, true);
             Settings = new SettingsViewModel(clientService, settingsService, storageService, aggregator, settingsSearchService);
 
@@ -68,7 +66,6 @@ namespace Telegram.ViewModels
             // Any additional child
             Children.Add(SearchChats);
             Children.Add(Topics);
-            Children.Add(Stories);
 
             UpdateChatFolders(ClientService.ChatFolders, ClientService.MainChatListPosition);
             Subscribe();
@@ -77,13 +74,11 @@ namespace Telegram.ViewModels
         public void Dispose()
         {
             Aggregator.Unsubscribe(Chats.Items);
-            Aggregator.Unsubscribe(Stories.Items);
             Aggregator.Unsubscribe(this);
 
             if (Dispatcher != null && Dispatcher.HasThreadAccess)
             {
                 Chats.Items.Clear();
-                Stories.Items.Clear();
             }
 
             Children.Clear();
@@ -363,9 +358,6 @@ namespace Telegram.ViewModels
                     RaisePropertyChanged(nameof(SelectedFolderView));
                     RaisePropertyChanged(nameof(IsPrimaryFolderSelected));
                     Chats.SetChatList(value.ChatList);
-                    Stories.SetList(value.ChatList is ChatListArchive
-                        ? new StoryListArchive()
-                        : new StoryListMain());
                 }
             }
         }
@@ -426,7 +418,6 @@ namespace Telegram.ViewModels
 
         public ChatListViewModel Chats { get; private set; }
         public SearchChatsViewModel SearchChats { get; private set; }
-        public StoryListViewModel Stories { get; private set; }
         public TopicListViewModel Topics { get; private set; }
         public SettingsViewModel Settings { get; private set; }
 

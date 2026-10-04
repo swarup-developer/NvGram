@@ -26,7 +26,6 @@ using Telegram.Views.Chats;
 using Telegram.Views.Popups;
 using Telegram.Views.Premium.Popups;
 using Telegram.Views.Profile.Popups;
-using Telegram.Views.Stars.Popups;
 using Telegram.Views.Supergroups;
 using Telegram.Views.Supergroups.Popups;
 using Telegram.Views.Users;
@@ -53,26 +52,16 @@ namespace Telegram.ViewModels
             _notificationsService = notificationsService;
             _translateService = translateService;
 
-            _giftsTabViewModel.ItemsReady += Gifts_ItemsReady;
-
             SetTimerCommand = new RelayCommand<int?>(SetTimer);
-        }
-
-        private void Gifts_ItemsReady(object sender, EventArgs e)
-        {
-            Delegate?.UpdateChatGifts(Chat);
         }
 
         public ITranslateService TranslateService => _translateService;
 
         public ProfileSavedChatsTabViewModel SavedChatsTab => _savedChatsTabViewModel;
         public ProfileTopicsTabViewModel TopicsTab => _topicsTabViewModel;
-        public ProfileStoriesTabViewModel PinnedStoriesTab => _pinnedStoriesTabViewModel;
-        public ProfileStoriesTabViewModel ArchivedStoriesTab => _archivedStoriesTabViewModel;
         public ProfileGroupsTabViewModel GroupsTab => _groupsTabViewModel;
         public ProfileChannelsTabViewModel ChannelsTab => _channelsTabViewModel;
         public ProfileBotsTabViewModel BotsTab => _botsTabViewModel;
-        public ProfileGiftsTabViewModel GiftsTab => _giftsTabViewModel;
         public SupergroupMembersViewModel MembersTab => _membersTabVieModel;
 
         protected ObservableCollection<ChatMember> _members;
@@ -251,14 +240,10 @@ namespace Telegram.ViewModels
 
                 if (MyProfile && user.Id == ClientService.Options.MyId)
                 {
-                    tabs.Add(new ProfileTabItem(new ProfileTabPosts(), ChatStoriesType.Pinned, PinnedStoriesTab.Items, Strings.R.ProfileStoriesCount));
 
-                    if (cached != null && cached.GiftCount > 0)
                     {
-                        tabs.Add(new ProfileTabItem(new ProfileTabGifts(), null, cached.GiftCount, Strings.R.ProfileGiftsCount));
                     }
 
-                    tabs.Add(new ProfileTabItem(new ProfileTabArchivedPosts(), ChatStoriesType.Archive, ArchivedStoriesTab.Items, Strings.R.ProfileStoriesArchiveCount));
                 }
                 else
                 {
@@ -270,22 +255,6 @@ namespace Telegram.ViewModels
                     if (user.Id == ClientService.Options.MyId)
                     {
                         tabs.Add(new ProfileTabItem(new ProfileTabSavedChats(), null, SavedChatsTab.Items, Strings.R.Chats));
-                    }
-                    else if (cached?.BotInfo != null && cached.BotInfo.HasMediaPreviews)
-                    {
-                        tabs.Add(new ProfileTabItem(new ProfileTabPreviews(), ChatStoriesType.Pinned, PinnedStoriesTab.Items, Strings.R.ProfileStoriesCount));
-                    }
-                    else
-                    {
-                        if (cached != null && cached.HasPostedToProfileStories)
-                        {
-                            tabs.Add(new ProfileTabItem(new ProfileTabPosts(), ChatStoriesType.Pinned, PinnedStoriesTab.Items, Strings.R.ProfileStoriesCount));
-                        }
-
-                        if (user.Id != ClientService.Options.MyId && cached != null && cached.GiftCount > 0)
-                        {
-                            tabs.Add(new ProfileTabItem(new ProfileTabGifts(), null, cached.GiftCount, Strings.R.ProfileGiftsCount));
-                        }
                     }
 
                     await UpdateSharedCountAsync(chat, tabs);
@@ -314,16 +283,6 @@ namespace Telegram.ViewModels
                 // This should really rarely happen
                 cached ??= await ClientService.SendAsync(new GetSupergroupFullInfo(supergroup.Id)) as SupergroupFullInfo;
                 mainTab = cached?.MainProfileTab;
-
-                if (ForumTopic == null && cached?.HasPinnedStories is true)
-                {
-                    tabs.Add(new ProfileTabItem(new ProfileTabPosts(), ChatStoriesType.Pinned, PinnedStoriesTab.Items, Strings.R.ProfileStoriesCount));
-                }
-
-                if (ForumTopic == null && cached?.GiftCount > 0)
-                {
-                    tabs.Add(new ProfileTabItem(new ProfileTabGifts(), null, cached.GiftCount, Strings.R.ProfileGiftsCount));
-                }
 
                 if (typeSupergroup.IsChannel)
                 {
@@ -372,11 +331,6 @@ namespace Telegram.ViewModels
             SelectedItem = already ?? tabs.FirstOrDefault();
 
             _mainTab = mainTab;
-
-            if (already?.Type is not ProfileTabGifts)
-            {
-                _giftsTabViewModel.Preload();
-            }
         }
 
         private void UpdateMainTab(ProfileTab mainTab)
@@ -673,7 +627,7 @@ namespace Telegram.ViewModels
                 return;
             }
 
-            NavigationService.Navigate(typeof(RevenuePage), chat.Id);
+
         }
 
         public void OpenBoosts()
@@ -689,13 +643,7 @@ namespace Telegram.ViewModels
 
         public void OpenArchivedStories()
         {
-            var chat = _chat;
-            if (chat == null)
-            {
-                return;
-            }
-
-            NavigationService.Navigate(typeof(ChatStoriesPage), new ChatStoriesArgs(chat.Id, ChatStoriesType.Archive));
+            NavigationService.ShowToast("Stories are not supported in this build.", ToastPopupIcon.Info);
         }
 
         public async void Block()
@@ -1633,14 +1581,7 @@ namespace Telegram.ViewModels
                 return;
             }
 
-            if (chat.Type is ChatTypePrivate privata)
-            {
-                NavigationService.Navigate(typeof(ChatRevenuePage), chat.Id);
-            }
-            else if (chat.Type is ChatTypeSupergroup)
-            {
-                NavigationService.Navigate(typeof(RevenuePage), chat.Id, new NavigationState { { "selectedIndex", 2 } });
-            }
+
         }
 
         public void OpenAdmins()
@@ -1674,27 +1615,6 @@ namespace Telegram.ViewModels
             }
 
             NavigationService.Navigate(typeof(SupergroupMembersPage), chat.Id);
-        }
-
-        public async void OpenAffiliate()
-        {
-            var chat = _chat;
-            if (chat == null || !ClientService.TryGetUser(chat, out User user) || !ClientService.TryGetUserFull(user.Id, out UserFullInfo fullInfo))
-            {
-                return;
-            }
-
-            var affiliateType = new AffiliateTypeCurrentUser();
-
-            var response = await ClientService.SendAsync(new GetConnectedAffiliateProgram(affiliateType, user.Id));
-            if (response is ConnectedAffiliateProgram program)
-            {
-                ShowPopup(new ConnectedAffiliateProgramPopup(ClientService, NavigationService, program, affiliateType));
-            }
-            else
-            {
-                ShowPopup(new FoundAffiliateProgramPopup(ClientService, NavigationService, new FoundAffiliateProgram(user.Id, fullInfo.BotInfo.AffiliateProgram), affiliateType));
-            }
         }
 
         public virtual ChatMemberCollection CreateMembers(long supergroupId)

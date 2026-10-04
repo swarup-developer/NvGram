@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -9,12 +9,10 @@ using Microsoft.Graphics.Canvas.Geometry;
 using System;
 using System.Numerics;
 using Telegram.Common;
-using Telegram.Controls.Stories;
 using Telegram.Navigation;
 using Telegram.Navigation.Services;
 using Telegram.Services;
 using Telegram.Td.Api;
-using Telegram.ViewModels.Stories;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Composition;
@@ -100,51 +98,8 @@ namespace Telegram.Controls
             }
         }
 
-        public async void Open(INavigationService navigationService, IClientService clientService, Chat chat, int side, Func<ActiveStoriesViewModel, Rect> origin)
+        public void Open(INavigationService navigationService, IClientService clientService, Chat chat, int side, object origin = null)
         {
-            if (chat == null)
-            {
-                return;
-            }
-
-            var transform = TransformToVisual(null);
-            var point = transform.TransformPoint(new Point());
-
-            var pointz = new Rect(point.X + 4, point.Y + 4, side - 8, side - 8);
-
-            if (clientService.TryGetActiveStories(chat.Id, out ChatActiveStories cached))
-            {
-                var unreadCount = cached.CountUnread(out bool closeFriends, out bool live);
-                ShowIndeterminate(side, unreadCount, closeFriends);
-            }
-            else
-            {
-                ShowIndeterminate(side, 1, false);
-            }
-
-            await clientService.SendAsync(new GetChatActiveStories(chat.Id));
-
-            if (clientService.TryGetActiveStories(chat.Id, out ChatActiveStories chatActiveStories))
-            {
-                var settings = clientService.Session.Resolve<ISettingsService>();
-                var aggregator = clientService.Session.Resolve<IEventAggregator>();
-
-                var activeStories = new ActiveStoriesViewModel(clientService, settings, aggregator, chatActiveStories, chat);
-                await activeStories.Wait;
-
-                if (activeStories.Items.Count > 0)
-                {
-                    var viewModel = new StoryListViewModel(clientService, settings, aggregator, activeStories);
-                    viewModel.NavigationService = navigationService;
-                    viewModel.UpdateSelectedItem();
-
-                    var window = new StoriesWindow(navigationService.XamlRoot);
-                    window.Update(viewModel, activeStories, StoryOpenOrigin.ProfilePhoto, pointz, origin);
-                    _ = window.ShowAsync();
-                }
-            }
-
-            SetChat(clientService, chat, side);
         }
 
         public void Clear()

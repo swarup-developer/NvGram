@@ -1,4 +1,4 @@
-﻿//
+//
 // Copyright (c) Fela Ameghino 2015-2026
 //
 // Distributed under the GNU General Public License v3.0. (See accompanying
@@ -14,7 +14,6 @@ using Telegram.Controls;
 using Telegram.Navigation;
 using Telegram.Services;
 using Telegram.Td.Api;
-using Telegram.Views.Stars.Popups;
 
 namespace Telegram.ViewModels
 {
@@ -193,7 +192,7 @@ namespace Telegram.ViewModels
                 else if (response is ErrorStarsNeeded)
                 {
                     State = SearchPostsState.Empty;
-                    NavigationService.ShowPopup(new BuyPopup(), BuyStarsArgs.ForChannel(limits.StarCount, 0));
+                    NavigationService.ShowToast("Telegram Stars purchases are not supported in this build.", ToastPopupIcon.Info);
                 }
             }
             else

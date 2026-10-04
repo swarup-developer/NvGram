@@ -1,7 +1,6 @@
-﻿<controls:ContentPopup x:Class="Telegram.Views.Popups.SendPreparedMessagePopup"
+<controls:ContentPopup x:Class="Telegram.Views.Popups.SendPreparedMessagePopup"
                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                       xmlns:local="using:Telegram.Views.Business.Popups"
                        xmlns:controls="using:Telegram.Controls"
                        xmlns:chats="using:Telegram.Controls.Chats"
                        xmlns:messages="using:Telegram.Controls.Messages"
